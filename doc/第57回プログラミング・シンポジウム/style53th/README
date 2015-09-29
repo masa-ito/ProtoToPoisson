@@ -1,0 +1,19 @@
+This file package contains the following files for LaTeX publishing of
+Trans. IPSJ.
+
+ipsjpapers.cls	class file to invoke ipsjpapers.sty (for LaTeX2e native)
+ipsjpapers.sty	style for final version to make up (ver2.08)
+ipsjdrafts.sty	style for drafts to submit (ver2.08)
+ipsjcommon.sty	auxiliary style for final and draft versions (ver2.08)
+ipsjsort.bst	BibTeX style (sorted)
+ipsjunsrt.bst	BibTeX style (unsorted)
+sample.tex	source of the guide (for final, Japanese)
+dsample.tex	source of the guide (for draft, Japanese)
+esample.tex	source of the guide (for final, English)
+desample.tex	source of the guide (for draft, English)
+sample2e.tex	source of the guide (for final, Japanese, LaTeX2e native)
+dsample2e.tex	source of the guide (for draft, Japanese, LaTeX2e native)
+esample2e.tex	source of the guide (for final, English, LaTeX2e native)
+desample2e.tex	source of the guide (for draft, English, LaTeX2e native)
+bibsample.bib	sample of bibliographic data (Japanese)
+ebibsample.bib	sample of bibliographic data (English)

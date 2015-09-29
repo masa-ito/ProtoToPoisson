@@ -1,0 +1,10 @@
+% In order to make the amount of distributed files samll, this file includes
+% esample.tex in a tricky way to make it acceptable for LaTeX2e.  So, don't
+% follow this sample, but replace \documentstyle in the esample.tex with
+% \documentclass[english]{ipsjpapers} to have the real sample file of
+% final versions for LaTeX2e.
+%
+\documentclass[english]{ipsjpapers}
+\makeatletter
+\def\documentstyle[#1]#2{}
+\input{esample}

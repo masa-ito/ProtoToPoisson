@@ -1,0 +1,1059 @@
+\documentstyle{ipsjpapers}
+
+% 巻数，号数などの設定
+\setcounter{巻数}{41}
+\setcounter{号数}{6}
+\setcounter{volpageoffset}{1234}
+\受付{12}{2}{4}
+\採録{12}{5}{11}
+
+% ユーザが定義したマクロなど．
+\makeatletter
+\let\@ARRAY\@array \def\@array{\def\<{\inhibitglue}\@ARRAY}
+\def\<{\(\langle\)}
+\def\>{\(\rangle\)}
+\def\|{\verb|}
+\def\Underline{\setbox0\hbox\bgroup\let\\\endUnderline}
+\def\endUnderline{\vphantom{y}\egroup\smash{\underline{\box0}}\\}
+\def\LATEX{\iLATEX\Large}
+\def\LATEx{\iLATEX\normalsize}
+\def\LATex{\iLATEX\small}
+\def\iLATEX#1{L\kern-.36em\raise.3ex\hbox{#1\bf A}\kern-.15em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}
+\def\LATEXe{\ifx\LaTeXe\undefined \LaTeX 2e\else\LaTeXe\fi}
+\def\LATExe{\ifx\LaTeXe\undefined \iLATEX\scriptsize 2e\else\LaTeXe\fi}
+\def\Quote{\list{}{}\item[]}
+\let\endQuote\endlist
+\def\TT{\if@LaTeX@e\tt\fi}
+\def\CS#1{\if@LaTeX@e\tt\expandafter\string\csname#1\endcsname\else
+	$\backslash$#1\fi}
+
+%\checklines	% 行送りを確認する時に使用
+\begin{document}%{
+% 和文表題
+\title[{\protect\LaTeX} による論文作成のガイド]%
+	{{\protect\LATEX} による論文作成のガイド（第3版）}
+% 英文表題
+\etitle{How to Typeset Your Papers in {\LATEx} (Version 3)}
+% 所属ラベルの定義
+\affilabel{TUT}{豊橋技術科学大学\\Toyohashi University of Technology}
+\paffilabel{Princeton}{プリンストン高等研究所（嘘です）\\
+	Institute for Advanced Study, Princeton (just joke)}
+\affilabel{NTT}{NTT基礎研究所\\NTT Basic Research Laboratories}
+% 和文著者名
+\author{中島 浩\affiref{TUT}\affiref{Princeton}\member{8104129}\and
+	斉藤 康己\affiref{NTT}\member{8003547}}
+	
+% 英文著者名
+\eauthor{Hiroshi Nakashima\affiref{TUT}\affiref{Princeton}\and
+	Yasuki Saito\affiref{NTT}}
+
+% 連絡先（投稿時に必要．製版用では無視される．）
+\contact{中島 浩\\
+	〒441-8580 豊橋市天伯町雲雀ヶ丘1-1\\
+	豊橋技術科学大学 情報工学系\\
+	TEL: (0532)44-6753\qquad FAX: (0532)44-6757\\
+	email: nakasima@tutics.tut.ac.jp}
+
+% 和文概要
+\begin{abstract}
+このパンフレットは，情報処理学会論文誌（以後，論文誌と呼ぶ）に投稿する論文，
+並びに掲載が決定した論文の最終版を，日本語 {\LaTeX} を用いて作成し提出するた
+めのガイドである．このパンフレットでは，論文作成のためのスタイルファイルにつ
+いて解説している．また，このパンフレット自体も論文と同じ方法で作成されている
+ので，必要に応じてスタイルファイルとともに配布するソース・ファイルを参照され
+たい．
+\end{abstract}
+% 英文概要
+\begin{eabstract}
+This pamphlet is a guide to produce a draft to be submitted to IPSJ Journal
+and Transactions and the final camera-ready manuscript of a paper to appear
+in the Journal\slash Transactions, using Japanese {\LaTeX} and special style
+files.  Since the pamphlet itself is produced with the style files, it will
+help you to refer its source file which is distributed with the style files.
+\end{eabstract}
+
+% 表題などの出力
+\maketitle
+
+%}{
+
+% 本文はここから始まる
+\section{はじめに}
+\stepcounter{footnote}
+\footnotetext{実際の著者は情報処理学会 論文誌編集委員会である．}
+
+情報処理学会では，論文誌を迅速かつ低コストで出版するために {\LaTeX} による製版
+を採用している．この製版方式では，著者が作成した {\LaTeX} ソースが基本的にはそ
+のまま最終的な製版プロセスに使用される．したがって，多数の読者に親しまれてき
+た体裁を継承し，読み易い論文誌を出版するためには，著者の方々の協力が不可欠で
+ある．
+
+一方，著者にとってのメリットとしては，活字製版では避け難い製版時の誤りがなく
+なり，校正の手間が大幅に削減されることがあげられる．また専用のスタイルファイ
+ルと通常使われる {\LaTeX} のコマンドを使えば，簡単に論文誌の体裁に則った出力
+が得られるので，日頃 {\LaTeX} で文書を作成している多くの著者には無理なく受け
+入れられるものと期待している．さらに，投稿用のスタイルファイルも用意されてお
+り，最終版作成のための修正は最小限となるだけでなく，以前に比べて格段に読み易
+い草稿を得ることができる．これは自分の原稿をチェックする著者だけではなく，査
+読者にとっても大きなメリットである．
+
+なお，論文誌スタイルには通常の {\LaTeX} に追加されたコマンドがあり，その多く
+は論文製版に不可欠なものである．またスタイルファイルだけでは対処しきれない体
+裁上の注意事項もいくつかある．したがって，著者も含めて論文誌作成に関わる全て
+の人々の労力を軽減するためにも，原稿を作成する前にこのガイドを{\bf 良く読ん
+で規定を厳密に守っていただきたい}．
+
+%}{
+
+\section{投稿から出版まで}\label{sec:Enum}\label{sec:item}
+
+投稿する論文の作成から，論文が掲載された論文誌が出版されるまでの流れは，以下
+の通りである．
+%
+\begin{Enumerate}%{
+\item {\bf スタイルファイルの取得}\\
+任意の電子メールを \|guide@ipsj.or.jp| に送ると，スタイルファイルなどからなる
+論文作成キットをWWW, anonymous-FTP, 電子メールなどによって取得する方法を説明
+した返信が届く．なお，インターネットにアクセスできない方は，学会事務局に相談
+していただきたい．
+
+このキットには以下のファイルが含まれている．
+%
+\begin{itemize}%{
+\item\|ipsjpapers.sty| : 製版用スタイル
+\item\|ipsjpapers.cls| : {\LATEXe} 用製版用スタイル
+\item\|ipsjdrafts.sty| : 投稿用スタイル
+\item\|ipsjcommon.sty| : 製版／投稿用補助スタイル
+\item\|ipsjsort.bst  | : jBib{\TeX}スタイル（著者名順）
+\item\|ipsjunsrt.bst | : jBib{\TeX}スタイル（出現順）
+\item\|sample.tex    | : このガイドのソース（製版用）
+\item\|dsample.tex   | : このガイドのソース（投稿用）
+\item\|esample.tex   | : 英文ガイドのソース（製版用）
+\item\|desample.tex  | : 英文ガイドのソース（投稿用）
+\item\|bibsample.bib | : 文献リストのサンプル
+\item\|ebibsample.bib| : 英文文献リストのサンプル
+\end{itemize}%}
+%
+キットは Unix 用，DOS 用，Macintosh 用などが用意されており，著者の作業環境
+に応じたものを選択できるようになっている．
+
+\item {\bf 投稿用原稿の作成と投稿}\\
+このガイドにしたがって {\LaTeX} ソースを作成してハードコピーを作る．学会へは
+{\bf このハードコピーを「論文誌執筆案内」に定められた部数だけ送付する}
+\footnote {電子的な投稿を可能にすることも検討されている．}．なお著者名など，
+別々のページとすべきものは自動的に別ページに出力される．
+
+\item {\bf 製版用原稿の作成}\\
+採録が決定したら，査読者からのコメントなどにしたがって原稿を修正し，著者紹介
+など投稿時になかった項目があれば追加する．また図表などのレイアウトも最終的な
+ものとする．なお後の校正の手間を最小にするために，{\bf この段階で記述の誤り
+などを完全に除去するように綿密なチェックをお願いしたい}．
+
+\item {\bf 製版用原稿とファイルの送付}\\
+学会へは {\bf {\LaTeX} ファイル（をまとめたもの）とハードコピーの双方を}送付
+する．送付するファイル群の標準的な構成は \|.tex| と \|.bbl| であり，この他に 
+ PostScript ファイルや特別なスタイルファイルがあれば付加する．なお \|.tex| は
+印刷業者が修正することがあるので，{\bf 必ず一つのファイルにしていただきたい}．
+また必要なファイルが全てそろっていること，特に特別なスタイルファイルに洩れが
+ないことを，注意深く確認して頂きたい．
+
+ファイルの送付方法などについては，採録通知とともに学会事務局から送られる指示
+にしたがっていただきたい．
+
+\item {\bf 著者校正}\\
+学会では用語や用字を一定の基準にしたがって修正することがあり，また {\LaTeX}
+の実行環境の差異などによって著者が作成したハードコピーと実際の製版結果が微妙
+に異なることがある．これらの修正や差異が問題ないかを最終的に確認するために，
+著者にゲラ刷りが送られるので，もし問題があれば朱書によって指摘して返送する．
+なお{\bf この段階での記述誤りの修正は原則として認められない}ので，原稿送付時
+に細心の注意を払っていただきたい．
+
+\item {\bf 印刷・出版}\\
+著者の校正に基づき最終的な製版を行ない，印刷，出版する．
+\end{Enumerate}%}
+
+%}{
+
+\section{{\protect\LATex}の実行環境}\label{sec:ITEM}
+
+スタイルファイルはNTTの斉藤康己氏による j{\TeX}（いわゆるNTT版）と，アスキー
+社による日本語 {\TeX}（いわゆるアスキー版）のどちらにも対応しているので，著者
+の {\LaTeX} 環境に関わらず同じスタイルファイルを使用できる．
+
+NTT版およびアスキー版の各々について，以下のバージョンでの動作確認を行なって
+いる．
+%
+\begin{ITEMIZE}%{
+\item
+NTT版${}={}${j\TeX} 1.52${}+{}${\LaTeX} 2.09
+\item 
+アスキー版${}={}${\TeX} 2.99-j1.7${}+{}${\LaTeX} 2.09
+\end{ITEMIZE}%}
+%
+これ以前の版についても動作すると期待できるが，できれば新しい版を使って頂きた
+い．また {\LATEXe} に関しては，以下のバージョンでの動作確認を行なっている．
+%
+\begin{ITEMIZE}%{
+\item
+NTT版${}={}${j\TeX} 1.6${}+{}$%
+\ifDS@draft\else\\\mbox{}\hskip5em\fi
+	{\LATEXe} 1994/12/01 patch level 3
+\item 
+アスキー版${}={}${p\TeX} 3.1415 p2.1.4${}+{}$%
+\ifDS@draft\else\\\mbox{}\hskip5em\fi
+	{p\LATEXe} 1995/09/01
+\end{ITEMIZE}%}
+%
+いずれについても，ネイティブ・モードと{\LaTeX} 2.09 互換モードのどちらでも使
+用することができる．
+
+%}{
+
+\section{スタイルファイルの使い方}
+\subsection{一般的な注意事項}
+
+会議の予稿集などとは違い，論文誌の体裁には伝統的かつ「堅い」約束事が数多くあ
+る．そのためスタイルファイルも「堅い」ものとなっており，{\LaTeX} の特徴の一
+つであるカスタマイズ機能は大幅に制限される．例えば \|\textheight| などのいわ
+ゆる style parameter を変更するのは当然やめていただきたい．どのようなカスタ
+マイズが許されるのかを示すのは難しいが，一つの基準として「スタイルファイルを
+読んでみて大丈夫だと確信が持てる」こと以外はしないことを強く勧める．
+
+なお，これらの変更やこのガイドで述べている「やめて欲しいこと」を行なっても，
+{\bf エラーになったりせず単に結果が変になる}ことに注意していただきたい．
+
+%}{
+
+\subsection{論文の構成}\label{sec:config}
+
+ファイルは次の形式で作る．なお下線部は投稿時にはなくてもよい．また研究会論文
+誌特有のコマンドなどについては，付録\ref{sec:app-sig}を参照されたい．
+%
+\begin{Quote}\small*
+\|\documentstyle{ipsjpapers}|\footnote{%
+	{\LATExe} を native mode で使う場合には \CS{documentclass} を使
+用し，必要に応じて \CS{usepackage} を加える．} または\\
+\|\documentstyle[draft]{ipsjpapers}|\footnotemark[1]\\
+必要ならばオプションのスタイルを指定する．\\
+\Underline{\|\setcounter{|{\bf 巻数}\|}{|\<巻数\>\|}|}\\
+\Underline{\|\setcounter{|{\bf 号数}\|}{|\<号数\>\|}|}\\
+\Underline{\|\setcounter{volpageoffset}{|\<先頭ページ\>\|}|}\\
+\Underline{\|\|{\bf 受付}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|}\\
+\Underline{\|\|{\bf 採録}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|}\\
+必要ならばユーザのマクロ定義などをここに書く．\\
+\|\begin{document}|\\
+\|\title{|\<表題（和文）\>\|}|\\
+\|\etitle{|\<表題（英文）\>\|}|\\
+\|\affilabel{|\<所属ラベル\>\|}%|\\
+\mbox{}\qquad\qquad\|{|\<和文所属\>\|\\|\<英文所属\>\|}|\\
+\mbox{}\qquad\qquad\ldots\ldots\ldots\\
+必要ならば \|\paffilabel| により現在の所属を宣言する．\\
+\|\author{|\<第一著者（和文）\>\|\and|\\
+\leavevmode\phantom{\tt @author@}\<第二著者（和文）\>\|\and|\\
+\leavevmode\phantom{\tt @author@} \ldots{} \|}|\\
+\|\eauthor{|\<第一著者（英文）\>\|\and|\\
+\leavevmode\phantom{\tt @eauthor@}\<第二著者（英文）\>\|\and|\\
+\leavevmode\phantom{\tt @eauthor@} \ldots{} \|}|\\
+\|\contact{|\<連絡先\>\|}|\\
+\|\begin{abstract}|\\
+\mbox{}\quad\<概要（和文）\>\\
+\|\end{abstract}|\\
+\|\begin{eabstract}|\\
+\mbox{}\quad\<概要（英文）\>\\
+\|\end{eabstract}|\\
+\|\maketitle|\\
+\|\section{|\<第1節の表題\>\|}|\\
+\mbox{}\quad $\ldots\ldots\ldots$\\
+\mbox{}\quad\<本文\>\\
+\mbox{}\quad $\ldots\ldots\ldots$\\
+謝辞があれば \|acknowledgment| 環境を使ってここに記す．\\
+\|\bibliographystyle{ipsjunsrt}| または\\
+\|\bibliographystyle{ipsjsort}|\\
+\|\bibliography{|\<文献データベース\>\|}|\\
+付録があれば \|\appendix| に続いてここに記す．\\
+\Underline{\|\begin{biography}|}\\
+\Underline{\mbox{}\quad\<著者紹介\>}\\
+\Underline{\mbox\qquad$\ldots\ldots\ldots$}\\
+\Underline{\|\end{biography}|}\\
+\|\end{document}|
+\end{Quote}
+
+%}{
+
+\subsection{オプション・スタイル}\label{sec:ENUM}
+
+\|\documentstyle| （または \|\documentclass|）の標準オプションとして，以下の5
+つのものが用意されている．
+%
+\begin{ENUMERATE}%{
+\item\|draft   | 投稿用
+\item\|technote| テクニカルノート用
+\item\|preface | 序文用
+\item\|printer | 最終印刷用
+\item\|english | 英文用
+\end{ENUMERATE}%}
+%
+これらのオプションは（意味があれば）任意の組合せで指定することができる．なお
+\|printer|オプションは，{\LaTeX} の実行環境によっては無視されたり印刷時にエ
+ラーになったりすることがある．
+
+オプション引数で補助的なスタイルファイルを指定した場合には，製版用のファイ
+ル群に必ずスタイルファイルを含める．ただし，以下の5つについては標準的に用
+意されているので同封の必要はない．
+%
+\begin{Quote}\raggedright\tt
+epsf\qquad eclepsf\qquad epsbox\qquad epic\qquad eepic
+\end{Quote}
+%
+なおスタイルファイルによっては論文誌スタイルと矛盾するようなものもあるので，
+スタイルファイルの性格を良く理解して使用していただきたい．
+
+\subsection{巻数，号数などの記述}
+学会より指示された巻数，号数，先頭ページ番号\hbox{（\|\volpageoffset|）}，受
+付／採録年月日（年は平成年）を記述する．なお学会からの指示がない項目に関して
+は，記述しなくてよい．
+
+%}{
+
+\subsection{表題などの記述}\label{sec:Desc}\label{sec:DESC}
+
+表題，著者名とその所属，および概要を前述のコマンドや環境により{\dg 和文と英
+文の双方について}定義した後，\|\maketitle| によって出力する．また投稿時には
+\|\contact| によって連絡先を記述する（製版時にもあっても良いが無視される）．
+投稿時には，表題，著者名と連絡先，概要がそれぞれ別のページに出力される．
+%
+\begin{Description}
+\item[表題]
+\|\title| および \|\etitle| で定義した表題はセンタリングされる．文字数の多い
+ものについては{\dg 自動的な改行が行なわれない}ので，適宜 \|\\| を挿入して改行
+する．その際には各行は左詰めで組版され，その後最も長い行を基準にしてセンタリ
+ングされる．なお和文表題は奇数ページのヘッダにも表示されるので，ヘッダに納ま
+らないような長い表題の場合には
+%
+\begin{quote}
+\|\title[|\<ヘッダ用表題\>\|]{|\<表題\>\|}|
+\end{quote}
+%
+のように，ヘッダ用に短くしたものをオプション引数として指定する．
+
+\item[著者名と所属]
+各著者の所属を第一著者から順に \|\affilabel| を用いてラベル（第1引数）を付け
+ながら定義すると，脚注に $\dagger$ や $\dagger\dagger$ を付けて和文の所属
+（第2引数の\|\\|より前）と英文の所属（\|\\|より後）が出力される．なお，複数
+の著者が同じ所属である場合には，一度定義するだけで良い．また論文執筆時と発行
+時とでは所属が異なる場合には，\|\paffilabel| を用いて新しい所属を定義する．
+新しい所属は脚注に☆や\hbox{☆☆}などを付けて出力される．
+
+著者名は \|\author| と \|\eauthor| で定義し，複数の著者は \|\and| で区切る．
+また各著者名の直後に \|\affiref|\allowbreak\hbox{\|{|\<所属ラベル\>\|}|}
+をおいて（複数可）所属ラベル （\|\affilabel| や \|\paffilabel| で定義したも
+の）を参照し，対応する脚注参照記号を付加する．またさらにその後に，著者が会
+員であるか否かにより
+%
+\begin{DESCRIPTION}
+\item[会員\phantom{ああ}]：\|\member{|\<会員番号\>\|}|
+\item[学生会員]：\|\stmember{|\<会員番号\>\|}|
+\item[非会員\phantom{あ}]：\|\nomember|
+\end{DESCRIPTION}
+%
+を付加する．これらは投稿時に出力され，製版時には無視される．
+
+なお，和文著者名は必ず{\dg 姓と名を半角（ASCII）の空白で区切る}．
+
+\item[連絡先]
+投稿時には必ず \|\contact| の引数の中に，連絡先の氏名，住所，電話／FAX番号，
+電子メール・アドレスを，適宜 \|\\| で改行しながら記述する．なお製版版では無
+視される．
+
+\item[概要]
+和文の概要は \|abstract| 環境の中に，英文の概要は \|eabstract| 環境の中に，
+それぞれ記述する．
+\end{Description}
+
+%}{
+
+\subsection{見出し}
+
+節や小節の見出しには \|\section|, \|\subsection| といったコマンドを使用する．
+\|\section|の見出しは2行を占め，他は1行に出力される．
+
+「定義」，「定理」などについては，\|\newtheorem|で適宜環境を宣言し，
+その環境を用いて記述する．なお見出しは{\bf 定理1}などのように日本語の題と番
+号の組合せを想定しているので，題と番号の間には微小な空白しか入らない．もし
+{\bf Thorem 1}のような英語と番号の組合せを用いる場合には，\|\newtheorem*|に
+よって環境を宣言すれば，空白が挿入される．．
+
+%}{
+
+\subsection{文章の記述}\label{sec:desc*}\label{sec:enum}
+
+\begin{description*}
+\item[行送り]
+学会誌は2段組を採用しており，左右の段で行の基準線の位置が一致することを原則
+としている．また，節見出しなど，行の間隔を他よりたくさんとった方が読みやすい
+場所では，この原則を守るようにスタイルファイルが自動的にスペースを挿入する．
+したがって本文中では \|\vspace| や \|\vskip| を用いたスペースの調整を行なわ
+ないでいただきたい．なお \|\begin{document}| の前にコマンド \|\checkline| を
+挿入しておくと，本文の各行が持つべき基準線が印刷されるので，行送りが正しいか
+どうかをチェックすることができる．ただしこのコマンドは原稿送付時には使用しな
+いでいただきたい．
+\item[フォントサイズ]
+このガイドの印刷結果からもわかるように，論文誌スタイルでは様々な大きさのフォ
+ントが使われるが，これらは全てスタイルファイルが自動的かつ注意深く選択したも
+のである．したがって，著者が自分でフォントサイズを変更する必要はなく，かえっ
+て行送りの原則を守る妨げにもなる．もし特定の箇所で1行に多くの文字を入れたい
+などの理由から小さいフォントを使用する場合には，\|\small*| あるいは 
+\|\footnotesize*| という\|*|が付いたコマンドを使用していただきたい（この二つ
+以外は禁止）．これらは基準線間隔を変えずにフォントの大きさだけを変更するもの
+である．なお \|\small*| の例が\ref{sec:config}節とこのページに示されている．
+
+\item[句読点]
+句点には全角の「．」，読点には全角の「，」を用いる．ただし英文中や数式
+中で「.」や「,」を使う場合には，半角文字を使う．「。」や「、」は一切使
+わない．
+
+\item[全角文字と半角文字]
+全角文字と半角文字の両方にある文字は次のように使い分ける．
+%
+\begin{enumerate}
+\item 括弧は全角の「（」と「）」を用いる．但し，英文の概要，図表見出し，書誌
+データでは半角の「(」と「)」を用いる．
+
+\item
+英数字，空白，記号類は半角文字を用いる．ただし，句読点に関しては，前項で述べ
+たような例外がある．
+
+\item
+カタカナは全角文字を用いる．
+
+\item
+引用符では開きと閉じを区別する. 開きには \|``|（``） を用い，閉じには \|''|
+（''） を用いる．
+\end{enumerate}
+
+\item[OverfullとUnderfull]
+製版時にはoverfullを起こさないことを原則としている．従って，まず提出するソー
+スが著者の環境でoverfullを起こさないように，文章を工夫するなどの最善の努力を
+払っていただきたい．但し，\|flushleft| 環境，\|\\|，\|\linebreak| などによる右
+詰めをしない形でのoverfullを回避は，できるだけ避けていただきたい．また著者の
+環境では発生しないoverfullが，印刷時の環境では発生することもある．このような
+事態をできるだけ回避するために，文中の長い数式や \|\verb| を避ける，パラグラフ
+の先頭付近では長い英単語を使用しない，などの注意を払っていただきたい．
+
+また，\verb|\\| をパラグラフの終りで使用すると
+%
+\begin{Quote}\small*
+\|Underfull \hbox (badness 10000) detected|
+\end{Quote}
+%
+のwarningが発生し，空行が挿入される．このような空行は見苦しく，また重要なエ
+ラー・メッセージを見逃す原因にもなるので，ソースを提出する時点では全て除去さ
+れているようにしていただきたい．特に，箇条書用環境の直前， \|\item| の直前，
+箇条書用環境の末尾などで \verb|\\| を使うと，前述のwarning が出力されること
+に注意していただきたい．
+\end{description*}
+
+%}{
+
+\subsection{数式}\label{sec:Item}
+
+\begin{Itemize}
+\item 本文中の数式\\
+本文中の数式は \|$| と \|$|, \|\(| と \|\)|, あるいは \|math| 環境のいずれで
+囲んでもよい．なお \smash{$\frac{a}{b}$} (\|\frac{a}{b}|) のように背が高い要
+素は見苦しくかつ行送りを乱すことにもなるので，使用しないようにしていただきた
+い．
+
+\item 別組の数式\\
+別組数式(displayed math)については {\bf \|$$| と \|$$| は使用してはならない}．
+すなわち \|\[| と \|\]| で囲むか, \|displaymath|, \|equation|, \|eqnarray| 
+のいずれかの環境を用いなければならない．これらは
+%
+\begin{equation}
+\Delta_l = \sum_{i=l+1}^L\delta_{pi}
+\end{equation}
+%
+のように，センタリングではなく固定字下げで数式を出力し，かつ背が高い数式によ
+る行送りの乱れを吸収する機能がある．
+
+\item \|eqnarray|環境\\
+互いに関連する別組の数式が2行以上連続して現れる場合には，単に \|\[| と \|\]|，
+あるいは \|\begin{equation}| と \|\end{equation}| で囲った数式を書き並べるの
+ではなく，\|\begin|\allowbreak\|{eqnarray}| と \|\end{eqnarray}| を使って，
+等号（あるいは不等号）の位置で縦揃えを行なった方が読みやすい．なお 
+\|eqnarray| の中では改ページが行なわれないので，行数が多く途中で改ページが起
+こって欲しい場合には，\|\begin{eqnarray}[s]| のようにオプション \|[s]| を指
+定すればよい．
+
+\item 数式のフォント\\
+{\LaTeX}が標準的にサポートしているもの以外の特殊な数式用フォントは，できるだ
+け使わないようにしていただきたい．どうしても使用しなければならない場合には，
+その旨申し出ていただくとともに，印刷工程に深く関与していただくこともあること
+に留意されたい．
+\end{Itemize}
+
+%}{
+
+\subsection{図}
+
+1段の幅におさまる図は，\figref{fig:single} の形式で指定する. 位置の指定に \|h| 
+は使わない．また，図の下に{\dg 和文と英文の双方の}見出しを，\|\caption| と %
+\|\ecaption| で指定する．文字数が多い見出しはは自動的に改行して最大幅の行を
+基準にセンタリングするが，見出しが2行になる場合には適宜 \|\\| を挿入して改行
+したほうが良い結果となることがしばしばある（\figref{fig:single} の英文見出し
+を参照）．
+
+\begin{figure}
+\setbox0\vbox{
+\hbox{\|\begin{figure}[tb]|}
+\hbox{\quad \<図本体の指定\>}
+\hbox{\|\caption{|\<和文見出し\>\|}|}
+\hbox{\|\ecaption{|\<英文見出し\>\|}|}
+\hbox{\|\label{| $\ldots$ \|}|}
+\hbox{\|\end{figure}\|}}
+\centerline{\fbox{\box0}}
+\caption{1段幅の図}
+\ecaption{Single column figure with caption\\
+	explicitly broken by $\backslash\backslash$}
+\label{fig:single}
+\end{figure}
+
+2段の幅にまたがる図は，\figref{fig:double} の形式で指定する. 位置の指定は
+\|t| しか使えない．
+
+\begin{figure*}
+\setbox0\vbox{\large
+\hbox{\|\begin{figure*}[t]|}
+\hbox{\quad\<図本体の指定\>}
+\hbox{\|\caption{|\<和文見出し\>\|}|}
+\hbox{\|\ecaption{|\<英文見出し\>\|}|}
+\hbox{\|\label{| $\ldots$ \|}|}
+\hbox{\|\end{figure*}|}}
+\centerline{\fbox{\hbox to.9\textwidth{\hss\box0\hss}}}
+\caption{2段幅の図}
+\ecaption{Double column figure}
+\label{fig:double}
+\end{figure*}
+
+図の中身では本文と違い，どのような大きさのフォントを使用しても構わない
+（\figref{fig:double} 参照）．また図の中身として，encapsulate された 
+PostScript ファイル（いわゆるEPSファイル）を読み込むこともできる．読み込みの
+ためには以下に示すいずれかのスタイル・ファイルを \|\documentstyle| のオプショ
+ン（または \|\usepackage| の引数）で指定し，ファイル名（など）をコマンド 
+\|\epsfile| の引数で指定する．
+%
+\begin{Quote}\tt
+epsf\qquad eclepsf\qquad epsbox
+\end{Quote}
+%
+なお PostScript ファイルの中で使用できるフォントは，付録に示
+された標準的なものだけであることに注意していただきたい．
+
+この節を注意深く見ると，\figref{fig:single} や\figref{fig:double} の最初の参照
+はゴチック体であるのに対し，2回目以降では明朝体であるのに気づくだろう．この
+切替えは論文誌の伝統的体裁に基づくもので，図の参照を（「図\hbox{\|\ref{|\<ラ
+ベル\>\|}|}」ではなく）\|\figref{|\<ラベル\>\|}|を用いて行なえば自動的に成され
+る．
+
+%}{
+
+\subsection{表}
+
+表の罫線はなるべく少なくするのが，仕上がりをすっきりさせるコツである．罫線を
+つける場合には，一番上の罫線には二重線を使い，左右の端には縦の罫線をつけない 
+（\tabref{tab:example}）．表中のフォントサイズのデフォルトは\|\small|である．
+
+また，表の上に{\dg 和文と英文の双方の}見出しを， \|\caption|と \|\ecaption| 
+で指定する．表の参照は \|\tabref{|\<ラベル \>\|}| を用いて行なう． 
+
+\begin{table}[b] \caption{箇条書環境の使用箇所（表の例）} \ecaption{Sections
+and sub-sections in which list-like environments are used (example of
+table)} \label{tab:example}
+% 左右の罫線はつけず，一番上の罫線は二重線
+\hbox to\hsize{\hfil
+\begin{tabular}{l|lll}\hline\hline
+&enumerate&itemize&description\\\hline
+type-1&	\ref{sec:enum}&	\ref{sec:item}&	---\\
+type-2&	---&		\ref{sec:item*}&\ref{sec:desc*}\\
+type-3&	\ref{sec:Enum}&	\ref{sec:Item}&	\ref{sec:Desc}\\
+type-4&	\ref{sec:ENUM}&	\ref{sec:ITEM}&	\ref{sec:DESC}\\\hline
+\multicolumn{4}{l}{type-1\,: enumerate等\quad type-2\,: enumerate*等}\\
+\multicolumn{4}{l}{type-3\,: Enumerate等\quad type-4\,: ENUMERATE等}\\
+\end{tabular}\hfil}
+\end{table}
+
+%}{
+
+\subsection{箇条書}\label{sec:item*}
+
+論文誌では箇条書に関する形式を特に定めておらず，場合に応じて様々な様式が用い
+られている．スタイルファイルでは，{\LaTeX} の箇条書用の環境である
+\|enumerate|, \|itemize|, \|description| に4種類のファミリーを設け，状況に応
+じた使い分けができるようにしている．
+%
+\begin{itemize*}
+\item \|enumerate|, \|itemize|, \|description|\\
+{\LaTeX} の標準的なものと同じ．但しインデンテーションは \|enumerate| では全角3
+文字分，その他は全角2文字分である．また \|enumerate| のラベルは，標準の
+%
+\begin{quote}
+1.\quad (a)\quad i.\quad A.
+\end{quote}
+%
+ではなく，
+%
+\begin{quote}
+(\,1\,)\quad (\,a\,)\quad (\,i\,)\quad (\,A\,)
+\end{quote}
+%
+のように全て括弧付きであり，数字などの前後に小さな空白が挿入される．
+
+\item \|enumerate*|, \|itemize*|, \|description*|\\
+\|enumerate|などとほぼ同じだが，インデンテーションは全角1文字分である．
+
+\item \|Enumerate|, \|Itemize|, \|Description|\\
+文章のインデンテーションを行なわない．
+
+\item \|ENUMERATE|, \|ITEMIZE|, \|DESCRIPTION|\\
+文章のインデンテーションを行なわず，先頭行（ラベルがある行）を全角1文字分だ
+けインデントする．
+\end{itemize*}
+%
+\tabref{tab:example} に示すように\footnotemark ，
+% 34行下の \footnotetext 参照
+このパンフレットの各章／節に各々の環境の使用例があるので，適宜参照されたい．
+
+%}{
+
+\subsection{左右の段の行揃え}
+
+文章の記述のところでも述べたように，論文誌では左右の段で行の位置をそろえる必
+要がある．ユーザが特別な高さのボックスを使ったために行の位置が乱れてしまうよ
+うな場合には，その部分を \|\begin|\allowbreak\|{adjustvboxheight}| と 
+\|\end|\allowbreak\|{adjustvboxheight}| で囲っていただきたい．この環境は中途
+半端な行送りを吸収するためのものである．例えば次の；
+%
+\begin{adjustvboxheight}
+\begin{quote}
+\fbox{$\displaystyle\sum_{i=0}^n i$}
+\end{quote}
+\end{adjustvboxheight}
+%
+は，以下のようにして出力したものである．
+%
+\begin{Quote}
+\|\begin{adjustvboxheight}|\\
+\|\begin{quote}|\\
+\|\fbox{$\displaystyle\sum_{i=0}^n i$}|\\
+\|\end{quote}|\\
+\|\end{adjustvboxheight}|
+\end{Quote}
+%
+ただしこのようなものを本文中に挿入することを推奨しているわけではない．
+
+%}{
+
+\subsection{脚注}
+\footnotetext{このfootnoteは左カラムにマークがあるのにfootnote自体は
+右カラムに現われている．これは簡単なトリックで実現できる．ソースファイ
+ル参照．}%
+% 38行上の \footnotemark 参照
+
+脚注は\|\footnote| コマンドを使って書くと，ページ単位に\footnote{脚注の例．} 
+や\footnote{二つめの脚注．}のような参照記号とともに脚注が生成される．なお，
+ページ内に複数の脚注がある場合，参照記号は {\LaTeX} を2回実行しないと正しく
+ならないことに注意されたい．
+（{\LaTeX} ブック \cite{latex} の156ページ参照．）
+
+また場合によっては，脚注をつけた位置と脚注本体とを別の段に置く方がよいことも
+ある．この場合には，\|\footnotemark| コマンドや \|\footnotetext| コマンドを
+使って対処していただきたい．
+
+%}{
+
+\subsection{参考文献の参照}
+
+本文中で参考文献を参照する場合には，参考文献番号が文中の単語
+として使われる場合と，そうでない参照とでは，使用する文字の大きさが異
+なる．前者は\|\Cite|により参照し，後者は\|\cite|により参照する．たとえば；
+%
+\begin{Quote}
+文献 \|\Cite{total}| は \|\LaTeX\cite{latex}| の総合的な解説書である．
+\end{Quote}
+%
+と書くと；
+%
+\begin{Quote}
+文献\Cite{total}は\LaTeX\cite{latex}の総合的な解説書である．
+\end{Quote}
+%
+が得られる．
+
+また，一つの \|\Cite| あるいは \|\cite| コマンドで三つ以上の文献を参照し，か
+つそれらの参照番号が連続している場合，\Cite{article1,article2,article3}や
+「文献\cite{latex,article4,article5,article6}」のように，自動的に先
+頭と末尾の文献番号が $\sim$ で結合される．なお，非常に多数の文献を参照し，そ
+れら全てを \|\Cite| や \|\cite|で指定するのが面倒な場合は
+%
+\begin{Quote}\raggedright
+\|\multiCite{|\<先頭文献のラベル\>\|}|\nobreak\hskip-2em\allowbreak
+	\hspace*{2em}\hbox{\|{|\<末尾文献のラベル\>\|}|}\\
+\|\multicite{|\<先頭文献のラベル\>\|}|\nobreak\hskip-2em\allowbreak
+	\hspace*{2em}\hbox{\|{|\<末尾文献のラベル\>\|}|}
+\end{Quote}
+%
+を用いて，\multiCite{article1}{book3}や「文献
+\multicite{booklet1}{unpublished}」のような結果を得ることもできる．
+
+%}{
+
+\subsection{参考文献リスト}
+
+参考文献リストには，原則として本文中で引用した文献のみを列挙する．順序は参照
+順あるいは第一著者の苗字のアルファベット順とする．文献リストは BiB{\TeX} 
+と \|ipsjunsrt.bst|（参照順）または \|ipsjsort.bst|（アルファベット順）を用
+いて作り，\|\bibliograhpystyle| と \|\bibliography| コマンドにより読み込むこ
+とを原則とする\footnote{このガイドはファイルを一つにするために
+{\TT thebibliography} 環境を用いているが，その中身はBiB{\TeX}で作成したもの
+である．}．これらを用いれば，規定の体裁にあったものができるので，できるだけ
+利用していただきたい．なおこのガイドの参考文献は，\|bibsample.bib| を文献ス
+タイル \|ipsjunsort| で処理した結果であるので，両者を適宜参照されたい．また
+製版用のファイル群には \|.bib| ファイルではなく \|.bbl| ファイルを必ず含
+めることに注意されたい．
+
+一方，何らかの理由で \|thebibliography| 環境で文献リストを「手作り」しなけれ
+ばならない場合は，このガイドの参考文献リストを注意深く見て，そのスタイルにし
+たがっていただきたい．
+
+%}{
+
+\subsection{謝辞，付録}
+
+謝辞がある場合には，参考文献リストの直前に置き，\|acknowledgment|環境の中に
+入れる．この環境の中身は投稿時には最後のページに出力される．
+
+付録がある場合には，参考文献リストの直後にコマンド \|\appendix| に引き続いて
+書く．なお付録では，\|\section| コマンドが{\bf A.1}，{\bf A.2}などの見出しを
+生成する．また付録全体に見出しをつける場合には，\|\appendix[|\<見出し\>\|]| %
+のように見出しをオプション引数として与える．
+
+%}{
+
+\subsection{著者紹介}
+
+本文の最後（\|\end{document}| の直前）に，以下のように著者紹介を記述する．
+%
+\begin{quote}
+\|\begin{biography}|\\
+\|\member{|\<第一著者名\>\|}|\\
+\mbox{}\quad\<第一著者の紹介\>\\
+\|\member{|\<第二著者名\>\|}|\\
+\mbox{}\quad\<第二著者の紹介\>\\
+\mbox{}\quad $\ldots\ldots\ldots$ \\
+\|\end{biography}|
+\end{quote}
+%
+なお著者が学生会員あるいは非会員の場合は，正会員用の \|\member| の代わりにそ
+れぞれ \|\stmember|，\|\nomember| を用いる．
+
+なお著者紹介は投稿時には出力されない．
+
+%}{
+
+\subsection{ページ数の見積り}
+
+投稿用スタイルでは1ページが\(35\hbox{字}\times32\hbox{行}=1120\hbox{字}\)，
+また製版用では\(24\hbox{字}\times46\hbox{行}\times2\hbox{段}=2208\hbox{字}\) 
+である．したがって粗い見積りとして，製版時には投稿時の半分のページ数になると
+考えることができる．たとえば，このガイドは投稿用では謝辞を除いて17ページ，製
+版用では9ページであるので，ほぼ見積った通りである．
+
+また投稿用のファイルを製版用にするのは簡単であるので，投稿時にあらかじめどの
+ように製版されるかを試せば，もっと良い見積りが得られる．
+
+%}{
+
+\section{おわりに}
+
+論文誌の {\LaTeX} 化は運用が始まってから日が浅いため，解決されていない問題点
+が少なからずあると思われる．これらを著者の方々の御協力を仰ぎつつ，少しでも使
+いやすくするための改良を加えていくつもりである．そこで，スタイル・ファイルに
+関する要望や意見を，是非
+%
+\begin{Quote}
+\|texnicians@ipsj.or.jp|
+\end{Quote}
+%
+までお寄せいただきたい．また技術的な質問も同じアドレスで受け付けるが，その他
+の一般的な質問については
+%
+\begin{Quote}
+\|editt@ipsj.or.jp|
+\end{Quote}
+%
+にお寄せいただきたい．
+
+\begin{acknowledgment}
+論文誌の {\LaTeX}化に御協力いただいた三美印刷（株），SATO工房，ならびに試行
+のためのボランティアをお願いした著者の皆様に，謹んで感謝の意を表する．
+\end{acknowledgment}
+
+%}{
+
+\begin{thebibliography}{10}
+
+\bibitem{total}
+伊藤和人: {\LaTeX} トータルガイド, 秀和システムトレーディング (1991).
+
+\bibitem{latex}
+Lamport, L.: {\em A Document Preparation System {\LaTeX} User's Guide \&
+  Reference Manual\/}, Addison Wesley, Reading, Massachusetts (1986).
+\newblock (Cooke, E., et al.訳：文書処理システム {\LaTeX}，アスキー出版局
+  (1990)).
+
+\bibitem{nodera}
+野寺隆志: 楽々 {\LaTeX}, 共立出版 (1990).
+
+\bibitem{okumura}
+奥村晴彦: {\LaTeX} 美文書作成入門, 技術評論社 (1991).
+
+\bibitem{article1}
+桜井貴文: 直観主義論理と型理論, 情報処理,  Vol.~30, No.~6, pp.\ 626--634
+  (1989).
+
+\bibitem{article2}
+野口健一郎, 大谷真: OSIの実現とその課題, 情報処理,  Vol.~31, No.~9, pp.\
+  1235--1244 (1990).
+
+\bibitem{article3}
+Itoh, S. and Goto, N.: An Adaptive Noiseless Coding for Sources with Big
+  Alphabet Size, {\em Trans. IEICE\/},  Vol.~E74, No.~9, pp.\ 2495--2503
+  (1991).
+
+\bibitem{article4}
+田中{正次}, 村松茂, 山下茂: 9段数7次陽的Runge-Kutta法の最適化について,
+  情報処理学会論文誌,  Vol.~33, No.~12, pp.\ 1512--1526 (1992).
+
+\bibitem{article5}
+Abrahamson, K., Dadoun, N., Kirkpatrick, D.~G. and Przytycka, T.: A Simple
+  Parallel Tree Contraction Algorithm, {\em J. Algorithms\/},  Vol.~10, No.~2,
+  pp.\ 287--302 (1989).
+
+\bibitem{article6}
+田中{正次}ほか: 9段数7次陽的Runge-Kutta法の次数条件式の解について,
+  情報処理学会論文誌,  Vol.~33, No.~12, pp.\ 1506--1511 (1992).
+
+\bibitem{book1}
+Foley, J.~D. et al.: {\em Computer Graphics --- Principles and Practice\/},
+  System Programming Series, Addison-Wesley, Reading, Massachusetts, 2nd
+  edition (1990).
+
+\bibitem{book2}
+千葉則茂, 村岡一信: レイトレーシングCG入門, Information {\&} Computing,
+  Vol.~46, サイエンス社 (1990).
+
+\bibitem{book3}
+Chang, C.~L. and Lee, R. C.~T.: {\em Symbolic Logic and Mechanical Theorem
+  Proving\/}, Academic Press, New York (1973).
+\newblock (長尾真，辻井潤一訳: 計算機による定理の自動証明, 日本コンピュータ協会
+  (1983)).
+
+\bibitem{booklet1}
+新世代コンピュータ技術開発機構: 第五世代コンピュータプロジェクトの概要,
+  {FGCS'92}にて配布 (1992).
+
+\bibitem{inbook1}
+Knuth, D.~E.: {\em Fundamental Algorithms\/}, Art of Computer Programming,
+  Vol.~1, Addison-Wesley, 2nd edition, chapter~2, pp.\ 371--381 (1973).
+
+\bibitem{incollection1}
+Schwartz, A.~J.: Subdividing B{\'e}zier Curves and Surfaces, {\em Geometric
+  Modeling: Algorithms and New Trends\/} (Farin, G.~E.(ed.)), SIAM,
+  Philadelphia, pp.\ 55--66 (1987).
+
+\bibitem{inproceedings1}
+Baraff, D.: Curved Surfaces and Coherence for Non-penetrating Rigid Body
+  Simulation, {\em SIGGRAPH '90 Proceedings\/} (Beach, R.~J.(ed.)), Dallas,
+  Texas, ACM, Addison-Wesley, pp.\ 19--28 (1990).
+
+\bibitem{manual1}
+Adobe Systems Inc.: {\em PostScript Language Reference Manual\/}, Reading,
+  Massachusetts (1985).
+
+\bibitem{mastersthesis1}
+山下義行: 文脈自由文法への否定の導入, 修士論文, 筑波大学大学院工学研究科
+  (1989).
+
+\bibitem{misc1}
+斉藤康己, 中島浩: {{\tt ipsjpapers.sty}} (1995).
+\newblock (情報処理学会論文誌用スタイルファイル，論文著者に配布).
+
+\bibitem{phdthesis1}
+Weihl, W.: {\em Specification and Implementation of Atomic Data Types\/}, PhD
+  Thesis, MIT, Boston (1984).
+
+\bibitem{proceedings1}
+Institute for New Generation Computer Technology: {\em Proc. Intl. Conf. on
+  Fifth Generation Computer Systems\/}, Vol.~1 (1992).
+
+\bibitem{techreport1}
+Aredon, I.: {\TeX} 独稽古, Seminar on Mathematical Sciences~13, Department of
+  Mathematics, Keio University, Yokohama (1989).
+
+\bibitem{unpublished}
+情報処理学会論文誌編集委員会: {\LaTeX}による論文作成のガイド(第1版) (1995).
+\newblock (論文著者に配布).
+
+\end{thebibliography}
+
+%}{
+
+\appendix
+\section{PostScriptのフォント}\label{app-psfont}
+
+\def\RBI{\it\langle RBI\rangle}
+\def\BO{\it\langle BO\rangle}
+\def\BDO{\it\langle BDO\rangle}
+\def\BI{\it\langle BI\rangle}
+\def\LD{\it\langle LD\rangle}
+
+PostScriptファイルの中では以下の標準的なフォントのみが使用できる．
+%
+\begin{Quote}
+Ryumin Light-KL\\
+Gothic Medium BBB\\
+Jun 101\\
+Futo Min A101\\
+Futo Go B101\\
+Times-\(\RBI\)\\
+Hlevetica[-\(\BO\)]\\
+Courier[-\(BO\)]\\
+Helvetica-Narrow[-\(\BO\)]\\
+Symbols Set\\
+ITC AvantGarge Gohtic-\(\BDO\)\\
+Platino[-\(\BI\)]\\
+New Century-Schoolbok[-\(\BI\)]\\
+ITC Bookman[-\(\LD\)]\\
+ITC Zapf Chancery-Mediumitalic\\
+ITC Zapf Dingbats
+\end{Quote}
+{\def\!{$\,|\,$}
+\begin{eqnarray*}[s]
+\RBI&::=&\hbox{Roman\!Bold\!Italic\!BoldItalic}\\
+\BO&::=&\hbox{Bold\!Oblique\!BoldOblique}\\
+\BDO&::=&\hbox{Book\!Demi\!BookOblique\!}\\&&\hbox{DemiOblique}\\
+\BI&::=&\hbox{Bold\!Italic\!BoldItalic}\\
+\LD&::=&\hbox{\thinmuskip.7\thinmuskip Light\!Demi\!LightItalic\!DemiItalic}
+\end{eqnarray*}}
+
+%}{
+
+\section{研究会論文誌用コマンド}\label{sec:app-sig}
+
+各研究会論文誌（トランザクション）には各々に固有のサブタイトル，略称，通番が
+ある．製版用原稿では，以下のコマンドを\|\begin{document}|の前に置くことによ
+り，これらの情報を与える．
+%
+\begin{itemize}\item[]
+\|\transaction{|\<略称\>\|}{|\<号数\>\|}{|\<通番\>\|}|
+\end{itemize}
+%
+なお\<略称\>は以下のいずれかであり，\<号数\>と\<通番\>は学会あるいは研究会論
+文誌編集委員会の指示に基づいて与える．
+%
+\begin{itemize}%{
+\item
+\|PRO|（プログラミング）
+\item
+\|TOM|（数理モデル化と応用）
+\item
+\|TOD|（データベース）
+\item
+\|HPS|（ハイパフォーマンスコンピューティングシステム）
+\item
+\|CVIM|（コンピュータビジョンとイメージメディア）
+\end{itemize}%}
+%
+また上記の\<号数\>は発行月とは連動していないので，学会あるいは編集委員会の指
+示に基づき発行月を；
+%
+\begin{itemize}\item[]
+\|\setcounter{|{\bf 月数}\|}{|\<発行月\>\|}|
+\end{itemize}
+%
+によって指定する．
+
+この他，以下の各節で示すように，いくつかの論文誌に固有の機能を実現するための
+コマンドなどが用意されている．
+
+%}{
+
+\subsection{「プログラミング」固有機能}
+
+「論文誌：プログラミング」には論文以外に，プログラミング研究会での研究発表の
+内容梗概が含まれている．この内容梗概は，\|\documentstyle|または
+\|\documentclass|のオプションとして\|abstract|を指定した上で，
+\ref{sec:config}節の\|\maketitle|までの内容からなるファイル（すなわち本文が
+ないファイル）から生成する．なお\|\|{\bf 受付}や\|\|{\bf 採録}は不要であるが，
+代わりに発表年月日を；
+%
+\begin{itemize}\item[]
+\|\|{\bf 発表}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|
+\end{itemize}
+%
+により指定する．
+
+%}{
+
+\subsection{「数理モデル化と応用」固有機能}
+
+「論文誌：数理モデル化と応用」の論文では，受付や採録の日付以外に再受付日付を
+記載するように指示されることがある．その場合には；
+%
+\begin{itemize}\item[]
+\|\|{\bf 再受付}\|{|\<年\>\|}{|\<月\>\|}{|\<日\>\|}|
+\end{itemize}
+%
+により指定する．
+
+%}{
+
+\subsection{「データベース」固有機能}
+
+「論文誌：データベース」の論文の担当編集委員の氏名は；
+%
+\begin{itemize}\item[]
+\|\edInCharge{|\<氏名\>\|}|
+\end{itemize}
+%
+により指定する．
+
+%}{
+
+\begin{biography}
+\member{中島 浩}
+昭和31年生．
+昭和56年京都大学大学院工学研究科情報工学専攻修士課程修了．
+同年三菱電機(株)入社．
+推論マシンの研究開発に従事．
+平成4年より京都大学工学部助教授．
+平成9年より豊橋技術科学大学教授．
+並列計算機のアーキテクチャ，プログラミング言語の実装方式に関する研究に従事．
+工学博士．昭和63年元岡賞，平成5年坂井記念特別賞受賞．IEEE-CS, ACM, ALP, TUG
+各会員．
+%
+\member{斉藤 康己}
+昭和28年生．
+昭和53年英国エセックス大学よりM.Sc.(AI研究)．
+昭和54年東京大学大学院工学系研究科情報工学専攻修士課程修了．
+同年電電公社入社．
+昭和59年から60年にかけて仏国INRIA客員研究員．
+現在NTT基礎研究所主幹研究員．
+人工知能(Symbol Grounding Problem)，計算機ソフトウェア(\TeX の日本語化)，
+認知科学(理解プロセスの解明)などの研究に従事．
+訳書に『メタマジック・ゲーム』(D. ホフスタッター著, 共訳, 白揚社)など．
+人工知能学会，ソフトウェア科学会，日本認知科学会，Cognitive Science Society，
+TUG各会員．
+\end{biography}
+\end{document}
