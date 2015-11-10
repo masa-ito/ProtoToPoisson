@@ -11,152 +11,65 @@
 #include <boost/proto/proto.hpp>
 
 #include <DenseLinAlg/DenseLinAlg.hpp>
+#include <SparseLinAlg/SparseLinAlg.hpp>
 
 namespace DLA = DenseLinAlg;
-
-
-
-class HeatReleaseRateFunctor {
-	private:
-		const double hccCc, ambientTemperature;
-public:
-	HeatReleaseRateFunctor(double heatConvectiveCoeff,
-			double cylinderCircumference,
-			double _ambientTemperature) :
-		hccCc(heatConvectiveCoeff * cylinderCircumference ),
-		ambientTemperature(_ambientTemperature) {}
-
-	double operator()(double temperature) {
-		return -  hccCc * ( temperature - ambientTemperature);
-	}
-};
-
-class ExactTemperatureDistributionFunc {
-	private:
-		const double n, cyliderLength, ambientTemperature,
-			bufferTemperature;
-	public:
-		ExactTemperatureDistributionFunc(double heatConvectiveCoeff,
-			double cylinderCircumFerence,
-			double thermalConductivity, double cylinderXSecArea,
-			double _ambientTemperature, double _bufferTemperature,
-			double _cylinderLength) :
-				n(sqrt(heatConvectiveCoeff * cylinderCircumFerence /
-						(thermalConductivity * cylinderXSecArea ))),
-				ambientTemperature(_ambientTemperature),
-				bufferTemperature(_bufferTemperature),
-				cylinderLength(_cylinderLenght) {}
-
-		double operator()(double position) {
-			return ambiendTemperature +
-					(bufferTemperature - ambientTemperature) *
-					cosh( n * (cylinderLength - position)) /
-					cosh( n * cylinderLength) ;
-		}
-};
+namespace SLA = SparseLinAlg;
+namespace FVM = FiniteVolumeMethod;
 
 int main() {
 
-	const int numCtrlVol = 100;
-	const double cylinderXSecArea = 0.01,
-			cylinderLength = 1.0;
+	const int NumCtrlVol = 5;
+	const double CylinderLength = 1.0;
 
-	FieldVariable temp(numCtrlVol), heatSrc(numCtrlVol);
-	DiscretizedOperator d2tdx2(numCtrlVol, numCtrlVol);
+	// Control volumes on 1 dimensional grid
+	FVM::CtrlVolGrid1D< FVM::CentralDiff > cv( NumCtrlVol, CylinderLength);
 
-	CntrlVolRange allCtrlVols(simRegion.cntrlVolBegin(),
-							simRegion.cntrlVolEnd());
+	const double AmbientTemperature = 298.15,
+			HotTemperature = AmbientTemperature + 100.0;
 
-	const double heatConvectiveCoeff = 1.0,
-			cylinderCircumFerence = 2.0 * M_PI * 0.1,
-			ambientTemperature = 298.15;
-	HeatReleaseRateFunctor heatRate(heatConvectiveCoeff,
-			cylinderCircumFerence, ambientTemperature);
+	cv.setDirichletCond(-1, 0, AmbientTemperature);
+	cv.setNeumannCond( NumCtrlVol - 1, NumCtrlVol, 0.0);
 
-	heatSrc( allCtrlVols ) = heatRate( temp(allCtrlVols) );
+	const double ThermalConductivity = 1000.0;
 
-	CntrlVolFaceRange innerFaces(simRegion.faceBegin() + 1,
-						simRegion.faceEnd() - 1);
+	// http://www.engineeringtoolbox.com/convective-heat-transfer-d_430.html
+	const double ConvectiveHeatTransCoeff = 0.7;
 
-	const double thermalConductivity = 1.0;
-	d2tdx2( innerFaces ) += thermalConductivity *
-			simRegion.ddx( innerFaces );
+	const double CylinderRadius = 2.0 * ConvectiveHeatTransCoeff /
+													ThermalConductivity,
+				Area = M_PI * CylinderRadius * CylinderRadius,
+				Circumference = 2.0 * M_PI *  CylinderRadius;
 
-	CntrlVolFaceIterator leftmostFace = simRegion.faceBegin(),
-			rightmostFace = simRegion.faceEnd() - 1;
+	DLA::Vector rhs( NumCtrlVol);
 
-	d2tdx2(leftmostFace) += thermalConductivity *
-			simRegion.ddxDirichlet( innerFaces );
+	DLA::Matrix coeff( NumCtrlVol, NumCtrlVol);
 
-	// In this problem Neumann condition dt/dx = 0 is set
-	// at the rightmost face. But the condition dt/dx
-	// is automaticaly set in Finite Volume Method.
-	// Let's thank FVM!!
+	cv.discretize(
+		// The operator(s) in the heat equation
+	    // whose term can be a differential operator or an identical one.
+		ThermalConductivity * Area * FVM::d2dx2
+		- ConvectiveHeatTransCoeff * Circumference * FVM::idOpr,
 
-	auto resid = heatSrc - d2tdx2 * temp;
-	auto inversePrecond = 1.0 / d2tdx2.digonal( allCtrlVols );
+		// The constant term(s) in the heat equation
+		// which is(are) independent from the temperature distribution
+		ConvectiveHeatTransCoeff * Circumference * AmbientTemperature,
 
-	auto p = inversePrecond * resid;
-	double rho = resid.dot(p);
+		// Coefficient matrix of the discretized equation
+		coeff,
+		// RHS of the discreteized equation
+		rhs);
 
-	auto prevTemp = temp;
-	auto q = d2tdx2 * p;
-	double alpha = rho / p.dot(q) ;
-	temp = prevTemp + alpha * p;
+	SLA::DiagonalPreconditioner precond( coeff);
+	const double convergenceCriterion = 1.0e-5;
+	SLA::ConjugateGradient< DLA::Matrix, SLA::DiagonalPreconditioner >
+														cg( coeff, precond);
+	DLA::Vector tempGuess( NumCtrlVol,
+						(  AmbientTemperature + HotTemperature ) / 2.0 );
+	DLA::Vector temperature = cg.solve(rhs, tempGuess,
+										convergenceCriterion);
 
-	auto prevHeatSrc = heatSrc;
-	heatSrc( allCtrlVols ) = heatRate( temp(allCtrlVols) );
+	cv.printForGnuPlot( temperature );
 
-	auto prevResdid = resid;
-	// I'm still not sure if the folowing is right...
-	// Need to extend CG algorithm for this temperature-dependent
-	// heat source term.
-	resid = heatSrc - prevHeatSrc + prevResid - alpha * q;
-
-	while ( abs(resid) / abs(heatSrc) /doulbe(numCtrlVol) > 1.0e-4 ) {
-
-		auto z = inversePrecond * resid;
-
-		double prevRho = rho;
-		rho = resid.dot(p);
-
-		double beta = rho / prevRho;
-		auto prevP = p;
-		p = z + beta * prevP;
-
-		q = d2tdx2 * p;
-		alpha = rho / p.dot(q) ;
-		prevTemp = temp;
-		temp = prevTemp + alpha * p;
-
-		prevHeatSrc = heatSrc;
-		heatSrc( allCtrlVols ) = heatRate( temp(allCtrlVols) );
-
-		prevResdid = resid;
-		// I'm still not sure if the folowing is right...
-		// Need to extend CG algorithm for this temperature-dependent
-		// heat source term.
-		resid = heatSrc - prevHeatSrc + prevResid - alpha * q;
-	}
-
-	std::cout << "temperature distribution" << std::endl;
-	std::cout << temp ;
-	std::cout << endl;
-
-	ExactTemperatureDistributionFunc
-		analyticalaAnswer(heatConvectiveCoeff,
-				cylinderCircumFerence,
-				thermalConductivity, cylinderXSecArea,
-				ambientTemperature, bufferTemperature,
-				cylinderLength)
-	FieldVarialbe exactTemp(numCtrlVol);
-
-	exactTemp(allCtrlVols) =
-			analyticalAnswer( simRegion.position(allCntrlVols) );
-
-	std::cout << "Error in finite volume method calc." << std::endl;
-	std::cout << abs(temp - exactTemp);
-	std::cout << endl;
-
-    return 0;
+	return 0;
 }
