@@ -2,7 +2,7 @@
 all:	airCooledCylinder \
 
 
-INCDIR = -I../../ProtoToMET/src
+INCDIR = -I. -I../../ProtoToMET/src
 CPP11STD = -std=c++11
 
 airCooledCylinder : airCooledCylinder.cpp

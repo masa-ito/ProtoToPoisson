@@ -69,7 +69,7 @@ namespace FiniteVolumeMethod {
 		explicit
 		LazyBoundaryConditionOperatorDiscretizerOnGrid1DBoundary(
 				const std::vector< DirichletCondition > & dirichletConds_,
-				const std::vector< NeumannCondition > &　neumannConds_,
+				const std::vector< NeumannCondition > & neumannConds_,
 				int numCtrlVol_) :
 			LazyMatrixMaker( dirichletConds_.size() + neumannConds_.size(),
 							numCtrlVol_),
@@ -100,7 +100,7 @@ namespace FiniteVolumeMethod {
 		explicit
 		LazyOperatorDiscretizerOnGrid1DBoundary(
 				const std::vector< DirichletCondition > & dirichletConds_,
-				const std::vector< NeumannCondition > &　neumannConds_,
+				const std::vector< NeumannCondition > & neumannConds_,
 				int numCtrlVol_, const OprT & opr_) :
 			LazyMatrixMaker( dirichletConds_.size() + neumannConds_.size(),
 							 numCtrlVol_),
@@ -159,7 +159,7 @@ namespace FiniteVolumeMethod {
 		explicit
 		LazyBoundaryConditionSpecificationDiscretizerOnGrid1D(
 				const std::vector< DirichletCondition > & dirichletConds_,
-				const std::vector< NeumannCondition > &　neumannConds_) :
+				const std::vector<NeumannCondition>& neumannConds_) :
 				DLA::LazyVectorMaker( dirichletConds_.size()
 										+ neumannConds_.size() ),
 				dirichletConds( dirichletConds_),

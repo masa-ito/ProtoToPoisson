@@ -46,17 +46,17 @@ int main() {
 	// The operator part in the heat equation
     // which consists of a differential operator and identical one.
 	auto opr = proto::deep_copy(
-			ThermalConductivity * Area * FVM::derivative * FVM::derivative
+			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
 			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
 
 	//FVM::BoundaryCorrector bCorrector( grid, opr);
 	FVM::BoundaryCorrector bCorrector( grid,
-			ThermalConductivity * Area * FVM::derivative * FVM::derivative
+			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
 			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
 
 	// DLA::Matrix coeffMat = grid.discretizeOperator( opr );
 	DLA::Matrix coeffMat = grid.discretizeOperator(
-			ThermalConductivity * Area * FVM::derivative * FVM::derivative
+			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
 			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
 	bCorrector.applyTo( coeffMat);
 

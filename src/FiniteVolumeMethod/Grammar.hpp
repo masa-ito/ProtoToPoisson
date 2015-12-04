@@ -20,58 +20,116 @@ namespace DLA = DenseLinAlg;
 
 namespace FiniteVolumeMethod {
 
-	struct Derivative;
+	struct DiffOpr;
 	struct IdentityOpr;
 
-	struct OprActionGrammar : proto::or_<
-		// Not yet implemented
-	> {};
+	struct SecondDiffQuotinent1D;
 
-	struct DerivativeFactor : proto::when<
-		proto::multiplies< proto::_, proto::terminal< Derivative > >,
+
+	struct DiffOprFactor : proto::when<
+		proto::multiplies< proto::_, proto::terminal< DiffOpr > >,
 		proto::_left
 	> {};
 
-	struct SecondDerivativeGrammar : proto::or_<
+	// The transformation rule for discretized representation of
+	// second differential operator containing expressions
+	struct DdSecondDiffOprGrammar : proto::or_<
+		// diffOpr * diffOpr
 		proto::when<
-			proto::multiplies< proto::terminal< Derivative >,
-								proto::terminal< Derivative > >,
-			proto::make_terminal( SecondDiffQuotinent1D() )
+			proto::multiplies< proto::terminal< DiffOpr >,
+							proto::terminal< DiffOpr > >,
+			proto::_make_function(
+				proto::_make_terminal( SecondDiffQuotinent1D ),
+				proto::_state, proto::_data )
 		>,
+		// (Any expr) * diffOpr
 		proto::when<
 			proto::multiplies<
 				proto::multiplies< proto::terminal< proto::_ >,
-									proto::terminal< Derivative > >,
-				proto::terminal< Derivative >
+									proto::terminal< DiffOpr > >,
+				proto::terminal< DiffOpr >
 			>,
-			proto::make_multiplies<
-				DerivativeFactor( proto::_left),
-				proto::make_terminal( SecondDiffQuotinent1D() )
-			>
+			proto::_make_multiplies(
+				DiffOprFactor( proto::_left),
+				proto::_make_function(
+						proto::_make_terminal( SecondDiffQuotinent1D ),
+						proto::_state, proto::_data )
+			)
 		>,
-		proto::plus< SecondDerivativeGrammar, SecondDerivativeGrammar >,
-		proto::minus< SecondDerivativeGrammar, SecondDerivativeGrammar >
+		// DdSecondDiffOprGrammar +(-) DdSecondDiffOprGrammar
+		proto::plus< DdSecondDiffOprGrammar, DdSecondDiffOprGrammar >,
+		proto::minus< DdSecondDiffOprGrammar, DdSecondDiffOprGrammar >
+	> {};
+
+	// The transformation rule for discretized operators
+	struct DdOprGrammar : proto::or_<
+		// IdentityOpr
+		proto::when<
+			proto::terminal< IdentityOpr >,
+			proto::_make_function( proto::_,
+							proto::_state, proto::_data)
+		>,
+		// inlucing Derivative * Derivative
+		DdSecondDiffOprGrammar,
+		// (Any expression) * IdentityOpr
+		proto::when<
+			proto::multiplies< proto::terminal< proto::_ >,
+								proto::terminal< IdentityOpr > >,
+			proto::_make_multiplies(
+				proto::_left,
+				proto::_make_function( proto::_right,
+										proto::_state, proto::_data) )
+		>,
+		// OprExprGrammar +(-) OprExprGrammar
+		proto::plus< DdOprGrammar, DdOprGrammar >,
+		proto::minus< DdOprGrammar, DdOprGrammar >
+	> {};
+
+	// The transformation rule for second differential operator
+	// containing expressions
+	struct SecondDiffOprGrammar : proto::or_<
+		// diffOpr * diffOpr
+		proto::when<
+			proto::multiplies< proto::terminal< DiffOpr >,
+								proto::terminal< DiffOpr > >,
+			proto::_make_terminal( SecondDiffQuotinent1D )
+		>,
+		// (Any expr) * diffOpr
+		proto::when<
+			proto::multiplies<
+				proto::multiplies< proto::terminal< proto::_ >,
+									proto::terminal< DiffOpr > >,
+				proto::terminal< DiffOpr >
+			>,
+			proto::_make_multiplies(
+				DiffOprFactor( proto::_left),
+				proto::_make_terminal( SecondDiffQuotinent1D )
+			)
+		>,
+		// SecondDiffOprGrammar +(-) SecondDiffOprGrammar
+		proto::plus< SecondDiffOprGrammar, SecondDiffOprGrammar >,
+		proto::minus< SecondDiffOprGrammar, SecondDiffOprGrammar >
 	> {};
 
 	// The tranformation rule for operator expressions
 	struct OprExprGrammar : proto::or_<
 		// OprActionGrammar( _ )
-		proto::when< proto::function< OprActionGrammar, proto::_ >,
-					OprActionGrammar( proto::_child0,
+		proto::when< proto::function< DdOprGrammar, proto::_ >,
+					 DdOprGrammar( proto::_child0,
 									proto::_child1, proto::_child2) >,
 		// IdentityOpr
-		proto::termina< IdentityOpr >,
+		proto::terminal< IdentityOpr >,
 		// inlucing Derivative * Derivative
-		SecondDerivativeGrammar,
-		// double * IdentityOpr
-		proto::multiplies< proto::terminal< _ >,
-							proto::termina< IdentityOpr > >,
+		SecondDiffOprGrammar,
+		// (Any expression) * IdentityOpr
+		proto::multiplies< proto::terminal< proto::_ >,
+							proto::terminal< IdentityOpr > >,
 		// OprExprGrammar +(-) OprExprGrammar
 		proto::plus< OprExprGrammar, OprExprGrammar >,
 		proto::minus< OprExprGrammar, OprExprGrammar >
 	> {};
 
-	// The tranformation rule for finite volume expressions
+	// The tranformation rule for finite volume expression templates
 	struct ExprGrammar : proto::or_<
 		OprExprGrammar
 	> {};

@@ -39,9 +39,8 @@ namespace FiniteVolumeMethod {
 	};
 
 
-	struct Derivative {};
-	static static Derivative derivative();
-
+	struct DiffOpr {};
+	DiffOpr diffOpr = {};
 
 
 
@@ -66,6 +65,7 @@ namespace FiniteVolumeMethod {
 
 	static struct IdentityOpr identityOpr();
 
+	// Assuming the area of cross section is equal to 1.
 	struct SecondDiffQuotinent1D
 	{
 		typedef double result_type;
