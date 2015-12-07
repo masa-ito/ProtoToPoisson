@@ -100,7 +100,7 @@ namespace FiniteVolumeMethod {
 		discretizeOperatorOnBoundary( const OprT & opr) const
 		{
 			return
-				LazyOperatorDiscretizerOnGrid1DBoundary(
+				LazyOperatorDiscretizerOnGrid1DBoundary< OprT >(
 						dirichletConds, neumannConds, numCtrlVol, opr);
 		}
 

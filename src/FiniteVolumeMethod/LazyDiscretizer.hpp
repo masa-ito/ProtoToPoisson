@@ -16,7 +16,6 @@
 #include <DenseLinAlg/DenseLinAlg.hpp>
 
 #include <FiniteVolumeMethod/BoundaryCondition.hpp>
-#include <FiniteVolumeMethod/Grammar.hpp>
 
 namespace DLA = DenseLinAlg;
 
@@ -25,13 +24,13 @@ namespace FiniteVolumeMethod {
 
 	struct LazyConstValueVectorizerOnGrid1D : DLA::LazyVectorMaker
 	{
-		double double val;
+		const double val;
 
 		explicit
 		LazyConstValueVectorizerOnGrid1D(int size, double val_) :
-		DLA::LazyVectorMaker(size) {}
+		DLA::LazyVectorMaker(size), val(val_) {}
 
-		virtual void assignDataTo(DLA::Vector& lhs) const
+		void assignDataTo( DLA::Vector& lhs) const
 		{
 			for (int i = 0; i < sz; i++) lhs(i) = val;
 		}
@@ -40,18 +39,19 @@ namespace FiniteVolumeMethod {
 	struct LazyInverseBoundaryConditionOperatorDiscretizerOnGrid1D
 	: DLA::LazyDiagonalMatrixMaker
 	{
-		const int direchletCondNum;
-		std::vector< NeumannCondition > & neumannConds;
+		const int dirichletCondNum;
+		const std::vector< NeumannCondition > & neumannConds;
 
 		explicit
 		LazyInverseBoundaryConditionOperatorDiscretizerOnGrid1D(
-				dirichletConds_, neumannConds_) :
+				const std::vector< DirichletCondition > & dirichletConds_,
+				const std::vector< NeumannCondition > & neumannConds_) :
 				LazyDiagonalMatrixMaker( dirichletConds_.size() +
 										neumannConds_.size() ),
 				dirichletCondNum( dirichletConds_.size()),
 				neumannConds( neumannConds_ ) {}
 
-		virtual void assignDataTo(DLA::DiagonalMatrix& lhs) const
+		void assignDataTo( DLA::DiagonalMatrix& lhs) const
 		{
 			for (int i = 0; i < dirichletCondNum; i++) lhs(i) = 1.0;
 
@@ -63,8 +63,8 @@ namespace FiniteVolumeMethod {
 	struct LazyBoundaryConditionOperatorDiscretizerOnGrid1DBoundary
 	: DLA::LazyMatrixMaker
 	{
-		std::vector< DirichletCondition > & dirichletConds;
-		std::vector< NeumannCondition > & neumannConds;
+		const std::vector< DirichletCondition > & dirichletConds;
+		const std::vector< NeumannCondition > & neumannConds;
 
 		explicit
 		LazyBoundaryConditionOperatorDiscretizerOnGrid1DBoundary(
@@ -76,7 +76,7 @@ namespace FiniteVolumeMethod {
 			dirichletConds( dirichletConds_),
 			neumannConds( neumannConds_) {}
 
-		virtual void assignDataTo(Matrix& lhs) const
+		void assignDataTo( DLA::Matrix& lhs) const
 		{
 			// Zero-clear for the all matrix elements
 			for ( int ri = 0; ri < rowSz; ri++)
@@ -84,7 +84,7 @@ namespace FiniteVolumeMethod {
 
 			// For Neumann conditions
 			for ( int i = 0; i < neumannConds.size(); i++)
-				lhs( i + dirichletConds.size(), neumannConds[ i].innerIndex)
+				lhs( i + dirichletConds.size(), neumannConds[ i].innerIndex() )
 					= 1.0 /  neumannConds[ i].outerInnerSpacing() ;
 		}
 	};
@@ -108,7 +108,7 @@ namespace FiniteVolumeMethod {
 			neumannConds( neumannConds_),
 			opr( opr_) {}
 
-		virtual void assignDataTo(Matrix& lhs) const
+		void assignDataTo( DLA::Matrix& lhs) const
 		{
 			// Zero-clear for the all matrix elements
 			for ( int ri = 0; ri < rowSz; ri++)
@@ -118,9 +118,9 @@ namespace FiniteVolumeMethod {
 
 			// For Dirichlet conditions
 			for ( int ci = 0; ci < dirichletConds.size(); ci++) {
-				int ri = dirichletConds[ i].innerIndex(),
-						oi = dirichletConds[ i].outerIndex();
-				double spacing = dirichletConds[ i].outerInnerSpacing();
+				int ri = dirichletConds[ ci].innerIndex(),
+						oi = dirichletConds[ ci].outerIndex();
+				double spacing = dirichletConds[ ci].outerInnerSpacing();
 
 				if ( ri < oi ) {
 					lhs( ri, ci) = trans( OprExprGrammar()(
@@ -153,8 +153,8 @@ namespace FiniteVolumeMethod {
 	struct LazyBoundaryConditionSpecificationDiscretizerOnGrid1D
 	: DLA::LazyVectorMaker
 	{
-		std::vector< DirichletCondition > & dirichletConds;
-		std::vector< NeumannCondition > & neumannConds;
+		const std::vector< DirichletCondition > & dirichletConds;
+		const std::vector< NeumannCondition > & neumannConds;
 
 		explicit
 		LazyBoundaryConditionSpecificationDiscretizerOnGrid1D(
@@ -165,10 +165,10 @@ namespace FiniteVolumeMethod {
 				dirichletConds( dirichletConds_),
 				neumannConds( neumannConds_) {}
 
-		virtual void assignDataTo(DLA::Vector& lhs) const
+		void assignDataTo( DLA::Vector& lhs) const
 		{
 			for (int ci = 0; ci < dirichletConds.size(); ci++)
-				lhs( ci) = dirichletConds[ i].fixedValue();
+				lhs( ci) = dirichletConds[ ci].fixedValue();
 
 			for (int i = 0; i < neumannConds.size(); i++)
 				lhs( i + dirichletConds.size())
@@ -195,7 +195,7 @@ namespace FiniteVolumeMethod {
 			eastBoundarySpacing( eastBoundarySpacing_),
 			spacing( spacing_) {}
 
-		virtual void assignDataTo(Matrix& lhs) const
+		void assignDataTo( DLA::Matrix& lhs) const
 		{
 			int ri;
 

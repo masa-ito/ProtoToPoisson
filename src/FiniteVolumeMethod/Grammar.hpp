@@ -42,10 +42,10 @@ namespace FiniteVolumeMethod {
 				proto::_make_terminal( SecondDiffQuotinent1D ),
 				proto::_state, proto::_data )
 		>,
-		// (Any expr) * diffOpr
+		// double * diffOpr
 		proto::when<
 			proto::multiplies<
-				proto::multiplies< proto::terminal< proto::_ >,
+				proto::multiplies< proto::terminal< double > ,
 									proto::terminal< DiffOpr > >,
 				proto::terminal< DiffOpr >
 			>,
@@ -71,9 +71,9 @@ namespace FiniteVolumeMethod {
 		>,
 		// inlucing Derivative * Derivative
 		DdSecondDiffOprGrammar,
-		// (Any expression) * IdentityOpr
+		// double * IdentityOpr
 		proto::when<
-			proto::multiplies< proto::terminal< proto::_ >,
+			proto::multiplies< proto::terminal< double >,
 								proto::terminal< IdentityOpr > >,
 			proto::_make_multiplies(
 				proto::_left,
@@ -94,10 +94,10 @@ namespace FiniteVolumeMethod {
 								proto::terminal< DiffOpr > >,
 			proto::_make_terminal( SecondDiffQuotinent1D )
 		>,
-		// (Any expr) * diffOpr
+		// double * DiffOOpr * DiffOpr
 		proto::when<
 			proto::multiplies<
-				proto::multiplies< proto::terminal< proto::_ >,
+				proto::multiplies< proto::terminal< double > ,
 									proto::terminal< DiffOpr > >,
 				proto::terminal< DiffOpr >
 			>,
@@ -121,9 +121,8 @@ namespace FiniteVolumeMethod {
 		proto::terminal< IdentityOpr >,
 		// inlucing Derivative * Derivative
 		SecondDiffOprGrammar,
-		// (Any expression) * IdentityOpr
-		proto::multiplies< proto::terminal< proto::_ >,
-							proto::terminal< IdentityOpr > >,
+		// (Any expression) * OprExprGrammar
+		proto::multiplies< proto::_ , OprExprGrammar >,
 		// OprExprGrammar +(-) OprExprGrammar
 		proto::plus< OprExprGrammar, OprExprGrammar >,
 		proto::minus< OprExprGrammar, OprExprGrammar >

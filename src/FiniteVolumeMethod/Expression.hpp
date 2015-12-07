@@ -39,7 +39,14 @@ namespace FiniteVolumeMethod {
 	};
 
 
-	struct DiffOpr {};
+	struct DiffOpr
+	{
+			template <typename Sig> struct result;
+
+			template <typename This, typename T1, typename T2>
+			struct result< This(T1, T2) > { typedef double type; };
+
+	};
 	DiffOpr diffOpr = {};
 
 
@@ -49,16 +56,20 @@ namespace FiniteVolumeMethod {
 
 	struct IdentityOpr
 	{
-		typedef double result_type;
+		// typedef double result_type;
+		template <typename Sig> struct result;
 
-		result_type operator()( double, double) const {
+		template <typename This, typename T1, typename T2>
+		struct result< This(T1, T2) > { typedef double type; };
+
+		double operator()( double, double) const {
 			return 1.0;
 		}
 
-		result_type operator()( double, FaceToWestTag) const {
+		double operator()( double, FaceToWestTag) const {
 			return 0.0;
 		}
-		result_type operator()( double, FaceToEastTag) const {
+		double operator()( double, FaceToEastTag) const {
 			return 0.0;
 		}
 	};
@@ -68,15 +79,19 @@ namespace FiniteVolumeMethod {
 	// Assuming the area of cross section is equal to 1.
 	struct SecondDiffQuotinent1D
 	{
-		typedef double result_type;
+		template <typename Sig> struct result;
 
-		result_type operator()( double westSpacing, double eastSpacing) const {
+		template <typename This, typename T1, typename T2>
+		struct result< This(T1, T2) > { typedef double type; };
+
+
+		double operator()( double westSpacing, double eastSpacing) const {
 			return ( - 1.0 / westSpacing  - 1.0 / eastSpacing );
 		}
-		result_type operator()( double spacing, FaceToWestTag) const {
+		double operator()( double spacing, FaceToWestTag) const {
 			return 1.0 / spacing;
 		}
-		result_type operator()( double spacing, FaceToEastTag) const {
+		double operator()( double spacing, FaceToEastTag) const {
 			return 1.0 / spacing;
 		}
 	};

@@ -45,8 +45,12 @@ int main() {
 
 	// The operator part in the heat equation
     // which consists of a differential operator and identical one.
+//	auto opr = proto::deep_copy(
+//			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
+//			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
+	double prefactor = ThermalConductivity * Area;
 	auto opr = proto::deep_copy(
-			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
+			 prefactor * FVM::diffOpr * FVM::diffOpr
 			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
 
 	//FVM::BoundaryCorrector bCorrector( grid, opr);
