@@ -15,9 +15,9 @@
 #include <FiniteVolumeMethod/Grammar.hpp>
 #include <FiniteVolumeMethod/Expression.hpp>
 
-#include <FiniteVolumeMethod/BoundaryCorrector.hpp>
-#include <FiniteVolumeMethod/LazyDiscretizer.hpp>
-#include <FiniteVolumeMethod/Grid.hpp>
+// #include <FiniteVolumeMethod/BoundaryCorrector.hpp>
+// #include <FiniteVolumeMethod/LazyDiscretizer.hpp>
+// #include <FiniteVolumeMethod/Grid.hpp>
 
 namespace mpl = boost::mpl;
 namespace proto = boost::proto;
@@ -28,9 +28,9 @@ namespace FiniteVolumeMethod {
 	// by the BOOST_PROTO_DEFINE_OPERATORS macro below.
 	template<typename> struct IsExpr  : mpl::false_ {};
 
-	template<> struct IsExpr< DiffOpr > : mpl::true_  {};
+	// template<> struct IsExpr< DiffOpr > : mpl::true_  {};
 	template<> struct IsExpr< IdentityOpr > : mpl::true_  {};
-	template<> struct IsExpr< SecondDiffQuotinent1D > : mpl::true_  {};
+	// template<> struct IsExpr< SecondDiffQuotinent1D > : mpl::true_  {};
 
 	// template<> struct IsExpr< FooClass > : mpl::true_  {};
 

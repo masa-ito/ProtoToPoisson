@@ -128,9 +128,15 @@ namespace FiniteVolumeMethod {
 		proto::minus< OprExprGrammar, OprExprGrammar >
 	> {};
 
+	struct IdentiyOprExprGrammar : proto::or_<
+		// IdentityOpr
+		proto::terminal< IdentityOpr >
+	> {};
+
 	// The tranformation rule for finite volume expression templates
 	struct ExprGrammar : proto::or_<
-		OprExprGrammar
+		//OprExprGrammar
+		IdentiyOprExprGrammar
 	> {};
 
 }
