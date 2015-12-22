@@ -14,75 +14,75 @@ namespace proto = boost::proto;
 
 namespace MyEDSL {
 
-	struct DifferenceOperator;
+     // A user defined expression
+     struct DifferenceOperator : proto::callable
+     {
+         typedef double result_type;
+         template < typename Sig > struct result;
 
-	struct ExprGrammar : proto::or_<
-		proto::terminal< DifferenceOperator >
-	> {};
+         template < typename This, typename T >
+         struct result< This(T, T) > { typedef double type; };
 
-	// A wrapper for a user defined expression
-	template< typename E > struct ExprWrapper;
+         DifferenceOperator() {}
+         DifferenceOperator( const DifferenceOperator & expr) {}
 
-	// The above grammar is associated with this domain.
-	struct Domain
-		: proto::domain< proto::generator< ExprWrapper >, ExprGrammar >
-	{};
+         double operator()( double dx1, double dx2) const {
+             return ( 1.0 /dx1 + 1.0 /dx2 );
+         }
+     };
 
-	// A wrapper template for a user defined expression
-	template< typename ExprType >
-	struct ExprWrapper
-		: proto::extends< ExprType, ExprWrapper< ExprType >, Domain >
-	{
+     struct ExprGrammar : proto::or_<
+         proto::when< proto::function< proto::terminal< DifferenceOperator >,
+		 	 	 	 	 proto::_, proto::_>,
+         DifferenceOperator( proto::_value(proto::_child1),
+        		 	 	 	 proto::_value(proto::_child2)) >
+     > {};
 
-		explicit ExprWrapper(const ExprType& e)
-			: proto::extends<ExprType, ExprWrapper<ExprType>, Domain>(e)
-		{}
-	};
+     // A wrapper for a user defined expression
+     template< typename E > struct ExprWrapper;
 
+     // The above grammar is associated with this domain.
+     struct Domain
+         : proto::domain< proto::generator< ExprWrapper >, ExprGrammar >
+     {};
 
-	// A user defined expression
-	struct DifferenceOperator
-	{
-		typedef double result_type;
-		template <typename Sig> struct result;
+     // A wrapper template for a user defined expression
+     template< typename ExprType >
+     struct ExprWrapper
+         : proto::extends< ExprType, ExprWrapper< ExprType >, Domain >
+     {
 
-//		template <typename This, typename T1, typename T2>
-//		struct result< This(T1, T2) > { typedef double type; };
-		template < typename This, typename T >
-		struct result< This(T, T) > { typedef double type; };
+         ExprWrapper(const ExprType& e)
+             : proto::extends<ExprType, ExprWrapper<ExprType>, Domain>(e)
+         {}
 
-		explicit DifferenceOperator() {}
-		DifferenceOperator( const DifferenceOperator & expr) {}
+         friend std::ostream &operator <<(std::ostream &sout, ExprWrapper<ExprType> const &expr)
+        {
+            return std::cout << ExprGrammar()(expr);
+        }
+     };
 
-		double operator()( double dx1, double dx2) const {
-			return ( 1.0 /dx1 + 1.0 /dx2 );
-		}
-	};
+     // Define a trait for detecting linear algebraic terminals, to be used
+     // by the BOOST_PROTO_DEFINE_OPERATORS macro below.
+     template< typename > struct IsExpr  : mpl::false_ {};
 
-	static struct DifferenceOperator opr = {};
+     template< > struct IsExpr< DifferenceOperator > : mpl::true_  {};
 
+     // This defines all the overloads to make expressions involving
+     // Vector and Matrix objects to build Proto's expression templates.
+     BOOST_PROTO_DEFINE_OPERATORS(IsExpr, Domain)
 
-	// Define a trait for detecting linear algebraic terminals, to be used
-	// by the BOOST_PROTO_DEFINE_OPERATORS macro below.
-	template<typename> struct IsExpr  : mpl::false_ {};
-
-	template<> struct IsExpr< DifferenceOperator > : mpl::true_  {};
-
-	// This defines all the overloads to make expressions involving
-	// Vector and Matrix objects to build Proto's expression templates.
-	BOOST_PROTO_DEFINE_OPERATORS(IsExpr, Domain)
+     ExprWrapper< boost::proto::terminal< DifferenceOperator >::type >
+     	 	 	 	 	 	 	 	 	 const opr = {{}};
 }
 
 
 int main() {
-	// This worked well.
-	std::cout << MyEDSL::opr( 0.1, 0.1) + 1.0 << std::endl;
+     // This worked well.
+     std::cout << MyEDSL::opr( 0.1, 0.1) << std::endl;
 
-	// But this cannot be compiled.
-	auto copyOfOperator = proto::deep_copy( MyEDSL::opr );
+     // Now this can be compiled.
+     auto copyOfOperator = proto::deep_copy( MyEDSL::opr );
 
-	return 0;
+     return 0;
 }
-
-
-
