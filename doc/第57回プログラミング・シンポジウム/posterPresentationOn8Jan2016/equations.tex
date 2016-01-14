@@ -71,6 +71,19 @@ accelerating finite volume method with Boost.Proto}
     反復解法ソルバで、行列方程式 \( C {\bf t} = {\bf b} \) を解いて、温度分布 \( \bf t\) を得る。
         意味論モデルで行列、ベクトルの数式を、配列要素計算コードに変換
 
+
+
+演算子から行列へ
+ 
+
+\[ k \frac{ d^2 }{ dx^2} \rightarrow  k \left( \begin{array}{@{\,}ccccc@{\,}} \ddots & 1 / \Delta x & & & \\ 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & & \\ & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & \\ & & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x \\ & & & 1 / \Delta x & \ddots \end{array} \right)  \]
+
+
+\[  \frac{ d^2 }{ dx^2} \rightarrow  \left( \begin{array}{@{\,}ccccc@{\,}} \ddots & 1 / \Delta x & & & \\ 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & & \\ & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & \\ & & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x \\ & & & 1 / \Delta x & \ddots \end{array} \right)  \]
+
+
+微分方程式の演算子部分
+ \[  k\ \frac{d^2}{dx^2} - s\ \hat{Id} \]
  
 
 
