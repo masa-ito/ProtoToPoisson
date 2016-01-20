@@ -55,10 +55,12 @@ namespace FiniteVolumeMethod {
 	struct ExprGrammar;
 
 	struct IdentityOprDiscretizationGrammar : proto::or_<
+		// IdentityOpr( _, _)
 		proto::when<
 			proto::terminal< IdentityOpr >,
 			IdentityOpr( proto::_state, proto::_data)
 		>,
+		// (_ * IdentityOpr)( _, _)  -> _ * IdentityOpr( _, _)
 		proto::when<
 			proto::multiplies< proto::_, proto::terminal< IdentityOpr > >,
 			ExprGrammar(
@@ -69,8 +71,8 @@ namespace FiniteVolumeMethod {
 		>
 	> {};
 
-	struct IdentiyOprExprGrammar : proto::or_<
-		// IdentityOpr( _, _)
+	struct IdentiyOprTermGrammar : proto::or_<
+		// IdentityOpr( _, _) or (_ * IdentityOpr)( _, _)
 		proto::when<
 			proto::function< IdentityOprDiscretizationGrammar,
 							 proto::_, proto::_ >,
@@ -78,55 +80,16 @@ namespace FiniteVolumeMethod {
 							proto::_value( proto::_child1),
 							proto::_value( proto::_child2) )
 		>,
-//		proto::when<
-//			proto::function< proto::terminal< IdentityOpr >,
-//							 proto::_, proto::_ >,
-//			IdentityOpr( proto::_value( proto::_child1),
-//						 proto::_value( proto::_child2) )
-//		>,
-
-//		// double * IdentityOpr( _, _)
-//		proto::when<
-//			proto::multiplies<
-//				proto::_,
-//				proto::function< proto::terminal< IdentityOpr >,
-//								proto::_, proto::_ >
-//			>,
-//			proto::_default< IdentiyOprExprGrammar >
-//		>,
-
 		// IdentityOpr
-		proto::terminal< IdentityOpr > /*,
-
-		// IdentiyOprExprGrammar * double, or
-		// double * IdentiyOprExprGrammar
-		// proto::multiplies< IdentiyOprExprGrammar, proto::terminal< double > >,
-		// proto::multiplies< proto::terminal< double >, IdentiyOprExprGrammar >,
-
-		// IdentiyOprExprGrammar +(-) IdentiyOprExprGrammar
-		proto::plus< IdentiyOprExprGrammar, IdentiyOprExprGrammar >,
-		proto::minus< IdentiyOprExprGrammar, IdentiyOprExprGrammar > */
+		proto::terminal< IdentityOpr >
 	> {};
-
 
 	// The tranformation rule for finite volume expression templates
 	struct ExprGrammar : proto::or_<
-		// proto::terminal< double >,
-		//OprExprGrammar
-		IdentiyOprExprGrammar,
+		IdentiyOprTermGrammar,
 
 		// default
-		proto::otherwise< proto::_default< ExprGrammar >  > /* ,
-
-		// plus, minus
-		proto::when< proto::plus< ExprGrammar, ExprGrammar >,
-					proto::_default< ExprGrammar > >,
-		proto::when< proto::minus< ExprGrammar, ExprGrammar >,
-					proto::_default< ExprGrammar > >,
-
-		// multiplies
-		proto::when< proto::multiplies< ExprGrammar, ExprGrammar >,
-					 proto::_default< ExprGrammar > > */
+		proto::otherwise< proto::_default< ExprGrammar >  >
 	> {};
 
 	//
@@ -161,34 +124,9 @@ namespace FiniteVolumeMethod {
 	};
 
 
-	/* // Define a trait for detecting linear algebraic terminals, to be used
-	// by the BOOST_PROTO_DEFINE_OPERATORS macro below.
-	template<typename> struct IsExpr  : mpl::false_ {};
-
-	template<> struct IsExpr< double > : mpl::true_  {};
-
-	// template<> struct IsExpr< DiffOpr > : mpl::true_  {};
-	template<> struct IsExpr< IdentityOpr > : mpl::true_  {};
-	// template<> struct IsExpr< SecondDiffQuotinent1D > : mpl::true_  {};
-
-	// template<> struct IsExpr< FooClass > : mpl::true_  {};
-
-	// This defines all the overloads to make expressions involving
-	// Vector and Matrix objects to build Proto's expression templates.
-	BOOST_PROTO_DEFINE_OPERATORS( IsExpr, Domain) */
-
-
-	// ExprWrapper< proto::terminal< IdentityOpr >::type > const
-	//												identityOpr = {{}};
-	// proto::terminal< IdentityOpr >::type const identityOpr = {};
-
 	typedef ExprWrapper< proto::terminal< IdentityOpr >::type >
-														IdentityOperator;
-	// typedef proto::terminal< IdentityOpr >::type IdentityOperator;
+														IdentityOperatorType;
 }
-
-
-
 
 
 #endif /* DISCRETIZINGIDENTYOPERATOR_HPP_ */

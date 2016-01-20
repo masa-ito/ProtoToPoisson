@@ -49,27 +49,25 @@ int main() {
 	proto::terminal< foo_tag >::type const foo = {};
 	3.0 * foo;
 
-	FVM::IdentityOperator const idOpr = FVM::IdentityOperator();
+	FVM::IdentityOperatorType const IdOpr = FVM::IdentityOperatorType();
 
-	proto::display_expr( 3.0 * idOpr );
-	proto::display_expr( idOpr( 0.1, 0.1) );
-	proto::display_expr( 3.0 * idOpr( 0.1, 0.1) );
-	// proto::display_expr( FVM::ExprGrammar()( 3.0 * idOpr( 0.1, 0.1) ) );
-	std::cout << FVM::ExprGrammar()( idOpr( 0.1, 0.1) )  << std::endl;
-	std::cout << FVM::ExprGrammar()( 3.0 * idOpr( 0.1, 0.1) ) << std::endl;
+	proto::display_expr( 3.0 * IdOpr );
+	proto::display_expr( IdOpr( 0.1, 0.1) );
+	proto::display_expr( 3.0 * IdOpr( 0.1, 0.1) );
+	// proto::display_expr( FVM::ExprGrammar()( 3.0 * IdOpr( 0.1, 0.1) ) );
+	std::cout << FVM::ExprGrammar()( IdOpr( 0.1, 0.1) )  << std::endl;
+	std::cout << FVM::ExprGrammar()( 3.0 * IdOpr( 0.1, 0.1) ) << std::endl;
 
-	proto::display_expr( Circumference  * idOpr( 0.1, 0.1) );
+	proto::display_expr( Circumference  * IdOpr( 0.1, 0.1) );
 
 	std::cout << FVM::ExprGrammar()(
 			- ConvectiveHeatTransCoeff *
 			Circumference *
-			idOpr( 0.1, 0.1) )
+			IdOpr( 0.1, 0.1) )
 			<< std::endl;
 
-	// The operator part in the heat equation
-    // which consists of a differential operator and identical one.
 	auto opr = proto::deep_copy(
-			- ConvectiveHeatTransCoeff * Circumference * idOpr
+			- ConvectiveHeatTransCoeff * Circumference * IdOpr
 			);
 
 	proto::display_expr( opr);
