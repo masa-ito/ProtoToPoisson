@@ -47,6 +47,7 @@ namespace FiniteVolumeMethod {
 			struct result< This(T1, T2) > { typedef double type; };
 
 	};
+
 	DiffOpr diffOpr = {};
 
 
@@ -77,7 +78,7 @@ namespace FiniteVolumeMethod {
 	static struct IdentityOpr identityOpr = {};
 
 	// Assuming the area of cross section is equal to 1.
-	struct SecondDiffQuotinent1D
+	struct SecondDifferenceOpr
 	{
 		template <typename Sig> struct result;
 

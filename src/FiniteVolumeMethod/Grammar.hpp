@@ -23,7 +23,7 @@ namespace FiniteVolumeMethod {
 	struct DiffOpr;
 	struct IdentityOpr;
 
-	struct SecondDiffQuotinent1D;
+	struct SecondDifferenceOpr;
 
 
 	struct DiffOprFactor : proto::when<
@@ -39,7 +39,7 @@ namespace FiniteVolumeMethod {
 			proto::multiplies< proto::terminal< DiffOpr >,
 							proto::terminal< DiffOpr > >,
 			proto::_make_function(
-				proto::_make_terminal( SecondDiffQuotinent1D ),
+				proto::_make_terminal( SecondDifferenceOpr ),
 				proto::_state, proto::_data )
 		>,
 		// double * diffOpr
@@ -52,7 +52,7 @@ namespace FiniteVolumeMethod {
 			proto::_make_multiplies(
 				DiffOprFactor( proto::_left),
 				proto::_make_function(
-						proto::_make_terminal( SecondDiffQuotinent1D ),
+						proto::_make_terminal( SecondDifferenceOpr ),
 						proto::_state, proto::_data )
 			)
 		>,
@@ -92,7 +92,7 @@ namespace FiniteVolumeMethod {
 		proto::when<
 			proto::multiplies< proto::terminal< DiffOpr >,
 								proto::terminal< DiffOpr > >,
-			proto::_make_terminal( SecondDiffQuotinent1D )
+			proto::_make_terminal( SecondDifferenceOpr )
 		>,
 		// double * DiffOOpr * DiffOpr
 		proto::when<
@@ -103,7 +103,7 @@ namespace FiniteVolumeMethod {
 			>,
 			proto::_make_multiplies(
 				DiffOprFactor( proto::_left),
-				proto::_make_terminal( SecondDiffQuotinent1D )
+				proto::_make_terminal( SecondDifferenceOpr )
 			)
 		>,
 		// SecondDiffOprGrammar +(-) SecondDiffOprGrammar
@@ -128,7 +128,7 @@ namespace FiniteVolumeMethod {
 		proto::minus< OprExprGrammar, OprExprGrammar >
 	> {};
 
-	struct IdentiyOprExprGrammar : proto::or_<
+	struct IdentiyOprTermGrammar : proto::or_<
 		// IdentityOpr
 		proto::terminal< IdentityOpr >
 	> {};
@@ -136,7 +136,7 @@ namespace FiniteVolumeMethod {
 	// The tranformation rule for finite volume expression templates
 	struct ExprGrammar : proto::or_<
 		//OprExprGrammar
-		IdentiyOprExprGrammar
+		IdentiyOprTermGrammar
 	> {};
 
 }

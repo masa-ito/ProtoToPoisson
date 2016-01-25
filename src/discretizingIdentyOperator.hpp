@@ -19,9 +19,8 @@ namespace mpl = boost::mpl;
 namespace proto = boost::proto;
 
 namespace FiniteVolumeMethod {
-
 	//
-	// Grammar.hpp
+	// Expression.hpp
 	//
 
 	struct FaceToEastTag {};
@@ -34,8 +33,6 @@ namespace FiniteVolumeMethod {
 
 		template <typename This, typename T1, typename T2>
 		struct result< This(T1, T2) > { typedef double type; };
-//		template <typename This, typename T>
-//		struct result< This(T, T) > { typedef double type; };
 
 		IdentityOpr() {}
 		IdentityOpr( const IdentityOpr & expr) {}
@@ -52,9 +49,13 @@ namespace FiniteVolumeMethod {
 		}
 	};
 
+	//
+	// Grammar.hpp
+	//
+
 	struct ExprGrammar;
 
-	struct IdentityOprDiscretizationGrammar : proto::or_<
+	struct IdentityOprFuncGrammar : proto::or_<
 		// IdentityOpr( _, _)
 		proto::when<
 			proto::terminal< IdentityOpr >,
@@ -74,9 +75,9 @@ namespace FiniteVolumeMethod {
 	struct IdentiyOprTermGrammar : proto::or_<
 		// IdentityOpr( _, _) or (_ * IdentityOpr)( _, _)
 		proto::when<
-			proto::function< IdentityOprDiscretizationGrammar,
+			proto::function< IdentityOprFuncGrammar,
 							 proto::_, proto::_ >,
-			IdentityOprDiscretizationGrammar( proto::_child0,
+			IdentityOprFuncGrammar( proto::_child0,
 							proto::_value( proto::_child1),
 							proto::_value( proto::_child2) )
 		>,

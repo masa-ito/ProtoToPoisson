@@ -72,7 +72,7 @@ namespace MyEDSL {
      // Vector and Matrix objects to build Proto's expression templates.
      BOOST_PROTO_DEFINE_OPERATORS(IsExpr, Domain)
 
-     ExprWrapper< boost::proto::terminal< DifferenceOperator >::type >
+     ExprWrapper< proto::terminal< DifferenceOperator >::type >
      	 	 	 	 	 	 	 	 	 const opr = {{}};
 }
 

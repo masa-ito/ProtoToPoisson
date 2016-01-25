@@ -30,7 +30,7 @@ namespace FiniteVolumeMethod {
 
 	// template<> struct IsExpr< DiffOpr > : mpl::true_  {};
 	template<> struct IsExpr< IdentityOpr > : mpl::true_  {};
-	// template<> struct IsExpr< SecondDiffQuotinent1D > : mpl::true_  {};
+	// template<> struct IsExpr< SecondDifferenceOperator > : mpl::true_  {};
 
 	// template<> struct IsExpr< FooClass > : mpl::true_  {};
 
