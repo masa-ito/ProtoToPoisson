@@ -47,13 +47,18 @@ int main() {
 
 	std::cout << std::endl << "( DiffOpr * DiffOpr )( 0.1, 0.1)" << std::endl;
 	proto::display_expr( ( DiffOpr * DiffOpr )( 0.1, 0.1) );
-	/*
-	proto::display_expr( ( 3.0 * DiffOpr * DiffOpr)( 0.1, 0.1) );
-	proto::display_expr(  3.0 * ( DiffOpr * DiffOpr)( 0.1, 0.1) );
-	*/
 	std::cout << FVM::ExprGrammar()(
 			( DiffOpr * DiffOpr )( 0.1, 0.1) )  << std::endl;
+
+	std::cout << std::endl <<
+			"3.0 * ( DiffOpr * DiffOpr)( 0.1, 0.1)" << std::endl;
+	proto::display_expr(  3.0 * ( DiffOpr * DiffOpr)( 0.1, 0.1) );
+	std::cout << FVM::ExprGrammar()(
+			3.0 * ( DiffOpr * DiffOpr)( 0.1, 0.1) )  << std::endl;
+
 	/*
+	proto::display_expr( ( 3.0 * DiffOpr * DiffOpr)( 0.1, 0.1) );
+
 	std::cout << FVM::ExprGrammar()(
 			( 3.0 * DiffOpr* DiffOpr )( 0.1, 0.1) ) << std::endl;
 	std::cout << FVM::ExprGrammar()(

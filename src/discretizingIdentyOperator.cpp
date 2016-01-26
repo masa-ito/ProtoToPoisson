@@ -73,5 +73,15 @@ int main() {
 
 	std::cout << - ConvectiveHeatTransCoeff * Circumference << std::endl;
 
+	double anotherPrefactor = 0.1;
+	auto opr2 = proto::deep_copy(
+			- anotherPrefactor *
+				ConvectiveHeatTransCoeff * Circumference * IdOpr
+			);
+	std::cout << FVM::ExprGrammar()( opr2( 0.1, 0.1) ) << std::endl;
+
+	std::cout << - anotherPrefactor *
+			ConvectiveHeatTransCoeff * Circumference << std::endl;
+
 	return 0;
 }
