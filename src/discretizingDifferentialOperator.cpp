@@ -56,42 +56,57 @@ int main() {
 	std::cout << FVM::ExprGrammar()(
 			3.0 * ( DiffOpr * DiffOpr)( 0.1, 0.1) )  << std::endl;
 
-	/*
+	std::cout << std::endl <<
+				"( 3.0 * DiffOpr * DiffOpr)( 0.1, 0.1)" << std::endl;
 	proto::display_expr( ( 3.0 * DiffOpr * DiffOpr)( 0.1, 0.1) );
-
 	std::cout << FVM::ExprGrammar()(
 			( 3.0 * DiffOpr* DiffOpr )( 0.1, 0.1) ) << std::endl;
-	std::cout << FVM::ExprGrammar()(
-			3.0 * ( DiffOpr* DiffOpr )( 0.1, 0.1) ) << std::endl;
 
+
+	std::cout << std::endl <<
+				" ( Area  * DiffOpr * DiffOpr )( 0.1, 0.1)" << std::endl;
 	proto::display_expr( ( Area  * DiffOpr * DiffOpr )( 0.1, 0.1) );
+	std::cout << std::endl <<
+				" Area  * ( DiffOpr * DiffOpr )( 0.1, 0.1)" << std::endl;
 	proto::display_expr( Area  * ( DiffOpr * DiffOpr )( 0.1, 0.1) );
 
+
+	std::cout << std::endl << "ThermalConductivity * Area" << std::endl;
+	std::cout << ThermalConductivity * Area << std::endl;
+
+	std::cout << std::endl <<
+		"( ThermalConductivity * Area * DiffOpr * DiffOpr )( 0.1, 0.1)" <<
+		std::endl;
 	std::cout << FVM::ExprGrammar()(
 			( ThermalConductivity *
 			Area *
 			DiffOpr * DiffOpr )( 0.1, 0.1) )
 			<< std::endl;
 
+	std::cout << std::endl <<
+		"ThermalConductivity * ( Area * DiffOpr * DiffOpr )( 0.1, 0.1)" <<
+		std::endl;
 	std::cout << FVM::ExprGrammar()(
 			ThermalConductivity *
 			( Area *
 			DiffOpr * DiffOpr )( 0.1, 0.1) )
 			<< std::endl;
 
-
+	std::cout << std::endl <<
+		"deep_copy( ThermalConductivity * Area * DiffOpr * DiffOpr )" <<
+			std::endl;
 	auto opr = proto::deep_copy(
 				ThermalConductivity * Area * DiffOpr * DiffOpr );
 
+	std::cout << std::endl << "opr" << std::endl;
 	proto::display_expr( opr);
+
+	std::cout << std::endl << "opr( 0.1, 0.1)" << std::endl;
 	proto::display_expr( opr( 0.1, 0.1) );
-	// proto::display_expr( FVM::ExprGrammar()( opr( 0.1, 0.1) ) );
 
-	double ans = FVM::ExprGrammar()( opr( 0.1, 0.1) ) ;
-	std::cout << ans << std::endl;
+	std::cout << std::endl <<
+			FVM::ExprGrammar()( opr( 0.1, 0.1) ) << std::endl;
 
-	std::cout << ThermalConductivity * Area << std::endl;
-    */
 	return 0;
 }
 

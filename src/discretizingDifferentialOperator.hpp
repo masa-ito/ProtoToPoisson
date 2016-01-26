@@ -61,14 +61,32 @@ namespace FiniteVolumeMethod {
 			proto::multiplies< proto::terminal< DifferenceOpr >,
 								proto::terminal< DifferenceOpr > >,
 			SecondDifferenceOpr( proto::_state, proto::_data)
-		> /*
-		// ( _ *  DifferenceOpr * DifferenceOpr )( _, _)
+		>,
+		// ( ( _ *  DifferenceOpr ) * DifferenceOpr )( _, _)
 		// -> _ * ( DifferenceOpr * DifferenceOpr )( _, _)
-		*/
+		proto::when<
+			proto::multiplies<
+				proto::multiplies< proto::_,
+									proto::terminal< DifferenceOpr > >,
+				proto::terminal< DifferenceOpr >
+			>,
+			ExprGrammar(
+				proto::_make_multiplies(
+					proto::_left( proto::_left ),
+					proto::_make_function(
+						proto::_make_multiplies(
+								proto::_right( proto::_left ),
+								proto::_right
+						),
+						proto::_state, proto::_data
+					)
+ 				)
+			)
+		>
 	> {};
 
-	// Implment this struct !!!
-	struct DoubleDifferenceOprTermGrammar : proto::or_<
+
+	struct DoubleDifferenceOprProductGrammar : proto::or_<
 		// ( DifferenceOpr * DifferenceOpr )( _, _)
 		proto::when<
 			proto::function< DoubleDifferenceOprProductFuncGrammar,
@@ -77,32 +95,21 @@ namespace FiniteVolumeMethod {
 					proto::_value( proto::_child1),
 					proto::_value( proto::_child2) )
 		>,
-		/* // DifferenceOpr * DifferenceOpr( _, _)
-		//  -> ( DifferenceOpr * DifferenceOpr )( _, _)
-		proto::when<
-			proto::multiplies<
-				proto::terminal< DifferenceOpr >,
-				proto::function< proto::terminal< DifferenceOpr >,
-								 proto::_, proto::_  >
-			>,
-			ExprGrammar(
-				proto::_make_function(
-						proto::_make_multiplies( proto::_left,
-									proto::_child0( proto::_right ) ),
-						proto::_child1( proto::_right ),
-						proto::_child2( proto::_right )
-				)
-			)
-		>, */
 		// DifferenceOpr * DifferenceOpr
 		proto::multiplies< proto::terminal< DifferenceOpr >,
-						   proto::terminal< DifferenceOpr > >
+						   proto::terminal< DifferenceOpr > >,
+		// ( _ * DifferenceOpr ) * DifferenceOpr
+		proto::multiplies<
+			proto::multiplies< proto::_,
+							   proto::terminal< DifferenceOpr > >,
+			proto::terminal< DifferenceOpr >
+		>
 	> {};
 
 
 	// The tranformation rule for finite volume expression templates
 	struct ExprGrammar : proto::or_<
-		DoubleDifferenceOprTermGrammar,
+		DoubleDifferenceOprProductGrammar,
 
 		// default
 		proto::otherwise< proto::_default< ExprGrammar >  >
