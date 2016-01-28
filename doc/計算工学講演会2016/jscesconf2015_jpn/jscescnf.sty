@@ -1,0 +1,877 @@
+%
+%	Last Modification	2011/02/03 for Vol.16 (2011)	
+%
+%					Kazumi Matsui @ YNU.
+%
+%**********************************************************************
+%**********************************************************************
+%*                                                                    *
+%*  Modification of "applmech.sty"  for                               *
+%* "The Proceedings of Computational Engineering Conference of JSCES" *
+%*                                                                    *
+%*          "jscescnf.sty" for both japanese and english papers       *
+%*                                                                    *
+%*                                           < 8 Mar 2000 >           *
+%*                                                                    *
+%*                   by Kazumi MATSUI (matsui@msd.civil.tohoku.ac.jp) *
+%*                                                                    *
+%**********************************************************************
+%**********************************************************************
+%
+%
+%
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                                    %
+% Modification of `article.sty', `latex.tex' and other style files   %
+%    for The Japan Society of Civil Engineers' Journals format       %
+%                                                                    %
+%        `applmech.sty' for both japanese and english papers         %
+%                                                                    %
+%         by Watanabe Masatoshi (watanabe@akiu.gw.tohoku.ac.jp) and  %
+%            Iwakuma  Tetsuo    (bear@hashi1.civil.tohoku.ac.jp)     %
+%                                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%\typeout{\space\space\space
+%* JSCE J. App. Mech. <21 Feb 1998> Ver. [-30]0740.9 *}
+%
+% OFSS vs. NFSS
+\@ifundefined{reset@font}{\let\reset@font\empty}{}
+%
+% INPUT indent.sty for indentation
+%
+\input indent.sty%
+%
+\raggedbottom
+% DOCUMENT SIZE
+%
+\textwidth=170mm
+\textheight=251mm
+\headheight=12pt
+\headsep=1mm
+\footskip=8mm
+\columnsep=6mm
+%\columnsep=2zw
+%
+\flushbottom
+ \pagestyle{empty} % H_AND_F
+%
+\ifx\gtfam\undefined
+% margins with dviprt -newsize on MS-?OS
+% for NTT
+  \evensidemargin=-5mm
+  \oddsidemargin=-5mm
+  \topmargin=-10.5mm
+\else
+% for ASCII
+  \evensidemargin=-5mm
+  \oddsidemargin=-5mm
+  \topmargin=-10.5mm
+\fi
+%
+% JAPANESE setting = default
+%
+\newif\ifEN@LISH \EN@LISHfalse
+%
+% adjust spacings at equations to save spaces in the document
+%
+\ifx\gtfam\undefined
+%    from j-art10.sty of NTT JTeX
+%  \def\@normalsize{\@setsize\normalsize{16.8pt}\xpt\@xpt
+  \def\@normalsize{\@setsize\normalsize{16.8pt plus1pt minus1pt}\xpt\@xpt
+  \abovedisplayskip \jot plus3pt \belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus3pt\belowdisplayshortskip \jot plus3pt
+  \let\@listi\@listI}
+%
+  \def\small{\@setsize\small{15.4pt}\ixpt\@ixpt
+  \abovedisplayskip \jot plus2pt\belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus2pt\belowdisplayshortskip \jot plus2pt
+  \def\@listi{\leftmargin\leftmargini \topsep 4pt plus 2pt minus 2pt\parsep 2pt
+  plus 1pt minus 1pt
+  \itemsep \parsep}}
+%
+  \def\footnotesize{\@setsize\footnotesize{13.3pt}\viiipt\@viiipt
+  \abovedisplayskip \jot plus 1pt\belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus 1pt\belowdisplayshortskip \jot plus 1pt
+  \def\@listi{\leftmargin\leftmargini \topsep 3pt plus 1pt minus 1pt\parsep 2pt
+  plus 1pt minus 1pt
+  \itemsep \parsep}}
+%
+\else
+%     from jart10.sty of ASCII TeX
+  \def\@normalsize{\@setsize\normalsize{15pt plus1pt minus1pt}\xpt\@xpt
+%  \def\@normalsize{\@setsize\normalsize{15pt}\xpt\@xpt
+  \abovedisplayskip \jot plus3pt \belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus3pt\belowdisplayshortskip \jot plus3pt
+  \let\@listi\@listI} 
+%
+  \def\small{\@setsize\small{11pt}\ixpt\@ixpt
+  \abovedisplayskip \jot plus2pt\belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus2pt\belowdisplayshortskip \jot plus2pt
+  \def\@listi{\leftmargin\leftmargini \topsep 4pt plus 2pt minus 2pt\parsep 2pt
+  plus 1pt minus 1pt
+  \itemsep \parsep}}
+%
+  \def\footnotesize{\@setsize\footnotesize{9.5pt}\viiipt\@viiipt
+  \abovedisplayskip \jot plus 1pt\belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus 1pt\belowdisplayshortskip \jot plus 1pt
+  \def\@listi{\leftmargin\leftmargini \topsep 3pt plus 1pt minus 1pt\parsep 2pt
+  plus 1pt minus 1pt
+  \itemsep \parsep}}
+%
+\fi
+%
+\normalsize
+%
+% line pitch
+%
+\ifx\gtfam\undefined   % NTT JTeX
+%   \renewcommand{\baselinestretch}{0.892} % for jsce.sty
+  \renewcommand{\baselinestretch}{0.850}
+\else                  % ASCII TeX
+   \renewcommand{\baselinestretch}{1.000} % for jsce.sty
+%  \renewcommand{\baselinestretch}{0.953}
+%  \renewcommand{\baselinestretch}{0.933}
+%  \renewcommand{\baselinestretch}{0.903}   %for JSCES
+\fi
+%
+\def\figurename{}\mbox{}--}
+\def\tablename{•\\mbox{}--}
+\def\photoname{ŽÊ^\mbox{}--}
+\def\figuresname{}\mbox{}--}
+\def\tablesname{•\\mbox{}--}
+\def\photosname{ŽÊ^\mbox{}--}
+\def\@receivename{\ Žó•t}
+\def\appendixname{•t˜^}
+\def\appendixsectionname{\Roman{section}}
+\def\refname{ŽQl•¶Œ£}
+%
+% ENGLISH setting
+%
+\def\inenglish{\EN@LISHtrue
+%
+  \footskip=9mm
+%
+% for 11pt from art11.sty
+%
+  \def\@normalsize{\@setsize\normalsize{13.6pt}\xipt\@xipt
+  \abovedisplayskip \jot plus3\p@
+  \belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip  \z@ plus3\p@
+  \belowdisplayshortskip  \jot plus3\p@
+  \let\@listi\@listI}%
+%
+  \def\small{\@setsize\small{12pt}\xpt\@xpt
+  \abovedisplayskip \jot plus2\p@
+  \belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip  \z@ plus2\p@
+  \belowdisplayshortskip  \jot plus2\p@
+  \def\@listi{\leftmargin\leftmargini
+  \topsep 6\p@ plus2\p@ minus2\p@\parsep 3\p@ plus2\p@ minus\p@
+  \itemsep \parsep}}%
+%
+  \def\footnotesize{\@setsize\footnotesize{11pt}\ixpt\@ixpt
+  \abovedisplayskip \jot plus\p@
+  \belowdisplayskip \abovedisplayskip
+  \abovedisplayshortskip \z@ plus\p@
+  \belowdisplayshortskip \jot plus\p@
+  \def\@listi{\leftmargin\leftmargini
+  \topsep 4\p@ plus2\p@ minus2\p@\parsep 2\p@ plus\p@ minus\p@
+  \itemsep \parsep}}%
+%
+  \normalsize
+%
+% line pitch
+%
+%  \renewcommand{\baselinestretch}{.943}%
+  \renewcommand{\baselinestretch}{1.038}%
+%
+% footer for page numbers    :    H_AND_F
+%   \def\@oddfoot{%
+%    \setcounter{englishpage}{\@fromenglishpage}%
+%    \addtocounter{englishpage}{\thepage}%
+%    \addtocounter{englishpage}{-\@frompage}%
+% %   \reset@font\rm\hfil\thepage~(\theenglishpage{s})\hfil}%
+%    \reset@font\rm\hfil\thepage\hfil}%CHANGED
+%   \let\@evenfoot\@oddfoot
+%
+  \def\figurename{Fig.}%
+  \def\tablename{Table}%
+  \def\photoname{Photo}%
+  \def\figuresname{Figs.}%
+  \def\tablesname{Tables}%
+  \def\photosname{Photos}%
+  \def\fnum@figure{\figurename~\thefigure}%
+  \def\fnum@table{\tablename~\thetable}%
+  \def\fnum@photo{\photoname~\thephoto}%
+  \def\@receivename{Received\ }%
+  \def\appendixname{Appendix}%
+  \def\appendixsectionname{\Alph{section}}%
+  \def\refname{REFERENCES}%
+}
+%
+% BASIC SETTINGS FOR HEADERS AND FOOTERS : H_AND_F
+%
+\newcounter{englishpage} % page # for english part
+\newcounter{@field@number}
+%
+\def\firstpagenumber#1{\gdef\@frompage{#1}%
+  \global\setcounter{page}{\@frompage}} \gdef\@frompage{1}
+\def\firstenglishpagenumber#1{\gdef\@fromenglishpage{#1}}
+\gdef\@fromenglishpage{1}
+%
+\gdef\@topage{\pageref{page:lastpagenumber}}
+\gdef\@toenglishpage{\ref{page:lastenglishpagenumber}}
+%
+\def\volumenumber#1{\gdef\@volumenumber{#1}} \gdef\@volumenumber{0}
+\def\journalnumber#1{\gdef\@numberofjournal{#1}} \gdef\@numberofjournal{0}
+\def\pubmonth#1{\gdef\@month{#1}} \gdef\@month{\number\month}
+\gdef\@englishmonth{\ifcase\@month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or December\fi}
+\def\pubyear#1{\gdef\@year{#1}} \gdef\@year{\number\year}
+\def\procnumber#1{\gdef\@numberofpub{#1}} \gdef\@numberofpub{0}
+\def\fieldnumber#1{\setcounter{@field@number}{#1}}
+  \setcounter{@field@number}{1}
+\def\@fieldnumber{\Roman{@field@number}}
+\def\@ejournalname{\ifcase\arabic{@field@number}\or
+  Structural Mechanics and Earthquake Engineering\or % 1 SECTION
+  Hydraulic and Sanitary Engineering\or              % 2
+  Geotechnical Engineering\or                        % 3
+  Infrastructure Planning and Management\or          % 4
+  Concrete Engineering and Pavement\or               % 5
+  The Civil Engineering\fi}                          % 6
+\def\procnumberofthefield#1{\gdef\@numberoffieldnumber{#1}}
+  \gdef\@numberoffieldnumber{1}
+%
+% plain page style
+%
+%\def\ps@plain{\let\@mkboth\@gobbletwo
+%     \def\@oddhead{\reset@font\viiipt\rm\hfil
+%  \ifEN@LISH Journal of~\@ejournalname, Vol.\@volumenumber,
+%   No.\@numberofjournal, %      ~(JSCE No.\@numberofpub/%
+%%                              \@fieldnumber--\@numberoffieldnumber),
+%%     \@fromenglishpage{s}---\@toenglishpage{s}, \@year~\@englishmonth
+%     \@fromenglishpage---\@toenglishpage, \@year~\@englishmonth%CHANGED
+%  \else
+%   “y–ØŠw‰ï˜_•¶W No.\@numberofpub/\@fieldnumber--\@numberoffieldnumber,
+%   pp.\@frompage--\@topage, \@year.\@month
+%  \fi}\def\@oddfoot{\reset@font\xpt\rm\hfil\thepage
+%   \ifEN@LISH%
+%    \setcounter{englishpage}{\@fromenglishpage}%CHANGED
+%    \addtocounter{englishpage}{\thepage}%
+%    \addtocounter{englishpage}{-\@frompage}%
+%      ~(\theenglishpage{s})
+%   \fi%
+%     \hfil}\let\@evenhead\@empty\let\@evenfoot\@oddfoot%
+%}
+%
+%
+% MAKETITLE
+%
+\newdimen\vspace@title
+\newdimen\vspace@abstract
+\vspace@title=5.5cm
+\vspace@abstract=4cm
+\def\titlepagecontrol#1{\gdef\@titlepagecontrol{#1}}
+\gdef\@titlepagecontrol{0}
+%
+% minor-font definition for {'KEY WORDS:'}
+%
+\font\fontkeywords=cmbxti10
+\long\def\abstract#1{\gdef\@abstract{#1}}
+\def\keywords#1{\gdef\@keywords{#1}}
+\def\keywordsname{\fontkeywords Key Words :}
+%
+% \maketitle
+%
+\def\maketitle{\par
+  \begingroup
+    \def\thefootnote{\fnsymbol{footnote}}% simple numbering
+    \def\@makefnmark{\hbox
+%        to\z@{$\m@th^{\@thefnmark}$\hss}}%
+        {$\m@th^{\@thefnmark}$\hss}}%
+    \if@twocolumn
+      \twocolumn[\@maketitle]%
+      \else \newpage
+      \global\@topnum\z@
+      \@maketitle \fi\thispagestyle{plain}% \@thanks
+%                                   ^^^^^ was "empty" : H_AND_F
+  \endgroup
+%
+  \setcounter{footnote}{0}%
+  \let\maketitle\relax
+  \let\@maketitle\relax
+  \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax%
+}
+%
+% \@maketitle
+%
+\def\@maketitle{\newpage\null
+ \noindent{\footnotesize\mbox{\ifEN@LISH Proceedings of Computational Engineering Conference
+  \else {\bf ŒvŽZHŠwu‰‰‰ï˜_•¶W}~Vol. \@volumenumber~\fi
+%kzm  \ifEN@LISH \else(\@year ”N 5 ŒŽ)\fi}
+%kzm2011  \ifEN@LISH \else(\@year ”N 5 ŒŽ)\fi
+}
+   \hfill \mbox{\ifEN@LISH JSCES\else {\bf ŒvŽZHŠw‰ï}\fi}} % \vskip .5em
+   \ifEN@LISH\vskip .5mm\else\vskip 2mm\fi % cheating
+%kzm2011   \ifEN@LISH{\footnotesize\mbox{Vol. \@volumenumber, \@year~May}%
+   \ifEN@LISH{\footnotesize\mbox{\@volumenumber}%
+      \vskip 1mm}\fi%
+%                                                                title
+   \begin{ctrindent}{10mm}{10mm}%
+%     {\ifEN@LISH\Large\else\LARGE\fi\bf \lineskip .5em \@title \par}%
+%    {\LARGE\bf \lineskip .5em \@title \par}%
+    {\ifEN@LISH\Large\else\LARGE\fi\bf \lineskip .5em \@title \par}%
+   \end{ctrindent} \vskip 4mm % cheating
+    \ifEN@LISH\else\begin{ctrindent}{10mm}{10mm}%
+%   \begin{ctrindent}{10mm}{10mm}%
+    {\lineskip .5em \large\@endtitle \par}%
+%    {\lineskip .5em \small \@endtitle \par}%
+%   \end{ctrindent} \vskip 4mm % cheating
+    \end{ctrindent} \vskip 4mm\fi % cheating
+%                                                               author
+   \begin{ctrindent}{10mm}{10mm}%
+    {\large \@author\par}%
+      \ifEN@LISH\else\@endauthor\fi\par
+%     \@endauthor\par
+   \vskip 4mm % cheating
+   \end{ctrindent}
+%
+   \begin{center}
+   \setcounter{footnote}{0}%
+%    {\footnotesize \@thanks}%
+    \ifEN@LISH{\footnotesize \@thanks}\else{\small \@thanks}\fi%
+   \end{center}
+%
+  \vskip 3mm % cheating
+%                                                             abstract
+   \@ifundefined{@abstract}{}{%
+   \begin{list}{}{\setlength{\leftmargin}{17mm}%
+    \topsep=0pt \partopsep=0pt \parsep=0pt \listparindent=9pt
+    \setlength{\rightmargin}{\leftmargin}%
+     \small\ifEN@LISH\baselineskip=11.7pt%
+           \else \baselineskip=11.3pt \fi}%
+   \item \ignorespaces% \hspace*{\listparindent}\ignorespaces
+              \@abstract \par
+   \ifEN@LISH\vskip .5em\else\vskip .3em\fi%
+%                                                             keywords
+   \@ifundefined{@keywords}{}{%
+    \begin{list}{\keywordsname}{%
+     \topsep=-0.8\parskip \partopsep=0pt
+     \settowidth{\labelwidth}{\keywordsname}%
+%     \settowidth{\leftmargin}{1.1\keywordsname}%
+     \settowidth{\leftmargin}{\keywordsname}%
+     \setlength{\leftmargin}{24mm}%
+     \small\it\setlength{\baselineskip}{0.75\normalbaselineskip}}%
+    \item \@keywords \par
+    \end{list}}%
+   \end{list}}%
+   \vskip 9mm%
+%                                      adjust or avoid Underfull \vbox
+  \vskip \@titlepagecontrol ex%
+}
+%
+% Re-definition of \thanks which no longer in the footnote
+%
+\def\thanks#1{\footnotemark\begingroup
+\def\protect{\noexpand\protect\noexpand}\xdef\@thanks{\@thanks
+%  \protect\footnotemark\hspace{-.5ex}#1\protect\par}\endgroup}
+  \protect\footnotemark #1\protect\par}\endgroup}
+%
+% FOOTNOTEMARK and RULES
+%   *, **, ***, and **** are used in footnote of authors list
+%
+\def\@fnsymbol#1{\ifcase#1\or 1)\or 2)\or 3)\or 4)\or
+   5)\or 6)\or 7)\or 8)\or 9) \else\@ctrerr\fi\relax}
+%
+% SECTION, SUBSECTION, SUBSUBSECTION and APPENDIX numbering
+%                 modification of expression of section and subsection
+%
+%     1. {\large\bf SECTION}  indentation is retrieved
+%      2.3 {\bf SUBSECTION}
+%       (4) {\bf SUBSUBSECTION}
+%     Appendix I or A. {\large\bf SECTION} with equation-numbering
+%                     Eq.(I.1) ... or Eq.(A.1) ...
+%
+%kzm2011 \def\section{\@startsection {section}{1}{\z@}{2.5ex plus
+%kzm2011  -.1ex minus -.1ex}{.001ex plus .1ex}{\reset@font\large\bf}}
+\def\section{\@startsection {section}{1}{\z@}{2.5ex plus
+ -.1ex minus -.1ex}{.001ex plus .1ex}{\reset@font\normalsize\bf}}
+\def\subsection{\@startsection{subsection}{1}{\z@}{3.25ex plus
+ .1ex minus.1ex}{.1ex plus.1ex}{\reset@font\normalsize\bf}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{.2ex plus
+ .1ex minus.1ex}{.1ex plus.1ex}{\reset@font\normalsize\bf}}
+\def\paragraph{\@startsection
+ {paragraph}{4}{\z@}{.2ex plus.1ex minus.1ex}{-1em}{\reset@font
+ \normalsize\bf}}
+\def\subparagraph{\@startsection
+ {subparagraph}{4}{\parindent}{.2ex plus.1ex minus
+ .1ex}{-1em}{\reset@font\normalsize\bf}}
+%
+\def\thesection       {\arabic{section}.}
+\def\thesubsection    {(\arabic{subsection})}
+\def\thesubsubsection {\alph{subsubsection})}
+%
+\def\appendix{\par
+  \setcounter{section}{0}%
+  \setcounter{subsection}{0}%
+  \def\thesection{\appendixname~\appendixsectionname}%
+  \@addtoreset{equation}{section}%
+  \def\theequation{\appendixsectionname.\arabic{equation}}%
+}
+%
+% adjust \ref spacing in Japanese
+%
+\ifx\gtfam\undefined
+% \def\refno#1{#1\,\fakejchar}
+\else
+% \def\refno#1{\mbox{#1}}
+\fi
+%
+% FOOTNOTE style : all lines are indented
+%
+\long\def\@makefntext#1{\parindent 1em\noindent
+  \hbox to2em{\hss$\m@th^{\@thefnmark}$~}% by watanabe
+  \@tempdima\columnwidth\advance\@tempdima-2em\parbox[t]{\@tempdima}{#1}}
+%
+% MATH
+%
+% eqnarray : short spacing
+%
+\def\eqnarray{\stepcounter{equation}\let\@currentlabel\theequation
+\global\@eqnswtrue\m@th
+\global\@eqcnt\z@\tabskip\@centering\let\\\@eqncr
+$$\halign to\displaywidth\bgroup\@eqnsel\hskip\@centering
+  $\displaystyle\tabskip\z@{##}$&\global\@eqcnt\@ne
+  \hfil$\;{##}\;$\hfil
+  &\global\@eqcnt\tw@ $\displaystyle\tabskip\z@{##}$\hfil
+   \tabskip\@centering&\llap{##}\tabskip\z@\cr}
+%
+% MANYEQNS environment - centering version:  T. Iwakuma 2/14/1991
+%    modification of eqnarray to set equation numbers like (3-a)...
+%
+\@definecounter{whichequation}
+% \def\themanyeqn{\theequation-\alph{whichequation}}
+\def\themanyeqn{\theequation\alph{whichequation}} %CHANGED
+\def\@manyeqnnum{{\rm (\themanyeqn)}}
+%
+\def\manyeqns{\stepcounter{equation}\let\@currentlabel=\themanyeqn
+  \setcounter{whichequation}{1}%
+  \global\@eqnswtrue
+  \global\@eqcnt\z@\tabskip\@centering\let\\=\@manyeqncr
+  $$\halign to \displaywidth\bgroup\@eqnsel\hskip\@centering
+  $\displaystyle\tabskip\z@
+   \let\@currentlabel=\theequation
+  {##}$&\global\@eqcnt\@ne \hfil$\;{##}\;$\hfil
+  &\global\@eqcnt\tw@ $\displaystyle\tabskip\z@{##}$\hfil
+   \tabskip\@centering&\llap{##}\tabskip\z@\cr}
+%
+\def\endmanyeqns{\@@manyeqncr\egroup
+    \global\advance\c@equation\m@ne$$\global\@ignoretrue
+%            Note: always increment "equation" at MANYEQNS environment
+    \stepcounter{equation}}
+%
+\def\@manyeqncr{{\ifnum0=`}\fi\@ifstar{\global\@eqpen\@M
+    \@ymanyeqncr}{\global\@eqpen\interdisplaylinepenalty \@ymanyeqncr}}
+%
+\def\@ymanyeqncr{\@ifnextchar [{\@xmanyeqncr}{\@xmanyeqncr[\z@]}}
+%
+\def\@xmanyeqncr[#1]{\ifnum0=`{\fi}\@@manyeqncr
+   \noalign{\penalty\@eqpen\vskip\jot\vskip #1\relax}}
+%
+\def\@@manyeqncr{\let\@tempa\relax
+    \ifcase\@eqcnt \def\@tempa{& & &}\or \def\@tempa{& &}
+      \else \def\@tempa{&}\fi
+  \@tempa \if@eqnsw\@manyeqnnum\stepcounter{whichequation}\fi
+     \global\@eqnswtrue\global\@eqcnt\z@\cr}
+%
+% MATH SYMBOLS
+%   therefore/because by m.watanabe@tainsbbms (Masatoshi Watanabe)
+%    in Math (triangular 3 dots): June 15, 1991
+\def\therefore{\setbox0 \hbox{$\cdot$}%
+  \raise-0.2em \copy0 \raise0.2em \copy0 \raise-0.2em \box0 ~}
+\def\because{\setbox0\hbox{$\cdot$}%
+  \raise0.2em \copy0 \raise-0.2em \copy0 \raise0.2em \box0 ~}
+%   Big Zeros from RAKU RAKU LaTeX book
+\def\bigzerol{\smash{\hbox{\huge 0}}}
+\def\bigzerou{\smash{\lower1.7ex\hbox{\huge 0}}}
+%   boldmath simplification
+\def\fat#1{\mbox{\boldmath{$#1$}}}
+%   always display style fraction
+%\def\dfrac#1#2{\displaystyle{\frac{#1}{#2}}}
+%   slanted fraction from "LaTeX bibunsho sakusei nyumon"
+\def\slfrac#1#2{\leavevmode\kern-.1em%
+  \raise.5ex\hbox{\the\scriptfont0 #1}\kern-.1em%
+  /\kern-.15em\lower.25ex\hbox{\the\scriptfont0 #2}}
+%
+%   sub/super-script : \sup has been defined in the original TeX.
+\def\sub#1{_{\mbox{\scriptsize #1}}}
+\def\super#1{^{\mbox{\scriptsize #1}}}
+\def\subsc#1{_{\mbox{\footnotesize\sc #1}}}
+\def\supersc#1{^{\mbox{\footnotesize\sc #1}}}
+\def\d{\,\mbox{d}}
+\def\slfracd{\mbox{\scriptsize d}}
+%
+% partial diff's
+%                             d4 f(x,y)
+% \D[4][3][y]{f(x,y)}{x} --> -----------
+%   ^^^^^^^^^                  dx d3 y
+%    options
+%                \D : partial diff,   \D* : ordinary diff
+\def\D{\@ifstar{\@OD}{\@PD}}
+%
+\def\@OD{\@ifnextchar [{\@OD@}{\@OD@[1]}}
+\def\@OD@[#1]#2#3{%
+  \ifdim#1pt<1.5pt\def\@tempa{}\else\def\@tempa{^#1}\fi
+  \dfrac{\mbox{d}\@tempa #2}{\mbox{d}#3\@tempa}}
+%
+\def\@PD{\@ifnextchar [{\@D@}{\@D@[1]}}
+\def\@D@[#1]{\@ifnextchar [{\@D@@[#1]}{\@D@@[#1][0]}}
+\def\@D@@[#1][#2]{\@ifnextchar [{\@@D@@[#1][#2]}{\@@D@@[#1][0][s]}}
+\def\@@D@@[#1][#2][#3]#4#5{%
+  \ifdim#1pt<1.5pt\def\@tempa{\partial #4}\else
+                  \def\@tempa{\partial^#1 #4}\fi
+  \ifdim#2pt<.5pt\def\@tempb{}\else
+    \ifdim#2pt<1.5pt\def\@tempb{\partial#3}%
+     \else\def\@tempb{\partial#3^#2}%
+    \fi
+  \fi
+  \count0=#1\advance\count0-#2
+  \ifdim\the\count0pt<.5pt\dfrac{\@tempa}{\@tempb}\else
+    \ifdim\the\count0pt<1.5pt\dfrac{\@tempa}{\partial#5\,\@tempb}\else
+      \dfrac{\@tempa}{\partial#5^\the\count0\,\@tempb}%
+    \fi
+  \fi}
+%
+% FLOATS
+%
+% PHOTOS : new float
+%
+\newcounter{photo}
+\def\thephoto{\@arabic\c@photo}
+\def\fps@photo{tp}
+\def\ftype@photo{4}
+\def\ext@photo{lop}
+\def\fnum@photo{\photoname\thephoto}
+\def\photo{\@float{photo}}
+\let\endphoto\end@float
+\@namedef{photo*}{\@dblfloat{photo}}
+\@namedef{endphoto*}{\end@dblfloat}
+%
+% FIGURE/TABLE/PHOTO CAPTIONS
+%   positions and style change {\bf }
+%
+\def\fnum@figure{\figurename\thefigure}
+\def\fnum@table{\tablename\thetable}
+%
+\def\fps@figure{tp}
+\def\fps@table{tp}
+%
+\long\def\@makecaption#1#2{%
+  \vskip 10\p@
+  \setbox\@tempboxa\hbox{{\bf #1\ \ }}%
+   \@tempdima\hsize\advance\@tempdima-\wd\@tempboxa
+   \setbox\@tempboxa\hbox{{\bf #1\ \ #2}}%
+  \ifdim \wd\@tempboxa <\hsize
+      \hfil {\bf#1\ \ #2\hfil\par}
+  \else
+      \hbox to\hsize{\hfil {\bf #1\ \ \parbox[t]\@tempdima{#2}\hfil}}%
+  \fi}
+%
+\long\def\@caption#1[#2]#3{\par\addcontentsline{\csname
+  ext@#1\endcsname}{#1}{\protect\numberline{\csname
+  the#1\endcsname}{\ignorespaces #2}}\begingroup
+    \@parboxrestore
+    \small
+    \@makecaption{\csname fnum@#1\endcsname}{\ignorespaces #3}\par
+  \endgroup}
+%
+% FIGURE/TABLE/PHOTO REFERENCE
+%
+% \def\figno#1{{\bf\figurename#1}}
+% \def\tabno#1{{\bf\tablename\ifEN@LISH\ \fi#1}}
+% \def\photono#1{{\bf\photoname\ifEN@LISH\ \fi#1}}
+\def\figno{\@ifstar{\@floatno{\figurename}}{\@floatnoo{\figurename}}}
+\def\tabno{\@ifstar{\@floatno{\tablename}}{\@floatnoo{\tablename}}}
+\def\photono{\@ifstar{\@floatno{\photoname}}{\@floatnoo{\photoname}}}
+%
+\def\@floatno#1#2{{\bf #1\ifEN@LISH\ \fi#2}}
+\ifx\gtfam\undefined
+ \def\@floatnoo#1#2{{\bf #1\ifEN@LISH\ #2\else#2\,\fakejchar\fi}}
+\else
+ \def\@floatnoo#1#2{{\bf #1\ifEN@LISH\ #2\else\mbox{#2}\fi}}
+\fi
+%
+%  plural #1 in English only
+\def\figsno#1#2{{\bf\figuresname#1}\ignorespaces\ and\ {\bf#2}}
+\def\tabsno#1#2{{\bf\tablesname\ #1}\ignorespaces\ and\ {\bf#2}}
+\def\photosno#1#2{{\bf\photosname\ #1}\ignorespaces\ and\ {\bf#2}}
+%
+% FLOATS control: floats can be within 90% of textheight
+%
+\setcounter{topnumber}{4}            % ordinary +2
+\setcounter{totalnumber}{5}          % ordinary +3
+\setcounter{dbltopnumber}{4}         % ordinary +2
+\def\textfraction{.08}               % 4 lines / 48(page)
+\def\topfraction{.9}
+\def\floatpagefraction{.99}
+\def\dbltopfraction{.9}
+\def\dblfloatpagefraction{.99}
+%
+% DASHED-LINE for tabular env.  by H.Isozaki
+%
+\def\dlinepattern#1#2{%
+  \ifdim#2<#1 \errmessage{First arg. must be <= Second one.}%
+  \else \gdef\dline@solid{#1}\gdef\dline@period{#2}%
+  \fi}
+\dlinepattern{2pt}{4pt} % default
+%
+\def\dline#1{\@dline[#1]}
+\def\@dline[#1-#2]{\noalign{\global\@cla#1\relax
+  \global\advance\@cla\m@ne
+  \ifnum\@cla>\z@\global\let\@gtempa\@dlinea\else
+    \global\let\@gtempa\@dlineb\fi
+  \global\@clb#2\relax
+  \global\advance\@clb-\@cla}\@gtempa
+  \noalign{\vskip-\arrayrulewidth}}
+%
+\def\@dlinea{\multispan\@cla&\multispan\@clb
+  \unskip\cleaders\hbox to \dline@period
+  {\hss\rule{\dline@solid}{\arrayrulewidth}\hss}\hfill
+  \cr}
+%
+\def\@dlineb{\multispan\@clb
+  \unskip\cleaders\hbox to \dline@period
+  {\hss\rule{\dline@solid}{\arrayrulewidth}\hss}\hfill
+  \cr}
+%
+% subfloat.sty:    set sub-number within one float
+% Iwakuma Tetsuo (bear@hashi1.civil.tohoku.ac.jp)  8/7/1992
+%                                                10/10/1992
+%                   header control added       4/19-22/1993
+%                   header control added           8/7/1993
+%
+\@definecounter{subfloatnumber}
+\def\@T@bLe{table}
+\def\subfloatcap{-\alph{subfloatnumber}} % default
+%
+\newif\if@subfloatcaptionhead \@subfloatcaptionheadtrue
+\def\NoSubfloatCaptionHead{\@subfloatcaptionheadfalse}
+%
+\newif\if@subfloatwithcaptionhead
+\def\subcaption{\@ifstar{%
+  \@subfloatwithcaptionheadfalse\subc@ption}{%
+  \@subfloatwithcaptionheadtrue\subc@ption}}
+%
+\def\subc@ption{\@addtoreset{subfloatnumber}{\@captype}%
+  \ifx\@captype\@T@bLe\relax\else\addtocounter{\@captype}{1}\fi%
+  \def\the@subfloatnumber{\csname the\@captype\endcsname\subfloatcap}%
+  \stepcounter{subfloatnumber}%
+  \edef\@currentlabel{\csname the@subfloatnumber\endcsname}%
+  \@dblarg{\@subcaption\@captype}}
+%
+\long\def\@subcaption#1[#2]#3{\par\addcontentsline{\csname
+  ext@#1\endcsname}{#1}{\protect\numberline{\csname
+  the#1\endcsname\subfloatcap}{\ignorespaces #2}}\begingroup
+    \@parboxrestore
+    \small
+   \if@subfloatcaptionhead
+    \if@subfloatwithcaptionhead
+     \@makecaption{\csname fnum@#1\endcsname\subfloatcap}%
+         {\ignorespaces #3}\par
+    \else
+     \@makecaptionWOheading{\subfloatcap}{\ignorespaces #3}
+    \fi
+   \else\@makecaptionWOheading{}{\ignorespaces #3}\par\fi
+    \endgroup%
+     \ifx\@captype\@T@bLe\relax\else\addtocounter{\@captype}{-1}\fi}
+%
+\long\def\@makecaptionWOheading#1#2{%
+  \vskip 10\p@
+  \setbox\@tempboxa\hbox{#1 #2}%
+  \ifdim \wd\@tempboxa >\hsize
+      #1 #2\par
+    \else
+      \hbox to\hsize{\hfil\box\@tempboxa\hfil}%
+  \fi}
+%
+% BIBLIOGRAPHY
+% SPECIAL DEFINITIONS OF BIBLIOGRAPHY STYLE #2
+%          by M.Watanabe (watanabe@akiu.gw.tohoku.ac.jp) (C) 1990,10/06
+% and partially T.Iwakuma(bear@hashi1.civil.tohoku.ac.jp)
+%  \cite           : $^{\mbox{\scriptsize LABEL)}}$
+%                    $^{\mbox{\scriptsize LABEL1) LABEL2) ...}}$
+%  \thebibliography: LABEL)
+%
+\def\@citex[#1]#2{\if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi
+  \let\@citea\@empty
+  \@cite{\@for\@citeb:=#2\do
+%    {\@citea\def\@citea{),\penalty\@m}%
+    {\@citea\def\@citea{,\penalty\@m}%
+     \def\@tempa##1##2\@nil{\edef\@citeb{\if##1\space##2\else##1##2\fi}}%
+     \expandafter\@tempa\@citeb\@nil
+     \@ifundefined{b@\@citeb}{{\reset@font\bf ?}\@warning
+       {Citation `\@citeb' on page \thepage \space undefined}}%
+     \hbox{\csname b@\@citeb\endcsname}}}{#1}}
+%
+%\def\@cite#1#2{\leavevmode\hbox{$^{%              by Isozaki
+%  \mbox{\scriptsize{#1\if@tempswa , #2\fi})}}$}}
+%
+% \textcite
+%
+\def\textcite{\@tempswafalse\@textcitex[]}
+%
+\def\@textcitex[#1]#2{%
+ \if@filesw\immediate\write\@auxout{\string\citation{#2}}\fi
+%   \let\@citea\@empty
+  \let\@citea\,
+  \@textcite{\@for\@citeb:=#2\do
+    {\@citea\def\@citea{),\penalty\@m\ }%
+     \def\@tempa##1##2\@nil{\edef\@citeb{\if##1\space##2\else##1##2\fi}}%
+     \expandafter\@tempa\@citeb\@nil
+     \@ifundefined{b@\@citeb}{{\reset@font\bf ?}\@warning
+       {Citation `\@citeb' on page \thepage \space undefined}}%
+     \hbox{\csname b@\@citeb\endcsname}}}{#1}}
+%
+%%\def\@textcite#1#2{{#1\if@tempswa ), #2\fi})}
+\def\@textcite#1#2{{[#1\if@tempswa ], #2\fi})}
+%
+%%\def\@biblabel#1{#1)}
+\def\@biblabel#1{[#1]}
+%
+% REFERENCE style
+%     modification of reference-list: char-size and \baselineskip
+%
+\def\thebibliography#1{%
+  \begin{center}\subsection*{\refname\@mkboth
+  {\uppercase{\refname}}{\uppercase{\refname}}}\end{center}\list
+  {\@biblabel{\arabic{enumi}}}{\settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+%     \parsep\z@ \itemsep\z@ \topsep\z@ \small
+     \parsep\z@ \itemsep\z@ \topsep\z@ \normalsize
+    \usecounter{enumi}%
+    \let\p@enumi\@empty
+    \def\theenumi{\arabic{enumi}}}%
+    \def\newblock{\hskip .11em plus.33em minus.07em}%
+    \sloppy\clubpenalty4000\widowpenalty4000
+    \sfcode`\.=1000\relax}
+%
+% ETC.
+%
+% ENCIRCLED numerals by Hideki ISOZAKI
+%
+\def\MARU#1{{\ooalign
+  {\hfill$\scriptstyle#1$\hfill\crcr$\bigcirc$}}}
+%
+% LIST environment
+%  make sep's small
+%
+\let\Enumerate\enumerate \let\endEnumerate\endenumerate
+\let\Itemize\itemize \let\endItemize\enditemize
+\let\Description\description \let\endDescription\enddescription
+%           these above are the normal ones
+\def\enumerate{\ifnum \@enumdepth >3 \@toodeep\else
+  \advance\@enumdepth \@ne
+  \edef\@enumctr{enum\romannumeral\the\@enumdepth}\list
+  {\csname label\@enumctr\endcsname}{\usecounter
+    {\@enumctr}\def\makelabel##1{\hss\llap{##1}}%
+  \parsep\z@ \itemsep\z@ \topsep\z@}\fi}
+%
+\def\itemize{\ifnum \@itemdepth >3 \@toodeep\else \advance\@itemdepth \@ne
+  \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
+  \list{\csname\@itemitem\endcsname}{\def\makelabel##1{\hss\llap{##1}}%
+  \parsep\z@ \itemsep\z@ \topsep\z@}\fi}
+%
+\def\description{\list{}{\labelwidth\z@ \itemindent-\leftmargin
+  \let\makelabel\descriptionlabel \parsep\z@ \itemsep\z@ \topsep\z@}}
+%
+%
+% LASTPAGE SETTING AND CONTROL
+%
+\def\receivedate#1{\gdef\@receivedate{#1}} \def\@receivedate{\today}
+%
+\def\endtitle#1{\gdef\@endtitle{#1}} \def\@endtitle{}
+\def\endauthor#1{\gdef\@endauthor{#1}} \def\@endauthor{}
+\long\def\endabstract#1{\gdef\@endabstract{#1}} % permit paragraphs
+%
+% to create enough space of footnote to align columns of the last page
+%
+\newdimen\lastp@geheight \lastp@geheight=10mm
+\newsavebox{\lastp@gebox}
+%
+% LASTPAGECONTROL
+%
+\def\lastpagecontrol{\@ifnextchar [{\l@stpagecontrol}%
+  {\l@stpagecontrol[\z@]}}
+%
+\def\l@stpagecontrol[#1]#2{\global\lastp@geheight=#2%
+%
+  \@ifundefined{@endabstract}{}{% save \endabstract in a box
+  \global\sbox{\lastp@gebox}{%
+   \begin{minipage}{150mm}\vspace*{#1}%
+    \parindent=10pt%
+    \vspace{.5ex}%
+%
+   
+   \begin{center} {\large \lineskip .5em \@endtitle} \end{center}%
+    \vskip .5ex%
+   \begin{center} {\lineskip .5em \@endauthor} \end{center}%
+    \vskip .5ex%
+%
+     \small\ifEN@LISH\baselineskip=13.7pt%
+           \else \baselineskip=11.3pt \fi
+     \ignorespaces\hspace*{\parindent}\ignorespaces%
+                 \@endabstract
+  \end{minipage}}}%
+%
+% insert footnote with abstract if enough room left
+%                 without abstract otherwise
+%
+   \@tempdima\ht\lastp@gebox \advance\@tempdima\dp\lastp@gebox
+  \ifdim\@tempdima>\lastp@geheight
+   \@tempdima\lastp@geheight \global\lastp@geheight=0pt
+  \else
+   \global\advance\lastp@geheight -\@tempdima
+   \@tempdima\lastp@geheight \global\lastp@geheight\textheight
+  \fi
+   \def\footnoterule{\null}% force it to \null at the last page
+   \insert\footins{\footnotesize
+   \interlinepenalty\interfootnotelinepenalty
+   \splittopskip\footnotesep
+   \splitmaxdepth \dp\strutbox \floatingpenalty \@MM
+   \hsize\textwidth \@parboxrestore
+    \ifdim\lastp@geheight=\z@\else\mbox{}\hspace{10mm}\usebox{\lastp@gebox}\fi%
+   \vspace*{\@tempdima}}%
+}
+%
+% LASTPAGESETTINGS
+%
+\def\lastpagesettings{\@ifnextchar [{\l@stpagesettings}%
+  {\l@stpagesettings[\z@]}}
+%
+\def\l@stpagesettings[#1]{%
+%  \begin{flushright}{\small\bf (\ifEN@LISH\@receivename{}\fi \@receivedate
+%   \ifEN@LISH\relax\else\@receivename{}\fi)} \end{flushright}%
+%
+% put \endabstract in the next page when no room left for it
+%
+  \ifdim\lastp@geheight=\z@
+   \onecolumn\null\vspace*{#1}\noindent\centering\usebox{\lastp@gebox}%
+  \fi
+% page numbers for reference
+% H_AND_F
+  \label{page:lastpagenumber}%
+  \setcounter{englishpage}{\@fromenglishpage}%
+  \addtocounter{englishpage}{\thepage}%
+  \addtocounter{englishpage}{-\@frompage}%
+  \def\@currentlabel{\theenglishpage}%
+  \label{page:lastenglishpagenumber}%
+}
+
+%
+\endinput
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,207 @@
+\documentclass[]{jarticle}
+\usepackage{jtwocolumn,jscescnf}
+\usepackage[dvips]{graphicx}
+
+% ***** User Preference Options *****
+\usepackage{amsmath,times,txfonts,bm}
+%\usepackage{jtygm}
+%
+% ***** 日本語の場合，これをコメントアウト *****
+%\inenglish
+%
+% ***** Volume Number & Published Year の定義 *****
+\volumenumber{20 (2015年6月)}
+%\volumenumber{18}
+%\pubyear{2013}
+%
+% ***** 日本語タイトル *****
+\title{
+計算工学講演会論文集\\電子投稿用和文原稿執筆要領
+}
+% ***** 英文タイトル *****
+\endtitle{
+Instructions for Preparation of Manuscripts\\
+for The Proceedings of Computational Engineering Conference of JSCES
+}
+%
+% ***** 著者（日本語・英語） *****
+\author{計算花子\thanks{博(工) 日本計算工学会 会長（〒113-0023 
+東京都文京区向丘1-1-2 IFP東大前ビル3階, E-mail: hanako@jsces.org)}
+%
+工学太郎\thanks{工博 計算大学 工学研究科 教授（〒113-0023 
+東京都文京区向丘1-1-2, E-mail: taro@jsces.org）}
+}
+\endauthor{Hanako Keisan and Taro Kohgaku}
+
+
+% ***** アブストラクト（英語） *****
+\abstract{
+The Proceedings of Computational Engineering Conference of JSCES will
+be published electronically, assembling the PDF-files submitted by
+authors. The manuscripts should be written in Japanese or
+English. Please follow the instructions described in this sample paper
+with regard to the layout of title, authors' names and affiliations as
+well as main text. The manuscripts must not be longer than four pages.
+}
+% ***** キーワード *****
+\keywords{
+JSCES Conference, Times, Italic 9pt
+}
+
+\newcommand{\Cite}[2]{\cite{#1}${\mbox{\scriptsize ～}}$\cite{#2}}
+
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section{はじめに}
+このファイルは計算工学講演会論文集の電子投稿用和文原稿を作成するために必要なレイアウトやフォント等の基本的な情報が記述されています．
+本論文集は著者が作成した原稿（電子データ, PDF形式）をそのままCD-ROMに掲載しますので，ここに記載されている事項に従って作成した原稿をPDF形式にて出力してください．
+
+原稿はA4(210mm×297mm)サイズ2段組，2～6ページにまとめて下さい．上下辺，左右辺ともマージンは2cmとし，ヘッダー，フッターは設けません．
+ページ番号なども不要です．
+本文は（25 文字＋2 文字＋25 文字程度）の横2段組とし，1ページあたり約50 行程度（行間約14.4pt），文字サイズは明朝9pt を用いて作成してください．
+また，最後のページはページ下部の左右の高さをできるだけ揃えてください．
+
+
+
+\section{PDFファイルによる原稿提出について}
+提出していただいたPDFファイルについては，ヘッダー修正などの軽微な編集作業を行うことがあります．
+そのため，PDFファイルにおける「セキュリティ」については「セキュリティなし（編集可能）」と設定して提出するようお願いいたします．
+なお，講演会論文集（CD-ROM）として出版する際には「印刷のみ可能」なセキュリティ設定に変更します．
+
+また，一部のPDF変換ソフトウェアでは，標準の用紙サイズがLetterサイズ(215.9mm×279.4mm)となっているものがありますのでご注意ください．
+
+
+\section{タイトルページのレイアウトとフォント}
+\subsection{タイトル部}
+タイトル部は例のように，1段組として下さい．
+1ページ目の1行目のみに，例のように左右に詰めて，「{\small\bf 計算工学講演会論文集}Vol.20 (2015年6月)」
+，「{\small\bf 計算工学会}」をゴシック体9ptを用いて記入して下さい.
+なお，Vol.番号と年号は毎年変わりますので，注意して下さい．
+
+1行あけて，タイトルを記述します．
+タイトルはゴシック体18ptを用い，センタリングします．
+さらに1行あけて，英文タイトルをTimes，10pt，大文字，センタリングで書いて下さい．
+1行あけて，例のように著者名を明朝10pt，センタリングで書いて下さい．
+著者が複数の場合には，例のように肩カッコ付き数字をつけて下さい．
+次の行に，Times，10ptを用いて英文の著者名を書いて下さい．
+
+1行あけて，著者の所属を明朝9pt，センタリングにより記入して下さい．
+著者が複数の場合には，例のように著者名につけた肩カッコ付き数字と対応させて記入して下さい．
+
+1行あけて英文概要を，Times，9ptを用いて書いて下さい．
+このとき，左右を明朝9ptで5文字程度あけるようにして下さい．
+次の行に3～4程度の英文キーワードを例のように，Times, 9pt, italicにより記入して下さい．
+``Key Words''という文字は，ボールドイタリック体にします．
+
+
+\subsection{本文部分}
+キーワードの後，2行あけて本文を始めてください．
+本文は，一般ページと同じ，横2段組，50行程度(間隔約14.4pt)，明朝9ptで作成して下さい．
+
+\section{見出し(見出しが複数行にわたる場合には，このようにインデントをつける)}
+\subsection{章の見出し}
+見出しのレベルは3段階とし，第1レベル(章)は，上に1行あけて，ゴシック体，10ptにより「{\bf 2．数値計算例}」のように記入して下さい．
+
+\subsection{節の見出し}
+第2レベル(節)の見出しは，前後に空白行を設けず，ゴシック体，9ptにより「{\bf (2)節の見出し}」の
+ように記入して下さい．
+
+\subsubsection{項の見出し}
+第3レベル(項)の見出しも前後に空白行を設けず，ゴシック体，9ptにより「{\bf a)項の見出し}」のよう
+に記入して下さい．
+
+%
+\section{数式および数学記号}
+数式はセンタリングし，式番号はカッコ付きの通し番号で右詰として下さい．
+
+\begin{equation}
+ F(x) = \frac{\sqrt{a^3}}{(a+b)} \int_{\partial \Omega} g(t) dt \cdot e^x
+\end{equation}
+また，数式の前後には1行空白行を設けて下さい．
+
+
+
+
+
+
+\lastpagecontrol{7.0 cm}
+%
+%
+% "\lastpagecontrol, \lastpagesettings" の使い方
+%  最終ページの左右の段落をそろえるためのコマンドです．
+%  最終ページ左側の段落の適当なところに "\lastpagecontrol" を，
+%  文末に "\lastpagesettings" をおいてください．
+%  詳しくは，岩熊，古川の「LaTeXのマクロやスタイルファイルの利用」を
+%  参照してください．
+%           http://www.civil.tohoku.ac.jp/%7Ebear/node12.html
+
+\section{図表}
+講演論文集のCD-ROM化に伴い，フルカラーの図表も受け付けます (本文中でのカラー利用は禁止します)．
+グラフィクスアワード審査対象論文では，図が審査の対象となります．
+フルカラーとすることにより研究成果を効果的に表す図については，フルカラーの図を掲載することを推奨します．
+ただし，原稿受付時にファイルサイズの上限を設定することもありますので，提出可能なファイルサイズについては講演会のウェブページをご確認ください．
+
+図表は，本文で引用した箇所に近い場所に置くことを原則とします．
+できるだけ，原稿末尾にまとめておくことは避けて下さい．
+\begin{figure}
+\begin{center}
+\unitlength=1mm
+\framebox(65,30)[c]{ここに図が入る（フルカラーOK）}
+\caption{図のキャプションは図の下に置く}
+\end{center}
+\end{figure}
+図表の前後には，空白行を1行設けて下さい．
+表のキャプションは表の上に，図のキャプションは図の下に，置いて下さい．
+図番号，表番号は通し番号とし，ゴシック体，9ptで書いて下さい．
+英文キャプションの場合には，{\bf Fig.3}や{\bf Table3}などのようにTimes，9ptを用いて下さい．
+
+\begin{table}[h]
+\begin{center}
+\caption{表のキャプションは上に置く}
+\vspace{2mm}
+\begin{tabular}{|c|c|c|} \hline
+No. & case & case(Pa) \\ \hline
+1 & abcd & 123.0 \\ \hline
+2 & efg & 56.7 \\ \hline
+3 & hijk & - \\ \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\section{最後のページのレイアウト}
+最終ページは左右の段落ができるだけそろうように調整して下さい．
+
+参考文献は出現順に番号をつけ，該当個所に\cite{list1}のように\cite{list2,list3}カギカッコで指示して下さい\Cite{list1}{list4}．
+参考文献の引用リストは例を参考にして，文末に1行あけ，ゴシック体，9pt，センタリングで「{\bf 参
+考文献}」と記入した後，番号順に記入して下さい．
+
+\paragraph{謝辞:}
+謝辞は結論の後に書いて下さい．
+
+\paragraph{付録:}
+付録は参考文献の前に書いて下さい．
+
+\begin{thebibliography}{9}
+
+\bibitem{list1}
+川井忠彦，大坪英臣: 計算工学講演会論文集の書き方，計算工学講演会論文集，Vol.1, pp.1-2, 1996.
+
+\bibitem{list2}
+Yamada, Y. et al.: Plastic stress-strain matrix and its application for the solution of 
+elasto-plastic problems by a finite element method, {\it Int. J. of Mechanical Science}, 
+Vol.10, pp.343-354, 1968.
+
+\bibitem{list3}
+鷲津久一郎: 弾性学の変分原理概論，培風館，1972.
+
+\bibitem{list4}
+Martine, H.C. and Carey, G.F.: 有限要素法の基礎と応用，（鷲津久一郎，山本善之共訳），培風館，
+1979.
+
+\end{thebibliography}
+\lastpagesettings
+
+\end{document}
