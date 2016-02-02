@@ -1,5 +1,5 @@
 /*
- * discretizingOperatorsInPoissonEq.cpp
+ * discretizingIdentity2ndOrderDifferentialOperators.cpp
  *
  *  Created on: 2016/02/01
  *      Author: Masakatsu ITO
@@ -58,17 +58,14 @@ int main()
 		- AnotherPrefactor * ConvectiveHeatTransCoeff * Circumference  <<
 		std::endl;
 
-	std::cout << std::endl <<
-		"- AnotherPrefactor * ConvectiveHeatTransCoeff * Circumference * " <<
-		"IdOpr" << std::endl;
-	proto::display_expr(
-		- AnotherPrefactor * ConvectiveHeatTransCoeff * Circumference *
-		IdOpr
-	);
 
 	std::cout << std::endl <<
 		"- AnotherPrefactor * ConvectiveHeatTransCoeff * Circumference * " <<
 		"IdOpr( Spacing, Spacing)" << std::endl;
+	proto::display_expr(
+		- AnotherPrefactor * ConvectiveHeatTransCoeff * Circumference *
+		IdOpr
+	);
 	std::cout <<
 		FVM::ExprGrammar()(
 			- AnotherPrefactor * ConvectiveHeatTransCoeff * Circumference *
@@ -120,7 +117,7 @@ int main()
 
 
 	//
-	// Testging Differential Operator
+	// Testging 2nd-order differential operator
 	//
 	FVM::DifferentialOperatorType const DiffOpr =
 								FVM::DifferentialOperatorType();
@@ -134,16 +131,12 @@ int main()
 
 	std::cout << std::endl <<
 		"AnotherPrefactor * ThermalConductivity * Area * " <<
-		"DiffOpr * DiffOpr" << std::endl;
+		"( DiffOpr * DiffOpr)( Spacing, Spacing)" << std::endl;
 	proto::display_expr(
 		AnotherPrefactor * ThermalConductivity * Area *
-		( DiffOpr * DiffOpr )
+		( DiffOpr * DiffOpr )( Spacing, Spacing)
 	);
 
-
-	std::cout << std::endl <<
-		"AnotherPrefactor * ThermalConductivity * Area * " <<
-		"( DiffOpr * DiffOpr)( Spacing, Spacing)" << std::endl;
 	std::cout <<
 		FVM::ExprGrammar()(
 			AnotherPrefactor * ThermalConductivity * Area *
