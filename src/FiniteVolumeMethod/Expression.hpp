@@ -17,51 +17,50 @@
 
 namespace FiniteVolumeMethod {
 
-	// A wrapper for a linear algebraic expression
+	// A wrapper for a finite volume expression
 	template<typename E> struct ExprWrapper;
 
-	// The above grammar is associated with this domain.
 	struct Domain
-		: proto::domain<proto::generator<ExprWrapper>, ExprGrammar>
+		: proto::domain< proto::generator< ExprWrapper > >
+		// The above grammar is associated with this domain.
+		// : proto::domain< proto::generator< ExprWrapper >, ExprGrammar >
 	{};
 
-	// A wrapper template for linear algebraic expressions
-	// including matrices and vectors
-	template<typename ExprType>
+	// A wrapper template for finite volume expressions
+	template< typename ExprType >
 	struct ExprWrapper
-		: proto::extends<ExprType, ExprWrapper<ExprType>, Domain>
+		: proto::extends< ExprType, ExprWrapper< ExprType>, Domain >
 	{
-		/* typedef double result_type; */
-
-		explicit ExprWrapper(const ExprType& e)
-			: proto::extends<ExprType, ExprWrapper<ExprType>, Domain>(e)
+		// explicit
+		ExprWrapper(ExprType const & expr = ExprType() )
+			: proto::extends<ExprType, ExprWrapper<ExprType>, Domain >( expr)
 		{}
+
+	//		friend std::ostream &
+	//		operator <<( std::ostream &sout,
+	//					 ExprWrapper<ExprType> const &expr)
+	//		{
+	//			return std::cout << ExprGrammar()(expr);
+	//		}
 	};
-
-
-	struct DiffOpr
-	{
-			template <typename Sig> struct result;
-
-			template <typename This, typename T1, typename T2>
-			struct result< This(T1, T2) > { typedef double type; };
-
-	};
-
-	DiffOpr diffOpr = {};
-
 
 
 	struct FaceToEastTag {};
 	struct FaceToWestTag {};
 
-	struct IdentityOpr
+	//
+	// Identitiy operator in a discretized form
+	//
+	struct IdentityOpr : proto::callable
 	{
-		// typedef double result_type;
+		typedef double result_type;
 		template <typename Sig> struct result;
 
 		template <typename This, typename T1, typename T2>
 		struct result< This(T1, T2) > { typedef double type; };
+
+		IdentityOpr() {}
+		IdentityOpr( const IdentityOpr & expr) {}
 
 		double operator()( double, double) const {
 			return 1.0;
@@ -75,16 +74,35 @@ namespace FiniteVolumeMethod {
 		}
 	};
 
-	static struct IdentityOpr identityOpr = {};
+	// Identity Operator in a continuum form
+	typedef ExprWrapper< proto::terminal< IdentityOpr >::type >
+														IdentityOperatorType;
 
-	// Assuming the area of cross section is equal to 1.
-	struct SecondDifferenceOpr
+	//
+	// Difference operator
+	//
+	struct DifferenceOpr {};
+
+	//
+	// Differential operator
+	// that is actually a wrapped object of difference operator
+	//
+	typedef ExprWrapper< proto::terminal< DifferenceOpr >::type >
+												DifferentialOperatorType;
+
+	//
+	// 2nd-order difference operator
+	//
+	struct SecondDifferenceOpr : proto::callable
 	{
+		typedef double result_type;
 		template <typename Sig> struct result;
 
 		template <typename This, typename T1, typename T2>
 		struct result< This(T1, T2) > { typedef double type; };
 
+		SecondDifferenceOpr() {}
+		SecondDifferenceOpr( const SecondDifferenceOpr & expr) {}
 
 		double operator()( double westSpacing, double eastSpacing) const {
 			return ( - 1.0 / westSpacing  - 1.0 / eastSpacing );
@@ -96,7 +114,6 @@ namespace FiniteVolumeMethod {
 			return 1.0 / spacing;
 		}
 	};
-
 
 }
 

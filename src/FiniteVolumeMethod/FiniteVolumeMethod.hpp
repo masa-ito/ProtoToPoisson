@@ -15,10 +15,11 @@
 #include <FiniteVolumeMethod/Grammar.hpp>
 #include <FiniteVolumeMethod/Expression.hpp>
 
-// #include <FiniteVolumeMethod/BoundaryCorrector.hpp>
-// #include <FiniteVolumeMethod/LazyDiscretizer.hpp>
-// #include <FiniteVolumeMethod/Grid.hpp>
+#include <FiniteVolumeMethod/BoundaryCorrector.hpp>
+#include <FiniteVolumeMethod/LazyDiscretizer.hpp>
+#include <FiniteVolumeMethod/Grid.hpp>
 
+/*
 namespace mpl = boost::mpl;
 namespace proto = boost::proto;
 
@@ -37,9 +38,7 @@ namespace FiniteVolumeMethod {
 	// This defines all the overloads to make expressions involving
 	// Vector and Matrix objects to build Proto's expression templates.
 	BOOST_PROTO_DEFINE_OPERATORS(IsExpr, Domain)
-
-
 }
-
+*/
 
 #endif /* FINITEVOLUMEMETHOD_FINITEVOLUMEMETHOD_HPP_ */

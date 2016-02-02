@@ -22,13 +22,15 @@ namespace DLA = DenseLinAlg;
 
 namespace FiniteVolumeMethod {
 
-	struct LazyConstValueVectorizerOnGrid1D : DLA::LazyVectorMaker
+	struct LazyConstValueVectorizerOnGrid1D :
+			public DLA::LazyVectorMaker< LazyConstValueVectorizerOnGrid1D >
 	{
 		const double val;
 
 		explicit
 		LazyConstValueVectorizerOnGrid1D(int size, double val_) :
-		DLA::LazyVectorMaker(size), val(val_) {}
+		DLA::LazyVectorMaker< LazyConstValueVectorizerOnGrid1D >(size),
+		val(val_) {}
 
 		void assignDataTo( DLA::Vector& lhs) const
 		{

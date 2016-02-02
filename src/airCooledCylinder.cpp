@@ -43,26 +43,30 @@ int main() {
 				Area = M_PI * CylinderRadius * CylinderRadius,
 				Circumference = 2.0 * M_PI *  CylinderRadius;
 
+	FVM::DifferentialOperatorType const DiffOpr =
+								FVM::DifferentialOperatorType();
+	FVM::IdentityOperatorType const IdOpr = FVM::IdentityOperatorType();
+
 	// The operator part in the heat equation
     // which consists of a differential operator and identical one.
-//	auto opr = proto::deep_copy(
+	auto opr = proto::deep_copy(
+			ThermalConductivity * Area * DiffOpr * DiffOpr
+			- ConvectiveHeatTransCoeff * Circumference * IdOpr );
+	// double prefactor = ThermalConductivity * Area;
+	// auto opr = proto::deep_copy(
+	//		 prefactor * FVM::diffOpr * FVM::diffOpr
+	//		- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
+
+	FVM::BoundaryCorrector bCorrector( grid, opr);
+//	FVM::BoundaryCorrector bCorrector( grid,
 //			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
 //			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
-	double prefactor = ThermalConductivity * Area;
-	auto opr = proto::deep_copy(
-			 prefactor * FVM::diffOpr * FVM::diffOpr
-			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
 
-	//FVM::BoundaryCorrector bCorrector( grid, opr);
-	FVM::BoundaryCorrector bCorrector( grid,
-			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
-			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
-
-	// DLA::Matrix coeffMat = grid.discretizeOperator( opr );
-	DLA::Matrix coeffMat = grid.discretizeOperator(
-			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
-			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
-	bCorrector.applyTo( coeffMat);
+	DLA::Matrix coeffMat = grid.discretizeOperator( opr );
+//	DLA::Matrix coeffMat = grid.discretizeOperator(
+//			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
+//			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
+//	bCorrector.applyTo( coeffMat);
 
 	// The constant term(s) in the heat equation
 	// which is(are) independent from the temperature distribution
@@ -75,7 +79,7 @@ int main() {
 													cg( coeffMat, precond);
 
 	// Initial guess of discretized temperature distribution
-	DLA::Vector tempGuess = grid.discretizeFunction(
+	const DLA::Vector tempGuess = grid.discretizeFunction(
 					( AmbientTemperature + HotTemperature ) / 2.0 );
 
 	const double convergenceCriterion = 1.0e-5;
