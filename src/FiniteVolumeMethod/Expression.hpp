@@ -49,7 +49,7 @@ namespace FiniteVolumeMethod {
 	struct FaceToWestTag {};
 
 	//
-	// Identitiy operator in a discretized form
+	// Function for discretizing an identity operator
 	//
 	struct IdentityOpr : proto::callable
 	{
@@ -74,24 +74,23 @@ namespace FiniteVolumeMethod {
 		}
 	};
 
-	// Identity Operator in a continuum form
+	// Identity Operator
 	typedef ExprWrapper< proto::terminal< IdentityOpr >::type >
 														IdentityOperatorType;
 
 	//
-	// Difference operator
+	// Dummy function for discretizing a differential operator
 	//
 	struct DifferenceOpr {};
 
 	//
 	// Differential operator
-	// that is actually a wrapped object of difference operator
 	//
 	typedef ExprWrapper< proto::terminal< DifferenceOpr >::type >
 												DifferentialOperatorType;
 
 	//
-	// 2nd-order difference operator
+	// Function for discretizing a 2nd-order differential operator
 	//
 	struct SecondDifferenceOpr : proto::callable
 	{
