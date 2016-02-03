@@ -46,7 +46,6 @@ namespace FiniteVolumeMethod {
 				startPos( startPosition), regionLen( regionLength),
 				spacing( regionLength / controlVolumeNunmber),
 				ctrlVolSlice( 0, controlVolumeNunmber, 1),
-				regionLen( regionLength),
 				dirichletConds(), neumannConds() {}
 
 		int ctrlVolNum() const { return numCtrlVol; }
@@ -141,6 +140,11 @@ namespace FiniteVolumeMethod {
 				}
 			}
 
+			std::cout << "spacing = " << spacing << std::endl;
+			std::cout << "westBoundarySpacing = " <<
+					westBoundarySpacing << std::endl;
+			std::cout << "eastBoundarySpacing = " <<
+					eastBoundarySpacing << std::endl;
 
 			return LazyOperatorDiscretizerOnGrid1D< OprT >(
 					opr, westBoundarySpacing, spacing, eastBoundarySpacing,
