@@ -1,5 +1,5 @@
 /*
- * discretizingPoissonEqWithNoBC.cpp
+ * discretizingPoissonEqWithBoundaryConditions.cpp
  *
  * ref) H. K. Versteeg and W. Malalasekera,
  *     "An Introduction  to Computational Fluid Dynamics,
@@ -23,6 +23,7 @@
 // #include <SparseLinAlg/SparseLinAlg.hpp>
 
 // #include <FiniteVolumeMethod/FiniteVolumeMethod.hpp>
+#include <FiniteVolumeMethod/BoundaryCorrector.hpp>
 #include <FiniteVolumeMethod/Grid.hpp>
 
 namespace DLA = DenseLinAlg;
@@ -81,6 +82,10 @@ int main()
 	rhsVec = grid.discretizeFunction(
 			- ConvectiveHeatTransCoeff * Circumference * AmbientTemperature );
 
+	FVM::BoundaryCorrector bCorrector( grid, opr);
+	bCorrector.applyTo( coeffMat);
+	bCorrector.applyTo( rhsVec);
+
 	int ri, ci;
 
 	const double scale = - ThermalConductivity * Area;
@@ -88,7 +93,7 @@ int main()
 			std::endl;
 	std::cout << "= " << scale << std::endl;
 
-	std::cout << "Coefficient matrix before applying boundary conditions" <<
+	std::cout << "Coefficient matrix after applying boundary conditions" <<
 			std::endl;
 	std::cout << " / scale" << std::endl;
 	for (ri = 0; ri < NumCtrlVol; ri++)
@@ -100,7 +105,7 @@ int main()
 	}
 
 	std::cout << std::endl;
-	std::cout << "RHS vector before applying boundary conditions" <<
+	std::cout << "RHS vector after applying boundary conditions" <<
 			std::endl;
 	std::cout << " / scale" << std::endl;
 	for (ci = 0; ci < NumCtrlVol; ci++)
@@ -109,3 +114,6 @@ int main()
 
 	return 0;
 }
+
+
+

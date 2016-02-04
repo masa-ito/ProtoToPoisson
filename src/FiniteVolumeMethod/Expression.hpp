@@ -62,8 +62,9 @@ namespace FiniteVolumeMethod {
 		IdentityOpr() {}
 		IdentityOpr( const IdentityOpr & expr) {}
 
-		double operator()( double, double) const {
-			return 1.0;
+		double operator()( double spacing, double spacingOrBoundarySpacing)
+		const {
+			return spacing;
 		}
 
 		double operator()( double, FaceToWestTag) const {
@@ -103,8 +104,9 @@ namespace FiniteVolumeMethod {
 		SecondDifferenceOpr() {}
 		SecondDifferenceOpr( const SecondDifferenceOpr & expr) {}
 
-		double operator()( double westSpacing, double eastSpacing) const {
-			return ( - 1.0 / westSpacing  - 1.0 / eastSpacing );
+		double operator()( double spacing, double spacingOrBoundarySpacing)
+		const {
+			return ( - 1.0 / spacing  - 1.0 / spacingOrBoundarySpacing );
 		}
 		double operator()( double spacing, FaceToWestTag) const {
 			return 1.0 / spacing;

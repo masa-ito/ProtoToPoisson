@@ -62,8 +62,8 @@ namespace FiniteVolumeMethod {
 			for (int i = 0; i < dirichletCondNum; i++) lhs(i) = 1.0;
 
 			for (int i = 0; i < neumannConds.size(); i++)
-				lhs( dirichletCondNum + i) =
-						1.0 / neumannConds[i].outerInnerSpacing();
+				lhs( dirichletCondNum + i) = - 1.0;
+						// - 1.0 / neumannConds[i].outerInnerSpacing();
 		}
 	};
 
@@ -95,7 +95,7 @@ namespace FiniteVolumeMethod {
 			// For Neumann conditions
 			for ( int i = 0; i < neumannConds.size(); i++)
 				lhs( i + dirichletConds.size(), neumannConds[ i].innerIndex() )
-					= 1.0 /  neumannConds[ i].outerInnerSpacing() ;
+					= 1.0; // 1.0 /  neumannConds[ i].outerInnerSpacing() ;
 		}
 	};
 
@@ -104,8 +104,8 @@ namespace FiniteVolumeMethod {
 	: DLA::LazyMatrixMaker<
 	  	  LazyOperatorDiscretizerOnGrid1DBoundary< OprT > >
 	 {
-		std::vector< DirichletCondition > & dirichletConds;
-		std::vector< NeumannCondition > & neumannConds;
+		const std::vector< DirichletCondition > & dirichletConds;
+		const std::vector< NeumannCondition > & neumannConds;
 		const OprT & opr;
 
 		explicit
@@ -115,7 +115,7 @@ namespace FiniteVolumeMethod {
 				int numCtrlVol_, const OprT & opr_) :
 			DLA::LazyMatrixMaker<
 				LazyOperatorDiscretizerOnGrid1DBoundary< OprT >
-			>( dirichletConds_.size() + neumannConds_.size(), numCtrlVol_),
+			>( numCtrlVol_, dirichletConds_.size() + neumannConds_.size()),
 			dirichletConds( dirichletConds_),
 			neumannConds( neumannConds_),
 			opr( opr_) {}
@@ -230,7 +230,7 @@ namespace FiniteVolumeMethod {
 			// proto::_default<> trans;
 
 			lhs( 0, 0) = ExprGrammar()(
-							opr( westBoundarySpacing, spacing) );
+							opr( spacing, westBoundarySpacing) );
 			for (ri = 1; ri < this->rowSz - 1; ri++)
 				lhs( ri, ri) = ExprGrammar()(
 											opr( spacing, spacing) );

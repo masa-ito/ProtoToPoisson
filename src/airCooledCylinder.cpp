@@ -38,7 +38,7 @@ int main() {
 	// http://www.engineeringtoolbox.com/convective-heat-transfer-d_430.html
 	const double ConvectiveHeatTransCoeff = 0.7;
 
-	const double CylinderRadius = 2.0 * ConvectiveHeatTransCoeff /
+	const double CylinderRadius = 2.0 / 25.0 * ConvectiveHeatTransCoeff /
 													ThermalConductivity,
 				Area = M_PI * CylinderRadius * CylinderRadius,
 				Circumference = 2.0 * M_PI *  CylinderRadius;
@@ -66,7 +66,7 @@ int main() {
 //	DLA::Matrix coeffMat = grid.discretizeOperator(
 //			ThermalConductivity * Area * FVM::diffOpr * FVM::diffOpr
 //			- ConvectiveHeatTransCoeff * Circumference * FVM::identityOpr );
-//	bCorrector.applyTo( coeffMat);
+	bCorrector.applyTo( coeffMat);
 
 	// The constant term(s) in the heat equation
 	// which is(are) independent from the temperature distribution

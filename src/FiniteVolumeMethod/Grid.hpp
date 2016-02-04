@@ -15,7 +15,7 @@
 
 #include <DenseLinAlg/DenseLinAlg.hpp>
 
-#include <FiniteVolumeMethod/BoundaryCondition.hpp>
+#include <FiniteVolumeMethod/BoundaryCorrector.hpp>
 #include <FiniteVolumeMethod/LazyDiscretizer.hpp>
 
 namespace DLA = DenseLinAlg;
@@ -75,7 +75,8 @@ namespace FiniteVolumeMethod {
 
 		LazyConstValueVectorizerOnGrid1D discretizeFunction(double val) const
 		{
-			return LazyConstValueVectorizerOnGrid1D(numCtrlVol, val);
+			return LazyConstValueVectorizerOnGrid1D(numCtrlVol,
+													val * spacing);
 		}
 
 		LazyInverseBoundaryConditionOperatorDiscretizerOnGrid1D
