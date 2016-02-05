@@ -8,7 +8,7 @@ H. K. Versteeg and W. Malalasekera,
 "An Introduction  to Computational Fluid Dynamics, The Finite Volume Method", 2nd Ed.
  Pearson Educational Limited 1995, 2007.
 
-2016/02/2016
+２０１６年　２月５日
 
 プログラミング・シンポジウムの発表でお約束したように、拡散問題のためのミニ領域特化言語によるサンプルコード
 src/test/airCooledCylinder.cpp
