@@ -1,5 +1,5 @@
 # ProtoToPoisson
-Boost.Proto workout To implement a mini-EDSL (embedded domain-specific language) for solvging diffusion problem using finite volume method
+Boost.Proto workout To implement a mini-EDSL (embedded domain-specific language) for solving Poisson equation using finite volume method
 
 Feb. 5 2016
 
