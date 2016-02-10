@@ -1,5 +1,5 @@
 /*
- * airCooledCylinder.cpp
+ * airCooledCylinder_plainC.cpp
  *
  * ref) H. K. Versteeg and W. Malalasekera,
  *     "An Introduction  to Computational Fluid Dynamics,
@@ -8,8 +8,8 @@
  *
  *     Example 4.3
  *
- *  Created on: 2015/03/31
- *      Author: mito
+ *  Created on: 2016/02/10
+ *      Author: Masakatsu ITO
  */
 
 #include <math.h>
@@ -137,16 +137,17 @@ int main() {
 		std::cout << std::setw(11) << std::fixed << std::setprecision(4) <<
 						rhsVec( ci) / scale << std::endl;
 
-	SLA::DiagonalPreconditioner precond( coeffMat);
-	SLA::ConjugateGradient< DLA::Matrix, SLA::DiagonalPreconditioner >
-	                   							cg( coeffMat, precond);
+	// SLA::DiagonalPreconditioner precond( coeffMat);
+	// SLA::ConjugateGradient< DLA::Matrix, SLA::DiagonalPreconditioner >
+	//                   							cg( coeffMat, precond);
 
 	const DLA::Vector tempGuess( NumCtrlVol, (100.0 + 20.0) / 2.0);
 	const double convergenceCriterion = 1.0e-7;
 
 	DLA::Vector temperature( NumCtrlVol);
-	temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
-
+	// temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
+	DLA::diagPrecondConGrad_plainC( temperature,
+			coeffMat, rhsVec, tempGuess, convergenceCriterion);
 
 	// grid.printForGnuPlot( temperature );
 
