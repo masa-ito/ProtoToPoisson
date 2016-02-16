@@ -12,12 +12,12 @@ Requried Software
   * https://github.com/masa-ito/ProtoToMET
   * This library provides an EDSL (embedded domain-specific language) for linear algebra which ProtoToPoisson needs.
 
-ProtoToMET and ProtoToPoisson should have the same parent directory, ${Installation Root}.
+    * Makefiles of ProtoToPoisson project assumes that ProtoToMET and ProtoToPoisson share the same parent directory, ${Installation Root}. 
 
-  * ${Installation Root}/
+      * ${Installation Root}/
 
-    * ProtoToMET/
-    * ProtoToPoisson/
+	* ProtoToMET/
+	* ProtoToPoisson/
 
 
 
