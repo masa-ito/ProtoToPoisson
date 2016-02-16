@@ -1,15 +1,8 @@
 
-How to join ProtoToPoisson project
+How to write code in ProtoToPoisson project
 ==================================
 
-**Any contribution towards this project goal would be welcome.**
-
-    Project goal
-        To test the following hypotheses
-
-        * The designing way of EDSLs for FEM (finite element mothod) can be generalized and can be used to design an EDSL for FVM.
-
-        * The semantic model of our EDSL can transform simulation model and alogorithm into parallelized low-level code.
+**I'd really appreciate it if you would write code in this project for helping one to prototype their simulation model.**
 
 
 

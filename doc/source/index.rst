@@ -36,7 +36,8 @@ Contents
    :maxdepth: 2
 
    How to install <howToInstall>
-   How to join <howToJoin>
+   How to write code in this project <howToWriteCode>
+   How to write document <howToWriteDoc>
 
 
 
