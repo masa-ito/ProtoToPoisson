@@ -1,4 +1,0 @@
-[submodule "doc/build/html"]
-	path = doc/build/html
-	url = git@github:masa-ito/ProtoToPoisson.git
-	branch = gh-pages
