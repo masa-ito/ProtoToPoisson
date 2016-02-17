@@ -43,22 +43,36 @@
 <h1>How to install ProtoToPoisson<a class="headerlink" href="#how-to-install-prototopoisson" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="requried-software">
 <h2>Requried Software<a class="headerlink" href="#requried-software" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Boost library</li>
-<li>ProtoToMET<ul>
-<li><a class="reference external" href="https://github.com/masa-ito/ProtoToMET">https://github.com/masa-ito/ProtoToMET</a></li>
-<li>This library provides an EDSL (embedded domain-specific language) for linear algebra which ProtoToPoisson needs.<ul>
-<li>Makefiles of ProtoToPoisson project assumes that ProtoToMET and ProtoToPoisson share the same parent directory, ${Installation Root}.<ul>
-<li>${Installation Root}/<ul>
+<ul>
+<li><p class="first">Boost library</p>
+</li>
+<li><p class="first">ProtoToMET</p>
+<blockquote>
+<div><ul>
+<li><p class="first"><a class="reference external" href="https://github.com/masa-ito/ProtoToMET">https://github.com/masa-ito/ProtoToMET</a></p>
+</li>
+<li><p class="first">This library provides an EDSL (embedded domain-specific language) for linear algebra which ProtoToPoisson needs.</p>
+<blockquote>
+<div><ul>
+<li><p class="first">Makefiles of ProtoToPoisson project assumes that ProtoToMET and ProtoToPoisson share the same parent directory, ${Installation Root}.</p>
+<blockquote>
+<div><ul>
+<li><p class="first">${Installation Root}/</p>
+<blockquote>
+<div><ul class="simple">
 <li>ProtoToMET/</li>
 <li>ProtoToPoisson/</li>
 </ul>
+</div></blockquote>
 </li>
 </ul>
+</div></blockquote>
 </li>
 </ul>
+</div></blockquote>
 </li>
 </ul>
+</div></blockquote>
 </li>
 </ul>
 </div>
@@ -66,47 +80,41 @@
 <h2>Installation steps<a class="headerlink" href="#installation-steps" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic">
 <li><p class="first">Install Boost library and make sure that Boost.Proto works.</p>
-<ul class="simple">
+<blockquote>
+<div><ul class="simple">
 <li><a class="reference external" href="http://www.boost.org/">http://www.boost.org/</a></li>
 <li>The version of Boost.Proto should be equal to or later than 1.57.0 .</li>
 </ul>
+</div></blockquote>
 </li>
-<li><p class="first">Install ProtoToMET</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ${Installation Root}
-git clone https://github.com/masa-ito/ProtoToMET.git
+<li><p class="first">Install ProtoToMET :</p>
+<p>cd ${Installation Root}
+git clone <a class="reference external" href="https://github.com/masa-ito/ProtoToMET.git">https://github.com/masa-ito/ProtoToMET.git</a>
 cd ProtoToMET/src/DenseLinAlg
-make
-</pre></div>
-</div>
+make</p>
 </li>
-<li><p class="first">Install ProtoToPoisson</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ${Installation Root}
-git clone https://github.com/masa-ito/ProtoToPoisson.git
-cd ProtoToMET/src/test
-make
-</pre></div>
-</div>
+<li><p class="first">Install ProtoToPoisson :</p>
+<p>cd ${Installation Root}
+git clone <a class="reference external" href="https://github.com/masa-ito/ProtoToPoisson.git">https://github.com/masa-ito/ProtoToPoisson.git</a>
+cd ProtoToPoisson/src/test
+make</p>
 </li>
 <li><p class="first">Make sure that our sample program works.</p>
-<div class="highlight-python"><div class="highlight"><pre>cd ${Installation Root}/ProtoToMET/src/test
-./airCooledCylinder
-</pre></div>
-</div>
+<p>cd ${Installation Root}/ProtoToMET/src/test
+./airCooledCylinder</p>
 </li>
 </ol>
-<ul>
-<li><p class="first">The output of the sample program should inclue</p>
-<div class="highlight-python"><div class="highlight"><pre># stationary temperature distribution
-#     x      FVM       exact
-    0.10    64.228    68.526
-    0.30    36.911    37.866
-    0.50    26.504    26.611
-    0.70    22.602    22.536
-    0.90    21.301    21.216
-</pre></div>
-</div>
-</li>
-</ul>
+<blockquote>
+<div><p>The output of the sample program should include :</p>
+<p># stationary temperature distribution
+#     x      FVM       exact</p>
+<blockquote>
+<div>0.10    64.228    68.526
+0.30    36.911    37.866
+0.50    26.504    26.611
+0.70    22.602    22.536
+0.90    21.301    21.216</div></blockquote>
+</div></blockquote>
 </div>
 </div>
 
