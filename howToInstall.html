@@ -87,34 +87,40 @@
 </ul>
 </div></blockquote>
 </li>
-<li><p class="first">Install ProtoToMET :</p>
-<p>cd ${Installation Root}
-git clone <a class="reference external" href="https://github.com/masa-ito/ProtoToMET.git">https://github.com/masa-ito/ProtoToMET.git</a>
+<li><p class="first">Install ProtoToMET</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ${Installation Root}
+git clone https://github.com/masa-ito/ProtoToMET.git
 cd ProtoToMET/src/DenseLinAlg
-make</p>
+make
+</pre></div>
+</div>
 </li>
-<li><p class="first">Install ProtoToPoisson :</p>
-<p>cd ${Installation Root}
-git clone <a class="reference external" href="https://github.com/masa-ito/ProtoToPoisson.git">https://github.com/masa-ito/ProtoToPoisson.git</a>
+<li><p class="first">Install ProtoToPoisson</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ${Installation Root}
+git clone https://github.com/masa-ito/ProtoToPoisson.git
 cd ProtoToPoisson/src/test
-make</p>
+make
+</pre></div>
+</div>
 </li>
 <li><p class="first">Make sure that our sample program works.</p>
 <p>cd ${Installation Root}/ProtoToMET/src/test
 ./airCooledCylinder</p>
 </li>
 </ol>
-<blockquote>
-<div><p>The output of the sample program should include :</p>
-<p># stationary temperature distribution
-#     x      FVM       exact</p>
-<blockquote>
-<div>0.10    64.228    68.526
-0.30    36.911    37.866
-0.50    26.504    26.611
-0.70    22.602    22.536
-0.90    21.301    21.216</div></blockquote>
-</div></blockquote>
+<ul>
+<li><p class="first">The output of the sample program should include</p>
+<div class="highlight-python"><div class="highlight"><pre># stationary temperature distribution
+#     x      FVM       exact
+    0.10    64.228    68.526
+    0.30    36.911    37.866
+    0.50    26.504    26.611
+    0.70    22.602    22.536
+    0.90    21.301    21.216
+</pre></div>
+</div>
+</li>
+</ul>
 </div>
 </div>
 

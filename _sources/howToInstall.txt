@@ -26,32 +26,33 @@ Installation steps
     * http://www.boost.org/
     * The version of Boost.Proto should be equal to or later than 1.57.0 .
 
-2. Install ProtoToMET :
+2. Install ProtoToMET ::
 
-   cd ${Installation Root}
-   git clone https://github.com/masa-ito/ProtoToMET.git
-   cd ProtoToMET/src/DenseLinAlg
-   make
+     cd ${Installation Root}
+     git clone https://github.com/masa-ito/ProtoToMET.git
+     cd ProtoToMET/src/DenseLinAlg
+     make
 
-3. Install ProtoToPoisson :
+3. Install ProtoToPoisson ::
 
-   cd ${Installation Root}
-   git clone https://github.com/masa-ito/ProtoToPoisson.git
-   cd ProtoToPoisson/src/test
-   make
+     cd ${Installation Root}
+     git clone https://github.com/masa-ito/ProtoToPoisson.git
+     cd ProtoToPoisson/src/test
+     make
 
-4. Make sure that our sample program works.
+4. Make sure that our sample program works. ::
 
    cd ${Installation Root}/ProtoToMET/src/test
    ./airCooledCylinder
 
-  The output of the sample program should include :
+* The output of the sample program should include ::
 
-  # stationary temperature distribution
-  #     x      FVM       exact
-      0.10    64.228    68.526
-      0.30    36.911    37.866
-      0.50    26.504    26.611
-      0.70    22.602    22.536
-      0.90    21.301    21.216
+       # stationary temperature distribution
+       #     x      FVM       exact
+           0.10    64.228    68.526
+           0.30    36.911    37.866
+           0.50    26.504    26.611
+           0.70    22.602    22.536
+           0.90    21.301    21.216
+
 
