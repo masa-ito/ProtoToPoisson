@@ -40,16 +40,15 @@ Follow the following pull-request steps in 'shared repository model'
 
    * Frankly I still don't understand why this step is necessary.
 
-7. Merge your branch into master. ::
+7. Merge your branch into master and push your changes into the master branch.
 
      git checkout master
      git merge ${name of your feature branch}
-
-8. Push your changes into the master branch. ::
-
      git push
 
-9. Delete your feature branch and push the deletion to the remote repository. (opotional) ::
+  * I thought that this step is not necessary because GitHub.com merge the feature branch into the master, and still don't understand why this is necessary.
+
+8. Delete your feature branch and push the deletion to the remote repository. (opotional) ::
 
      git branch -D ${name of your feature branch}
      git push origin :${name of your feature branch}
@@ -61,12 +60,15 @@ If my understanding of pull-request steps or 'shared repository model', please t
 
 
 
-Case B. If you are still not registered as a collaborator of ProtoToMET and ProtoToPoisson, ...
+Case B. If you are still not registered as a collaborator in GitHub, ...
 ---------------------------------------------------------------------
 
 * And if you know me well and are willing to be a collaborator in GitHub, please tell me your accout name.
 
   * I'll register your account in ProtoToPoisson and ProtoToMET repositories.
+
+    * https://help.github.com/articles/adding-collaborators-to-a-personal-repository/
+
   * And you can follow the steps in Case A.
 
 * Otherwise, please follow the pull-request steps in 'Fork & Pull model'.

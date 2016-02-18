@@ -33,9 +33,8 @@ Contents
    :maxdepth: 2
 
    How to install <howToInstall>
-   How to write code in this project <howToWriteCode>
-   How to write document <howToWriteDoc>
-   Status update and roadmap <StatusUpdateRoadmap>
+   How to make your changes in this project <howToMakeYourChanges>
+   Roadmap and Current Status <StatusRoadmap>
 
 
 
