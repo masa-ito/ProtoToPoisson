@@ -1,5 +1,7 @@
 # ProtoToPoisson
-Boost.Proto workout To implement a mini-EDSL (embedded domain-specific language) for solving Poisson equation using finite volume method
+A research project to design and implement a mini-EDSL (embedded domain-specific language) for prototyping Poisson equation solvers using finite volume method
+
+See details in http://masa-ito.github.io/ProtoToPoisson/ .
 
 Feb. 5 2016
 
@@ -7,8 +9,6 @@ Sample code in this EDSL, src/test/airCooledCylinder.cpp , was confirmed to repr
 H. K. Versteeg and W. Malalasekera,
 "An Introduction  to Computational Fluid Dynamics, The Finite Volume Method", 2nd Ed.
  Pearson Educational Limited 1995, 2007.
- 
-The github-pages website of this EDSL, http://masa-ito.github.io/ProtoToCFD/ , is still in preparation.
  
 
 ２０１６年　２月５日
