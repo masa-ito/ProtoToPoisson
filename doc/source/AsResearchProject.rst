@@ -125,18 +125,30 @@ Sample code written in our EDSL
 Benchmarks
 ----------
 
-* Serial performance
+* Scalability comparison
 
-* Parrallel performance
+   * Refererence program
 
-  * On a PC cluster
+      * Its hot spot code is rewritten in plain-C style.
 
-    * OpenMP
-    * MPI
+   * Manually parallelized program
+   * Automatically parallelized program with our EDSL
 
-  * On Fujitsu supercomputer PRIMEHPC FX100
+     * OpenMP
+     * MPI
+
+* Hardware architecture comparison
+
+  * PC cluster
+  * Fujitsu supercomputer PRIMEHPC FX100
 
     http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/
+
+* C++ compiler comparison
+
+  * GNU
+  * Intel
+  * Fujitsu
 
 
 
