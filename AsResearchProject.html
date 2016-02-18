@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ProtoToPoisson as a Research Project &mdash; ProtoToPoisson 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="ProtoToPoisson 0.1 documentation" href="index.html" />
+    <link rel="prev" title="How to make your changes in ProtoToPoisson project" href="howToMakeYourChanges.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="prototopoisson-as-a-research-project">
+<h1>ProtoToPoisson as a Research Project<a class="headerlink" href="#prototopoisson-as-a-research-project" title="Permalink to this headline">¶</a></h1>
+<p>Problems we are trying to resolve</p>
+<blockquote>
+<div><p>A conflict between expressiveness of simulation source code and performace of its executable</p>
+<ul class="simple">
+<li>Object-oriented programming (OOP) language like C++ can enhance the expressiveness of user&#8217;s source code, so that they can focus on their simulation model.</li>
+<li>But OOP style in C++ sometimes affects the performace, so that scientists have given up expressiveness and written low-level code.</li>
+<li>That low-level coding prevents them from focusing on their model, so that the cost of prototyping a new model is increased.</li>
+</ul>
+</div></blockquote>
+<p>Project Goal</p>
+<blockquote>
+<div><p>To provide an expressive EDSL(embedded domain-specific language) with automatic parallelization</p>
+<ul class="simple">
+<li>Expressiveness : Our EDSL is going to translate user&#8217;s description of their model into low-level code, so that they can focus on their model.</li>
+<li>Performance : Our EDSL is going to automatically parallelize simulation algorithm based on user given model.</li>
+</ul>
+</div></blockquote>
+<div class="section" id="research-background">
+<h2>Research Background<a class="headerlink" href="#research-background" title="Permalink to this headline">¶</a></h2>
+<p>Key to resolve the conflict between expressiveness and performace</p>
+<blockquote>
+<div><ul class="simple">
+<li>ETs (expression templates) allow one to write expressive code with no significant performance penalty.</li>
+</ul>
+</div></blockquote>
+<p>Low-level programming, however, still persists in scientific computing.</p>
+<blockquote>
+<div><ul class="simple">
+<li>The abstraction cost of low-level code has not been decreased much, because ordinally ETs cannot optimize a complex kernel.</li>
+<li>What is worse, they cannot provide good semantics for describing a simulation model in concise code.</li>
+</ul>
+</div></blockquote>
+<p>Recent researches for resolving the conflict</p>
+<blockquote>
+<div><ul class="simple">
+<li>Smart ETs for abstracting complex kernels</li>
+<li>Parallel Skeltons for generating a parallelized program from domain-specific patterns and basic code fragments</li>
+<li>EDSLs for FEM(finite element method) provide good semantic models, so that one can describe her/his simulation model in concise code.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="design-and-implementation-of-an-edsl-for-fvm-finite-volume-method">
+<h2>Design and implementation of an EDSL for FVM (finite volume method)<a class="headerlink" href="#design-and-implementation-of-an-edsl-for-fvm-finite-volume-method" title="Permalink to this headline">¶</a></h2>
+<p>Features of problem domains</p>
+<blockquote>
+<div><ul class="simple">
+<li>Algorithm domain : Linear Algebra<ul>
+<li>Vector and matrix expressions</li>
+<li>Solving descretized PDEs</li>
+</ul>
+</li>
+<li>Model damain : FVM<ul>
+<li>Descretizing PDEs (partial differential equations)</li>
+<li>This domain is defined with using the algorithm domain.</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<p>Front Ends &#8211; Utility classes</p>
+<blockquote>
+<div><ul class="simple">
+<li>Grid<ul>
+<li>Dividing a simulation region into cotrol volumes to descretize continuous data into discrete ones</li>
+</ul>
+</li>
+<li>Mathematical operators<ul>
+<li>Such like partial differential and identity operators</li>
+<li>Necessary to describe Poisson equation</li>
+</ul>
+</li>
+<li>Iterative solvers and preconditioners<ul>
+<li>Wrapping linear algebra libraries of third parties</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+<p>Back Ends &#8211; Semantic model</p>
+<blockquote>
+<div><ul class="simple">
+<li>Transforming differential and identity operators into matrices</li>
+<li>Transforming spacial functions into vectors</li>
+<li>Parallelizing serial algorithm with OpenMP and MPI based on a user given model<ul>
+<li>Restructuring data structure to distribute simulation data to processors, based on the user specified distribution of the control volumes</li>
+<li>Reordering indices for matrices and vectors, based on the connectivity of the control volumes</li>
+<li>Combining parallel skeltons (higher-order functions), basic code fragments, and directives</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="sample-code-written-in-our-edsl">
+<h2>Sample code written in our EDSL<a class="headerlink" href="#sample-code-written-in-our-edsl" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">1D steady state heat conduction</p>
+<p>Cooling of a cylinder by means of convective heat transfer along its length</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/masa-ito/ProtoToPoisson/blob/master/src/test/airCooledCylinder.cpp">https://github.com/masa-ito/ProtoToPoisson/blob/master/src/test/airCooledCylinder.cpp</a></li>
+<li>Its compiled code reproduces the example calculation in a finite volume method textbook,<ol class="upperalpha" start="8">
+<li><ol class="first upperalpha" start="11">
+<li>Versteeg and W. Malalasekera,&#8221;An Introduction to Computational Fluid Dynamics, The Finite Volume Method&#8221;, 2nd Ed. Pearson Educational Limited 1995, 2007, page 125 - 129, example 4.3 .</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p class="first">3D steady state heat conduction</p>
+<p>Cooling of a cuboid with internal heat generation</p>
+</li>
+</ol>
+<div class="math">
+\[k \nabla^2 T(x,y,z) + g | x + y | = 0\]</div>
+<dl class="docutils">
+<dt>.</dt>
+<dd><dl class="first docutils">
+<dt>where</dt>
+<dd><ul class="first last simple">
+<li>Thermal conductivity : <span class="math">\(k\)</span></li>
+<li>Heat generation rate : <span class="math">\(g | x + y |\)</span></li>
+</ul>
+</dd>
+</dl>
+<p class="last">The cuboid size</p>
+</dd>
+</dl>
+<div class="math">
+\[L_x, L_y, L_z\]</div>
+<dl class="docutils">
+<dt>.</dt>
+<dd>Boundary conditions :</dd>
+</dl>
+<div class="math">
+\[\frac{\partial T}{\partial x} = 0 \ \mbox{for} \ x= 0, L_x\]</div>
+<div class="math">
+\[\frac{\partial T}{\partial y} = 0 \ \mbox{for} \ y = 0, L_y\]</div>
+<div class="math">
+\[\frac{\partial T}{\partial z} = 0 \ \mbox{for} \ z = 0\]</div>
+<div class="math">
+\[T(x,y, L_z) = T_c\]</div>
+</div>
+<div class="section" id="benchmarks">
+<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Serial performance</p>
+</li>
+<li><p class="first">Parrallel performance</p>
+<ul>
+<li><p class="first">On a PC cluster</p>
+<ul class="simple">
+<li>OpenMP</li>
+<li>MPI</li>
+</ul>
+</li>
+<li><p class="first">On Fujitsu supercomputer PRIMEHPC FX100</p>
+<p><a class="reference external" href="http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/">http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/</a></p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="changelog">
+<h2>ChangeLog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Feb. 5. 2016</dt>
+<dd>Sample code 1 was confirmed to work.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ProtoToPoisson as a Research Project</a><ul>
+<li><a class="reference internal" href="#research-background">Research Background</a></li>
+<li><a class="reference internal" href="#design-and-implementation-of-an-edsl-for-fvm-finite-volume-method">Design and implementation of an EDSL for FVM (finite volume method)</a></li>
+<li><a class="reference internal" href="#sample-code-written-in-our-edsl">Sample code written in our EDSL</a></li>
+<li><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
+<li><a class="reference internal" href="#changelog">ChangeLog</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="howToMakeYourChanges.html" title="previous chapter">How to make your changes in ProtoToPoisson project</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/AsResearchProject.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Masakatsu ITO.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/AsResearchProject.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

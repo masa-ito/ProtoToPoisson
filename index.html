@@ -48,18 +48,16 @@
 <li>A mini-EDSL (embedded domain-specific language) for prototyping and parallelizing Poisson equation solvers with FVM (finite volume method)</li>
 </ul>
 </div></blockquote>
-<p>Problems we are trying to resolve</p>
+<p>A problem we are trying to resolve</p>
 <blockquote>
 <div><ul class="simple">
-<li>Even when scientist use C++, they have to write low-level code for avoiding performance penalty of abstracting low-level system, hardware.</li>
-<li>That low-level coding prevents them from focusing on their simulation model, so that the cost of prototyping a new model is increased.</li>
+<li>A conflict between expressiveness of simulation program source code and performace of its executable code</li>
 </ul>
 </div></blockquote>
 <p>Project Goal</p>
 <blockquote>
 <div><ul class="simple">
-<li>Our EDSL can translate user&#8217;s description of their model into low-level code, so that they can prototype a new model with ease.</li>
-<li>Our EDSL can automatically parallelize simulation algorithm based on user given model, so that they focus on the model with less performance penalty.</li>
+<li>Providing an expressive EDSL for Poisson equation solvers with a smaller conflict with performance</li>
 </ul>
 </div></blockquote>
 <dl class="docutils">
@@ -80,12 +78,19 @@
 <li class="toctree-l2"><a class="reference internal" href="howToInstall.html#installation-steps">Installation steps</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="howToWriteCode.html">How to write code in this project</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="howToWriteCode.html#if-you-are-a-contributor-of-prototomet-and-prototopoisson">If you are a contributor of ProtoToMET and ProtoToPoisson, ...</a></li>
-<li class="toctree-l2"><a class="reference internal" href="howToWriteCode.html#if-you-are-still-not-a-contributor-of-prototomet-and-prototopoisson">If you are still not a contributor of ProtoToMET and ProtoToPoisson, ...</a></li>
+<li class="toctree-l1"><a class="reference internal" href="howToMakeYourChanges.html">How to make your changes in this project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="howToMakeYourChanges.html#case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson">Case A. If you are registered as a collaborator of ProtoToMET and ProtoToPoisson, ...</a></li>
+<li class="toctree-l2"><a class="reference internal" href="howToMakeYourChanges.html#case-b-if-you-are-still-not-registered-as-a-collaborator-in-github">Case B. If you are still not registered as a collaborator in GitHub, ...</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="howToWriteDoc.html">How to write document</a></li>
+<li class="toctree-l1"><a class="reference internal" href="AsResearchProject.html">ProtoToPoisson as a Research Project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="AsResearchProject.html#research-background">Research Background</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsResearchProject.html#design-and-implementation-of-an-edsl-for-fvm-finite-volume-method">Design and implementation of an EDSL for FVM (finite volume method)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsResearchProject.html#sample-code-written-in-our-edsl">Sample code written in our EDSL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsResearchProject.html#benchmarks">Benchmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="AsResearchProject.html#changelog">ChangeLog</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>

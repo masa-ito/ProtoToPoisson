@@ -42,25 +42,84 @@
   <div class="section" id="how-to-write-code-in-prototopoisson-project">
 <h1>How to write code in ProtoToPoisson project<a class="headerlink" href="#how-to-write-code-in-prototopoisson-project" title="Permalink to this headline">¶</a></h1>
 <p><strong>I&#8217;d really appreciate it if you would write code in this project for helping one to prototype their simulation model.</strong></p>
-<div class="section" id="if-you-are-a-contributor-of-prototomet-and-prototopoisson">
-<h2>If you are a contributor of ProtoToMET and ProtoToPoisson, ...<a class="headerlink" href="#if-you-are-a-contributor-of-prototomet-and-prototopoisson" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic simple">
-<li>Install ProtoToMET and ProtoToPoisson on your PC.</li>
-<li>Make a new feature branch of ProtoToPoisson or its related project ProtoToMET.</li>
-<li>Add your code in that branch.</li>
-<li>Confirm your code works.</li>
-<li>Create a new pull-request.<ul>
+<div class="section" id="case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson">
+<h2>Case A. If you are registered as a collaborator of ProtoToMET and ProtoToPoisson, ...<a class="headerlink" href="#case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Follow the following pull-request steps in &#8216;shared repository model&#8217;</dt>
+<dd><ul class="first last simple">
+<li>ref1) <a class="reference external" href="http://wujingyue.blogspot.jp/2012/12/pull-request-and-code-review-in-githubs.html">http://wujingyue.blogspot.jp/2012/12/pull-request-and-code-review-in-githubs.html</a></li>
+<li>ref2) <a class="reference external" href="http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/">http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/</a></li>
+</ul>
+</dd>
+</dl>
+<ol class="arabic">
+<li><p class="first">Create a new feature branch of ProtoToPoisson or its related project ProtoToMET.:</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout -b ${name of your feature branch}
+</pre></div>
+</div>
+</li>
+<li><p class="first">Make your changes in that branch and confirm them work.</p>
+</li>
+<li><p class="first">Commit and push your changes.</p>
+<div class="highlight-python"><div class="highlight"><pre>git commit -m &quot;...&quot;
+git push origin ${name of your feature branch}
+</pre></div>
+</div>
+</li>
+<li><p class="first">Go to the project page to which your feature branch belong, and create a new pull-quest.</p>
+<ul class="simple">
 <li>ProtoToMET : <a class="reference external" href="https://github.com/masa-ito/ProtoToMET/pull/new/master">https://github.com/masa-ito/ProtoToMET/pull/new/master</a></li>
 <li>ProtoToPoisson : <a class="reference external" href="https://github.com/masa-ito/ProtoToMET/pull/new/master">https://github.com/masa-ito/ProtoToMET/pull/new/master</a></li>
 </ul>
 </li>
-</ol>
-</div>
-<div class="section" id="if-you-are-still-not-a-contributor-of-prototomet-and-prototopoisson">
-<h2>If you are still not a contributor of ProtoToMET and ProtoToPoisson, ...<a class="headerlink" href="#if-you-are-still-not-a-contributor-of-prototomet-and-prototopoisson" title="Permalink to this headline">¶</a></h2>
-<p><strong>I am very sorry for not being sure about this case.</strong></p>
+<li><p class="first">Wait for my reviewing your changes.</p>
 <ul class="simple">
-<li>I should have understood this fork-and-pull-request way.<ul>
+<li>If I ask you to revice your changes, please edit your feature branch and push it again.</li>
+<li>You need not issue another pull request, because GitHub will automatically update the pull request to contain your new changes.</li>
+</ul>
+</li>
+<li><p class="first">Clean up your history. (optional)</p>
+<div class="highlight-python"><div class="highlight"><pre>git rebase master
+</pre></div>
+</div>
+<ul class="simple">
+<li>Frankly I still don&#8217;t understand why this step is necessary.</li>
+</ul>
+</li>
+<li><p class="first">Merge your branch into master.</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout master
+git merge ${name of your feature branch}
+</pre></div>
+</div>
+</li>
+<li><p class="first">Push your changes into the master branch.</p>
+<div class="highlight-python"><div class="highlight"><pre>git push
+</pre></div>
+</div>
+</li>
+<li><p class="first">Delete your feature branch and push the deletion to the remote repository. (opotional)</p>
+<div class="highlight-python"><div class="highlight"><pre>git branch -D ${name of your feature branch}
+git push origin :${name of your feature branch}
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Sorry I still have not deleted my feature branches which I had merged into the master.</li>
+</ul>
+</div></blockquote>
+<p>If my understanding of pull-request steps or &#8216;shared repository model&#8217;, please tell me.</p>
+</div>
+<div class="section" id="case-b-if-you-are-still-not-registered-as-a-collaborator-of-prototomet-and-prototopoisson">
+<h2>Case B. If you are still not registered as a collaborator of ProtoToMET and ProtoToPoisson, ...<a class="headerlink" href="#case-b-if-you-are-still-not-registered-as-a-collaborator-of-prototomet-and-prototopoisson" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>And if you know me well and are willing to be a collaborator in GitHub, please tell me your accout name.<ul>
+<li>I&#8217;ll register your account in ProtoToPoisson and ProtoToMET repositories.</li>
+<li>And you can follow the steps in Case A.</li>
+</ul>
+</li>
+<li>Otherwise, please follow the pull-request steps in &#8216;Fork &amp; Pull model&#8217;.<ul>
 <li><a class="reference external" href="https://help.github.com/articles/using-pull-requests/">https://help.github.com/articles/using-pull-requests/</a></li>
 </ul>
 </li>
@@ -77,8 +136,8 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">How to write code in ProtoToPoisson project</a><ul>
-<li><a class="reference internal" href="#if-you-are-a-contributor-of-prototomet-and-prototopoisson">If you are a contributor of ProtoToMET and ProtoToPoisson, ...</a></li>
-<li><a class="reference internal" href="#if-you-are-still-not-a-contributor-of-prototomet-and-prototopoisson">If you are still not a contributor of ProtoToMET and ProtoToPoisson, ...</a></li>
+<li><a class="reference internal" href="#case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson">Case A. If you are registered as a collaborator of ProtoToMET and ProtoToPoisson, ...</a></li>
+<li><a class="reference internal" href="#case-b-if-you-are-still-not-registered-as-a-collaborator-of-prototomet-and-prototopoisson">Case B. If you are still not registered as a collaborator of ProtoToMET and ProtoToPoisson, ...</a></li>
 </ul>
 </li>
 </ul>
