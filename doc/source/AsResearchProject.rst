@@ -2,44 +2,53 @@
 ProtoToPoisson as a Research Project
 ====================================
 
-Problems we are trying to resolve
 
-    A conflict between expressiveness of simulation source code and performace of its executable
+Research Issue
+    
+    Limit of object-oriented programming (OOP) in C++
 
-    * Object-oriented programming (OOP) language like C++ can enhance the expressiveness of user's source code, so that they can focus on their simulation model.
-    * But OOP style in C++ sometimes affects the performace, so that scientists have given up expressiveness and written low-level code.
-    * That low-level coding prevents them from focusing on their model, so that the cost of prototyping a new model is increased.
+    * Expressiveness of OOP is not enough for concise description of a discretization model with finite volume method (FVM). 
+    * Peformance penalty of OOP style is apparent in matrix and vector operations which are required for solving disretized pertial differential equations (PDEs).
 
-Project Goal
+.. image:: figurePerformanceVsExpressiveness.jpg
 
-    To provide an expressive EDSL(embedded domain-specific language) with automatic parallelization
+Research Goal
 
-    * Expressiveness : Our EDSL is going to translate user's description of their model into low-level code, so that they can focus on their model.
-    * Performance : Our EDSL is going to automatically parallelize simulation algorithm based on user given model.
+    To overcome a limitation of OOP in C++, our EDSL is going
+
+    * To improve expressiveness of C++ code with the semantic model for FVM, so that you can describe your descretization model in concise code.
+    * To transform your expressiveness into parallel scalability with the semantic model for parallelizing a solver algorithm based on your model.
 
 
-Research Background
+.. image:: figureScalabilityVsExpressiveness.jpg
+
+
+Background
 -------------------
 
-Key to resolve the conflict between expressiveness and performace 
+Expressiveness or performace ?
 
-   * ETs (expression templates) allow one to write expressive code with no significant performance penalty.
+Apparently both are necessary, but some scientists have given up one for the other.
 
-Low-level programming, however, still persists in scientific computing.
+    * OOP style code can be expressive for describing a solver algorithm, because it can encapsulate low-level arithmetics into linear-algebra-level obejcts.
+    * But such encapsulation sometimes lowers the performace, so that not a few scientist have given up the expressiveness of OOP style to improve the performance.
+    * Morever OOP style code in C++ is not so expressive for describing a discretization model, because the semantics of the operators and functions in a modeling method such like FVM is totally different from that in C++.
 
-   * The abstraction cost of low-level code has not been decreased much, because ordinally ETs cannot optimize a complex kernel.
-   * What is worse, they cannot provide good semantics for describing a simulation model in concise code.
-   
-Recent researches for resolving the conflict
+It was shown that C++ code can be both at least in a solver algorithm.
+
+   * ETs (expression templates) allow one to use matrix and vector objects with no significant performance penalty.
+
+Recent researches are for more expressiveness and performance.
 
    * Smart ETs for abstracting complex kernels
    * Parallel Skeltons for generating a parallelized program from domain-specific patterns and basic code fragments
    * EDSLs for FEM(finite element method) provide good semantic models, so that one can describe her/his simulation model in concise code.
 
+Our research focus is on expressiveness in a discretization model and parallel scalability.
 
 
-Design and implementation of an EDSL for FVM (finite volume method)
--------------------------------------------------------------------
+Design and Implementation of an EDSL
+------------------------------------
 
 Features of problem domains
 
@@ -48,7 +57,7 @@ Features of problem domains
      * Vector and matrix expressions
      * Solving descretized PDEs
 
-   * Model damain : FVM
+   * Model domain : FVM
 
      * Descretizing PDEs (partial differential equations)
      * This domain is defined with using the algorithm domain.

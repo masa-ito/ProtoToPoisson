@@ -1,0 +1,128 @@
+%--*-coding:utf-8-unix-*--
+\documentclass[a4j,11pt]{jarticle}
+\usepackage{txfonts}
+
+\setlength{\oddsidemargin}{0truemm}
+\setlength{\hoffset}{-0.4truemm}
+\setlength{\voffset}{-0.4truemm}
+\setlength{\textheight}{247truemm}
+\setlength{\textwidth}{160truemm}
+\setlength{\headheight}{0truemm}
+\setlength{\topmargin}{0truemm}
+\setlength{\headsep}{0truemm}
+
+\pagestyle{empty}
+
+\usepackage{graphicx}% Include figure files
+
+\begin{document}
+\renewcommand{\baselinestretch}{1.12}\small\normalsize
+\begin{center}
+  \textbf{\Large 有限体積法を高速化するための 領域特化言語のC++への埋め込み}
+  
+  \textbf{\large Design of an embedded domain-specific language for\\ 
+accelerating finite volume method with Boost.Proto}
+\end{center}
+\begin{center}  
+  \textbf{伊藤 正勝}
+
+  \textbf{Masakatsu Ito}
+
+\end{center}
+
+演算子\(  d^2 / dx^2 - s\ \hat{Id} \)を離散化して行列で表現するためのプログラミング
+
+\[ k \ \frac{d}{dx} \cdot  \frac{d}{dx} - s\ \hat{Id}  \]
+
+
+一次元熱伝導問題の解き方
+
+\[ k \frac{d^2}{dx^2} T(x) - s \, ( T(x) - T_\infty ) = 0    \]
+
+をグリッド内の検査体積 \(\Delta x\)ごとに
+
+\[ \int_{\Delta x_i} \left(  k \frac{d^2}{dx^2} T(x) - s \, T(x)   \right) dx =  - \int_{\Delta x_i} s \, T_\infty dx  \]
+
+のように離散化して、連立方程式
+
+\[ \frac{k}{\Delta x} T_{i-1} - \frac{2 k}{\Delta x}T_i +  \frac{k}{\Delta x} T_{i+1} + s  \Delta x\ T_i =  - s\ T_\infty \Delta x   \]
+
+
+\begin{eqnarray}
+\frac{k}{\Delta x} T_{i-1} - \frac{2 k}{\Delta x}T_i +  \frac{k}{\Delta x} T_{i+1}    \\
+ +  s  \Delta x\ T_i  =  - s\ T_\infty \Delta x  \\
+\end{eqnarray}
+
+
+を得る。
+
+
+境界条件を満たすように、連立方程式を修正して、反復法で解く。
+
+
+
+拡散方程式
+
+グリッド内の検査体積 \(\Delta V\)、その境界面\(\Delta A\)ごとに積分
+
+
+%\[ \int_{\Delta A} {\bf \nabla} \cdot ( \Gamma \,  {\bf \nabla} \phi )\, dA + \int_{\Delta V} S_\phi \,dV  = 0 \]
+\[ \int_{\Delta A} {\bf \nabla} \cdot ( k \,  {\bf \nabla} T )\, dA + \int_{\Delta V} S_T \,dV  = 0 \]
+
+\begin{eqnarray}
+ \int_{\Delta A} {\bf \nabla} \cdot ( k \,  {\bf \nabla} T )\, dA & \\
++  \int_{\Delta V} S_T \,dV &  = 0  \\ 
+\end{eqnarray}
+
+ 
+\medskip
+
+\[ C \,{\bf t} = {\bf b} \]
+
+
+有限体積法テンプレートで解く場合
+
+    グリッドオブジェクト
+
+        検査体積 \( \Delta x_i\) 、 境界条件 \( T(0) = T_B , d T(L) / dx = 0 \)
+
+    グリッドオブジェクトが離散化を行う。
+
+        演算子 \(  k\ d^2 / dx^2 - s\ \hat{Id} \)　→ 行列 \(C\)
+
+        定数項 \( - s \, T_\infty \) → ベクトル \( \bf b \)
+
+            意味論モデルで数式テンプレートを行列、ベクトルに変換
+
+    反復解法ソルバで、行列方程式 \( C {\bf t} = {\bf b} \) を解いて、温度分布 \( \bf t\) を得る。
+        意味論モデルで行列、ベクトルの数式を、配列要素計算コードに変換
+
+
+
+演算子から行列へ
+ 
+
+\[ k \frac{ d^2 }{ dx^2} \rightarrow  k \left( \begin{array}{@{\,}ccccc@{\,}} \ddots & 1 / \Delta x & & & \\ 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & & \\ & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & \\ & & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x \\ & & & 1 / \Delta x & \ddots \end{array} \right)  \]
+
+
+\[  \frac{ d^2 }{ dx^2} \rightarrow  \left( \begin{array}{@{\,}ccccc@{\,}} \ddots & 1 / \Delta x & & & \\ 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & & \\ & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x & \\ & & 1 / \Delta x & - 2 / \Delta x & 1 / \Delta x \\ & & & 1 / \Delta x & \ddots \end{array} \right)  \]
+
+
+微分方程式の演算子部分
+ \[  k\ \frac{d^2}{dx^2} - s\ \hat{Id} \]
+ 
+
+
+移流拡散問題
+
+\[ {\bf \nabla} \cdot ( \rho {\bf u} \phi) = {\bf \nabla} \cdot ( \Gamma \, {\bf \nabla} \phi )  + S_\phi \]
+
+をグリッド内の検査体積 \(\Delta V\)、その境界面\(\Delta A\)ごとに
+
+\[ \int_{\Delta A} {\bf n} \cdot ( \rho {\bf u} \phi )\, dA = \int_{\Delta A} {\bf n} \cdot ( \Gamma \,  {\bf \nabla} \phi )\, dA + \int_{\Delta V} S_\phi \,dV  \]
+ 
+
+
+
+
+\end{document}

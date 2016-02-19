@@ -13,13 +13,9 @@ What is ProtoToPoisson?
 
     * A mini-EDSL (embedded domain-specific language) for prototyping and parallelizing Poisson equation solvers with FVM (finite volume method)
 
-A problem we are trying to resolve
-
-    * A conflict between expressiveness of simulation program source code and performace of its executable code
-
 Project Goal
 
-    * Providing an expressive EDSL for Poisson equation solvers with a smaller conflict with performance
+    * Enhancing expressiveness in C++ code and parallel scalability of its executalbe with our EDSL
 
 Project period
     * Jan. 2015 - Sep. 2016 (or until my temporary transfer from Fujitsu to JAXA (Japan Aerospace Exploration Agency) ends.)
