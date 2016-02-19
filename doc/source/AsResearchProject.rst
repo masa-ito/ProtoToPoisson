@@ -16,7 +16,7 @@ Research Goal
 
     To overcome a limitation of OOP in C++, our EDSL is going
 
-    * To improve expressiveness of C++ code with the semantic model for FVM, so that you can describe your descretization model in concise code.
+    * To improve expressiveness of C++ code with the semantic model for FVM, so that you can describe your discretization model in concise code.
     * To transform your expressiveness into parallel scalability with the semantic model for parallelizing a solver algorithm based on your model.
 
 
@@ -91,7 +91,7 @@ Back Ends -- Semantic model
 
 
 
-Sample code written in our EDSL
+Application Examples
 ------------------------------
 
 1. 1D steady state heat conduction
