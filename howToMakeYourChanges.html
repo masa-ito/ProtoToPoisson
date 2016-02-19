@@ -1,0 +1,199 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to make your changes in ProtoToPoisson project &mdash; ProtoToPoisson 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="ProtoToPoisson 0.1 documentation" href="index.html" />
+    <link rel="next" title="ProtoToPoisson as a Research Project" href="AsResearchProject.html" />
+    <link rel="prev" title="How to install ProtoToPoisson" href="howToInstall.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="how-to-make-your-changes-in-prototopoisson-project">
+<h1>How to make your changes in ProtoToPoisson project<a class="headerlink" href="#how-to-make-your-changes-in-prototopoisson-project" title="Permalink to this headline">¶</a></h1>
+<p><strong>I&#8217;d really appreciate it if you would write code / document in this project for helping one to prototype their simulation model.</strong></p>
+<div class="section" id="case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson">
+<h2>Case A. If you are registered as a collaborator of ProtoToMET and ProtoToPoisson, ...<a class="headerlink" href="#case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Follow the following pull-request steps in &#8216;shared repository model&#8217;</dt>
+<dd><ul class="first last simple">
+<li>ref1) <a class="reference external" href="http://wujingyue.blogspot.jp/2012/12/pull-request-and-code-review-in-githubs.html">http://wujingyue.blogspot.jp/2012/12/pull-request-and-code-review-in-githubs.html</a></li>
+<li>ref2) <a class="reference external" href="http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/">http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/</a></li>
+</ul>
+</dd>
+</dl>
+<ol class="arabic">
+<li><p class="first">Create a new feature branch of ProtoToPoisson or its related project ProtoToMET.:</p>
+<div class="highlight-python"><div class="highlight"><pre>git checkout -b ${name of your feature branch}
+</pre></div>
+</div>
+</li>
+<li><p class="first">Make your changes in that branch and confirm them work.</p>
+</li>
+<li><p class="first">Commit and push your changes.</p>
+<div class="highlight-python"><div class="highlight"><pre>git commit -m &quot;...&quot;
+git push origin ${name of your feature branch}
+</pre></div>
+</div>
+</li>
+<li><p class="first">Go to the project page to which your feature branch belong, and create a new pull-quest.</p>
+<ul class="simple">
+<li>ProtoToMET : <a class="reference external" href="https://github.com/masa-ito/ProtoToMET/pull/new/master">https://github.com/masa-ito/ProtoToMET/pull/new/master</a></li>
+<li>ProtoToPoisson : <a class="reference external" href="https://github.com/masa-ito/ProtoToMET/pull/new/master">https://github.com/masa-ito/ProtoToMET/pull/new/master</a></li>
+</ul>
+</li>
+<li><p class="first">Wait for my reviewing your changes.</p>
+<ul class="simple">
+<li>If I ask you to revice your changes, please edit your feature branch and push it again.</li>
+<li>You need not issue another pull request, because GitHub will automatically update the pull request to contain your new changes.</li>
+</ul>
+</li>
+<li><p class="first">Clean up your history. (optional)</p>
+<div class="highlight-python"><div class="highlight"><pre>git rebase master
+</pre></div>
+</div>
+<ul class="simple">
+<li>Frankly I still don&#8217;t understand why this step is necessary.</li>
+</ul>
+</li>
+<li><p class="first">Merge your branch into master and push your changes into the master branch.</p>
+<blockquote>
+<div><p>git checkout master
+git merge ${name of your feature branch}
+git push</p>
+</div></blockquote>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>I thought that this step is not necessary because GitHub.com merge the feature branch into the master, and still don&#8217;t understand why this is necessary.</li>
+</ul>
+</div></blockquote>
+<ol class="arabic" start="8">
+<li><p class="first">Delete your feature branch and push the deletion to the remote repository. (opotional)</p>
+<div class="highlight-python"><div class="highlight"><pre>git branch -D ${name of your feature branch}
+git push origin :${name of your feature branch}
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><ul class="simple">
+<li>Sorry I still have not deleted my feature branches which I had merged into the master.</li>
+</ul>
+</div></blockquote>
+<p>If my understanding of pull-request steps or &#8216;shared repository model&#8217;, please tell me.</p>
+</div>
+<div class="section" id="case-b-if-you-are-still-not-registered-as-a-collaborator-in-github">
+<h2>Case B. If you are still not registered as a collaborator in GitHub, ...<a class="headerlink" href="#case-b-if-you-are-still-not-registered-as-a-collaborator-in-github" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>And if you know me well and are willing to be a collaborator in GitHub, please tell me your accout name.<ul>
+<li>I&#8217;ll register your account in ProtoToPoisson and ProtoToMET repositories.<ul>
+<li><a class="reference external" href="https://help.github.com/articles/adding-collaborators-to-a-personal-repository/">https://help.github.com/articles/adding-collaborators-to-a-personal-repository/</a></li>
+</ul>
+</li>
+<li>And you can follow the steps in Case A.</li>
+</ul>
+</li>
+<li>Otherwise, please follow the pull-request steps in &#8216;Fork &amp; Pull model&#8217;.<ul>
+<li><a class="reference external" href="https://help.github.com/articles/using-pull-requests/">https://help.github.com/articles/using-pull-requests/</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to make your changes in ProtoToPoisson project</a><ul>
+<li><a class="reference internal" href="#case-a-if-you-are-registered-as-a-collaborator-of-prototomet-and-prototopoisson">Case A. If you are registered as a collaborator of ProtoToMET and ProtoToPoisson, ...</a></li>
+<li><a class="reference internal" href="#case-b-if-you-are-still-not-registered-as-a-collaborator-in-github">Case B. If you are still not registered as a collaborator in GitHub, ...</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="howToInstall.html" title="previous chapter">How to install ProtoToPoisson</a></li>
+      <li>Next: <a href="AsResearchProject.html" title="next chapter">ProtoToPoisson as a Research Project</a></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/howToMakeYourChanges.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Masakatsu ITO.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="_sources/howToMakeYourChanges.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
