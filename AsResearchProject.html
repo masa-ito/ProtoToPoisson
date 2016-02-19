@@ -40,39 +40,42 @@
             
   <div class="section" id="prototopoisson-as-a-research-project">
 <h1>ProtoToPoisson as a Research Project<a class="headerlink" href="#prototopoisson-as-a-research-project" title="Permalink to this headline">¶</a></h1>
-<p>Problems we are trying to resolve</p>
+<p>Research Issue</p>
 <blockquote>
-<div><p>A conflict between expressiveness of simulation source code and performace of its executable</p>
+<div><p>Limit of object-oriented programming (OOP) in C++</p>
 <ul class="simple">
-<li>Object-oriented programming (OOP) language like C++ can enhance the expressiveness of user&#8217;s source code, so that they can focus on their simulation model.</li>
-<li>But OOP style in C++ sometimes affects the performace, so that scientists have given up expressiveness and written low-level code.</li>
-<li>That low-level coding prevents them from focusing on their model, so that the cost of prototyping a new model is increased.</li>
+<li>Expressiveness of OOP is not enough for concise description of a discretization model with finite volume method (FVM).</li>
+<li>Peformance penalty of OOP style is apparent in matrix and vector operations which are required for solving disretized pertial differential equations (PDEs).</li>
 </ul>
 </div></blockquote>
-<p>Project Goal</p>
+<img alt="_images/figurePerformanceVsExpressiveness.jpg" src="_images/figurePerformanceVsExpressiveness.jpg" />
+<p>Research Goal</p>
 <blockquote>
-<div><p>To provide an expressive EDSL(embedded domain-specific language) with automatic parallelization</p>
+<div><p>To overcome a limitation of OOP in C++, our EDSL is going</p>
 <ul class="simple">
-<li>Expressiveness : Our EDSL is going to translate user&#8217;s description of their model into low-level code, so that they can focus on their model.</li>
-<li>Performance : Our EDSL is going to automatically parallelize simulation algorithm based on user given model.</li>
+<li>To improve expressiveness of C++ code with the semantic model for FVM, so that you can describe your descretization model in concise code.</li>
+<li>To transform your expressiveness into parallel scalability with the semantic model for parallelizing a solver algorithm based on your model.</li>
 </ul>
 </div></blockquote>
-<div class="section" id="research-background">
-<h2>Research Background<a class="headerlink" href="#research-background" title="Permalink to this headline">¶</a></h2>
-<p>Key to resolve the conflict between expressiveness and performace</p>
+<img alt="_images/figureScalabilityVsExpressiveness.jpg" src="_images/figureScalabilityVsExpressiveness.jpg" />
+<div class="section" id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
+<p>Expressiveness or performace ?</p>
+<p>Apparently both are necessary, but some scientists have given up one for the other.</p>
 <blockquote>
 <div><ul class="simple">
-<li>ETs (expression templates) allow one to write expressive code with no significant performance penalty.</li>
+<li>OOP style code can be expressive for describing a solver algorithm, because it can encapsulate low-level arithmetics into linear-algebra-level obejcts.</li>
+<li>But such encapsulation sometimes lowers the performace, so that not a few scientist have given up the expressiveness of OOP style to improve the performance.</li>
+<li>Morever OOP style code in C++ is not so expressive for describing a discretization model, because the semantics of the operators and functions in a modeling method such like FVM is totally different from that in C++.</li>
 </ul>
 </div></blockquote>
-<p>Low-level programming, however, still persists in scientific computing.</p>
+<p>It was shown that C++ code can be both at least in a solver algorithm.</p>
 <blockquote>
 <div><ul class="simple">
-<li>The abstraction cost of low-level code has not been decreased much, because ordinally ETs cannot optimize a complex kernel.</li>
-<li>What is worse, they cannot provide good semantics for describing a simulation model in concise code.</li>
+<li>ETs (expression templates) allow one to use matrix and vector objects with no significant performance penalty.</li>
 </ul>
 </div></blockquote>
-<p>Recent researches for resolving the conflict</p>
+<p>Recent researches are for more expressiveness and performance.</p>
 <blockquote>
 <div><ul class="simple">
 <li>Smart ETs for abstracting complex kernels</li>
@@ -80,9 +83,10 @@
 <li>EDSLs for FEM(finite element method) provide good semantic models, so that one can describe her/his simulation model in concise code.</li>
 </ul>
 </div></blockquote>
+<p>Our research focus is on expressiveness in a discretization model and parallel scalability.</p>
 </div>
-<div class="section" id="design-and-implementation-of-an-edsl-for-fvm-finite-volume-method">
-<h2>Design and implementation of an EDSL for FVM (finite volume method)<a class="headerlink" href="#design-and-implementation-of-an-edsl-for-fvm-finite-volume-method" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="design-and-implementation-of-an-edsl">
+<h2>Design and Implementation of an EDSL<a class="headerlink" href="#design-and-implementation-of-an-edsl" title="Permalink to this headline">¶</a></h2>
 <p>Features of problem domains</p>
 <blockquote>
 <div><ul class="simple">
@@ -240,8 +244,8 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ProtoToPoisson as a Research Project</a><ul>
-<li><a class="reference internal" href="#research-background">Research Background</a></li>
-<li><a class="reference internal" href="#design-and-implementation-of-an-edsl-for-fvm-finite-volume-method">Design and implementation of an EDSL for FVM (finite volume method)</a></li>
+<li><a class="reference internal" href="#background">Background</a></li>
+<li><a class="reference internal" href="#design-and-implementation-of-an-edsl">Design and Implementation of an EDSL</a></li>
 <li><a class="reference internal" href="#sample-code-written-in-our-edsl">Sample code written in our EDSL</a></li>
 <li><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
 <li><a class="reference internal" href="#changelog">ChangeLog</a></li>
