@@ -7,44 +7,34 @@ Research Issue
     
     Limit of object-oriented programming (OOP) in C++
 
-    * Expressiveness of OOP is not enough for concise description of a discretization model with finite volume method (FVM). 
+    * Expressiveness of OOP is not enough for describing a discretization model with finite volume method (FVM). 
     * Peformance penalty of OOP style is apparent in matrix and vector operations which are required for solving disretized pertial differential equations (PDEs).
 
 .. image:: figurePerformanceVsExpressiveness.jpg
 
 Research Goal
 
-    To overcome a limitation of OOP in C++, our EDSL is going
+    To overcoming a limitation of OOP in C++, our EDSL is going to provide semantic model
 
-    * To improve expressiveness of C++ code with the semantic model for FVM, so that you can describe your discretization model in concise code.
-    * To transform your expressiveness into parallel scalability with the semantic model for parallelizing a solver algorithm based on your model.
+    * transforming the description of a descretization model into plain-C-like code, and 
+    * parallelizing a matrix solver algorithm based on a user given model.
 
 
 .. image:: figureScalabilityVsExpressiveness.jpg
 
 
-Background
--------------------
+Contents
+--------
 
-Expressiveness or performace ?
+.. toctree::
+   :maxdepth: 2
 
-Apparently both are necessary, but some scientists have given up one for the other.
+    Background <research/background>
+    Design and Implementation of our EDSL <research/designImplementation>
+    Application Examples <research/applications>
+    Benchmarks <research/benchmarks>
+    Conclusion and Perspectives <research/conclusion>    
 
-    * OOP style code can be expressive for describing a solver algorithm, because it can encapsulate low-level arithmetics into linear-algebra-level obejcts.
-    * But such encapsulation sometimes lowers the performace, so that not a few scientist have given up the expressiveness of OOP style to improve the performance.
-    * Morever OOP style code in C++ is not so expressive for describing a discretization model, because the semantics of the operators and functions in a modeling method such like FVM is totally different from that in C++.
-
-It was shown that C++ code can be both at least in a solver algorithm.
-
-   * ETs (expression templates) allow one to use matrix and vector objects with no significant performance penalty.
-
-Recent researches are for more expressiveness and performance.
-
-   * Smart ETs for abstracting complex kernels
-   * Parallel Skeltons for generating a parallelized program from domain-specific patterns and basic code fragments
-   * EDSLs for FEM(finite element method) provide good semantic models, so that one can describe her/his simulation model in concise code.
-
-Our research focus is on expressiveness in a discretization model and parallel scalability.
 
 
 Design and Implementation of an EDSL
