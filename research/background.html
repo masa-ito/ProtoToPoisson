@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Research Background of ProtoPoisson project &mdash; ProtoToPoisson 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="ProtoToPoisson 0.1 documentation" href="../index.html" />
+    <link rel="up" title="ProtoToPoisson as a Research Project" href="../AsResearchProject.html" />
+    <link rel="next" title="Design and Implementation of our EDSL" href="designImplementation.html" />
+    <link rel="prev" title="ProtoToPoisson as a Research Project" href="../AsResearchProject.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="research-background-of-protopoisson-project">
+<h1>Research Background of ProtoPoisson project<a class="headerlink" href="#research-background-of-protopoisson-project" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="a-dilemma-between-expressiveness-and-performance-within-oop-limit">
+<h2>A dilemma between expressiveness and performance within OOP limit<a class="headerlink" href="#a-dilemma-between-expressiveness-and-performance-within-oop-limit" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>OOP style code can be expressive for describing a solver algorithm, because it can encapsulate low-level arithmetics into linear-algebra-level obejcts.</li>
+<li>But such encapsulation sometimes lowers the performace, so that not a few scientist have given up the expressiveness of OOP style to improve the performance.</li>
+<li>Morever OOP style code in C++ is not so expressive for describing a discretization model, because the semantics of the operators and functions in a modeling method such like FVM is totally different from that in C++.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="expression-templates-made-the-dilemma-false">
+<h2>Expression templates made the dilemma false.<a class="headerlink" href="#expression-templates-made-the-dilemma-false" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>ETs (expression templates) allow one to use matrix and vector objects with no significant performance penalty.</li>
+</ul>
+</div>
+<div class="section" id="recent-researches-for-more-expressiveness-and-performance">
+<h2>Recent researches for more expressiveness and performance<a class="headerlink" href="#recent-researches-for-more-expressiveness-and-performance" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Smart ETs for abstracting complex kernels</li>
+<li>Parallel Skeltons for generating a parallelized program from domain-specific patterns and basic code fragments</li>
+<li>EDSLs for FEM(finite element method) provide good semantic models, so that one can describe her/his simulation model in concise code.</li>
+</ul>
+</div>
+<div class="section" id="our-research-is-for-turning-expressiveness-into-scalability">
+<h2>Our research is for turning expressiveness into scalability.<a class="headerlink" href="#our-research-is-for-turning-expressiveness-into-scalability" title="Permalink to this headline">¶</a></h2>
+<p>is on expressiveness in a discretization model and parallel scalability.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Research Background of ProtoPoisson project</a><ul>
+<li><a class="reference internal" href="#a-dilemma-between-expressiveness-and-performance-within-oop-limit">A dilemma between expressiveness and performance within OOP limit</a></li>
+<li><a class="reference internal" href="#expression-templates-made-the-dilemma-false">Expression templates made the dilemma false.</a></li>
+<li><a class="reference internal" href="#recent-researches-for-more-expressiveness-and-performance">Recent researches for more expressiveness and performance</a></li>
+<li><a class="reference internal" href="#our-research-is-for-turning-expressiveness-into-scalability">Our research is for turning expressiveness into scalability.</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../AsResearchProject.html">ProtoToPoisson as a Research Project</a><ul>
+      <li>Previous: <a href="../AsResearchProject.html" title="previous chapter">ProtoToPoisson as a Research Project</a></li>
+      <li>Next: <a href="designImplementation.html" title="next chapter">Design and Implementation of our EDSL</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/research/background.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Masakatsu ITO.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/research/background.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

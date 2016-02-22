@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Application Examples &mdash; ProtoToPoisson 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="ProtoToPoisson 0.1 documentation" href="../index.html" />
+    <link rel="up" title="ProtoToPoisson as a Research Project" href="../AsResearchProject.html" />
+    <link rel="next" title="Benchmarks of ProtoToPoisson applications" href="benchmarks.html" />
+    <link rel="prev" title="Design and Implementation of our EDSL" href="designImplementation.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="application-examples">
+<h1>Application Examples<a class="headerlink" href="#application-examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="d-steady-state-heat-conduction">
+<h2>1D steady state heat conduction<a class="headerlink" href="#d-steady-state-heat-conduction" title="Permalink to this headline">¶</a></h2>
+<p>Cooling of a cylinder by means of convective heat transfer along its length</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/masa-ito/ProtoToPoisson/blob/master/src/test/airCooledCylinder.cpp">https://github.com/masa-ito/ProtoToPoisson/blob/master/src/test/airCooledCylinder.cpp</a></li>
+<li>Its compiled code reproduces the example calculation in a finite volume method textbook,<ol class="upperalpha" start="8">
+<li><ol class="first upperalpha" start="11">
+<li>Versteeg and W. Malalasekera,&#8221;An Introduction to Computational Fluid Dynamics, The Finite Volume Method&#8221;, 2nd Ed. Pearson Educational Limited 1995, 2007, page 125 - 129, example 4.3 .</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>3D steady state heat conduction<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Cooling of a cuboid with internal heat generation</p>
+<div class="math">
+\[k \nabla^2 T(x,y,z) + g | x + y | = 0\]</div>
+<p>.
+where</p>
+<blockquote>
+<div><ul class="simple">
+<li>Thermal conductivity : <span class="math">\(k\)</span></li>
+<li>Heat generation rate : <span class="math">\(g | x + y |\)</span></li>
+</ul>
+</div></blockquote>
+<p>The cuboid size</p>
+<div class="math">
+\[L_x, L_y, L_z\]</div>
+<p>.
+Boundary conditions :</p>
+<div class="math">
+\[\frac{\partial T}{\partial x} = 0 \ \mbox{for} \ x= 0, L_x\]</div>
+<div class="math">
+\[\frac{\partial T}{\partial y} = 0 \ \mbox{for} \ y = 0, L_y\]</div>
+<div class="math">
+\[\frac{\partial T}{\partial z} = 0 \ \mbox{for} \ z = 0\]</div>
+<div class="math">
+\[T(x,y, L_z) = T_c\]</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Application Examples</a><ul>
+<li><a class="reference internal" href="#d-steady-state-heat-conduction">1D steady state heat conduction</a></li>
+<li><a class="reference internal" href="#id1">3D steady state heat conduction</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../AsResearchProject.html">ProtoToPoisson as a Research Project</a><ul>
+      <li>Previous: <a href="designImplementation.html" title="previous chapter">Design and Implementation of our EDSL</a></li>
+      <li>Next: <a href="benchmarks.html" title="next chapter">Benchmarks of ProtoToPoisson applications</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/research/applications.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Masakatsu ITO.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/research/applications.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

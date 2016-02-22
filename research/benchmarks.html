@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Benchmarks of ProtoToPoisson applications &mdash; ProtoToPoisson 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="ProtoToPoisson 0.1 documentation" href="../index.html" />
+    <link rel="up" title="ProtoToPoisson as a Research Project" href="../AsResearchProject.html" />
+    <link rel="next" title="Conclusion and Perspectives" href="conclusion.html" />
+    <link rel="prev" title="Application Examples" href="applications.html" />
+   
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="benchmarks-of-prototopoisson-applications">
+<h1>Benchmarks of ProtoToPoisson applications<a class="headerlink" href="#benchmarks-of-prototopoisson-applications" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="scalability-comparison">
+<h2>Scalability comparison<a class="headerlink" href="#scalability-comparison" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Refererence program</p>
+<blockquote>
+<div><ul class="simple">
+<li>Its hot spot code is rewritten in plain-C style.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Manually parallelized program</p>
+</li>
+<li><p class="first">Automatically parallelized program with our EDSL</p>
+<ul class="simple">
+<li>OpenMP</li>
+<li>MPI</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="hardware-architecture-comparison">
+<h2>Hardware architecture comparison<a class="headerlink" href="#hardware-architecture-comparison" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">PC cluster</p>
+</li>
+<li><p class="first">Fujitsu supercomputer PRIMEHPC FX100</p>
+<p><a class="reference external" href="http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/">http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/</a></p>
+</li>
+</ul>
+</div>
+<div class="section" id="c-compiler-comparison">
+<h2>C++ compiler comparison<a class="headerlink" href="#c-compiler-comparison" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>GNU</li>
+<li>Intel</li>
+<li>Fujitsu</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Benchmarks of ProtoToPoisson applications</a><ul>
+<li><a class="reference internal" href="#scalability-comparison">Scalability comparison</a></li>
+<li><a class="reference internal" href="#hardware-architecture-comparison">Hardware architecture comparison</a></li>
+<li><a class="reference internal" href="#c-compiler-comparison">C++ compiler comparison</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../AsResearchProject.html">ProtoToPoisson as a Research Project</a><ul>
+      <li>Previous: <a href="applications.html" title="previous chapter">Application Examples</a></li>
+      <li>Next: <a href="conclusion.html" title="next chapter">Conclusion and Perspectives</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/research/benchmarks.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Masakatsu ITO.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.3.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.7</a>
+      
+      |
+      <a href="../_sources/research/benchmarks.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -25,6 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="ProtoToPoisson 0.1 documentation" href="index.html" />
+    <link rel="next" title="Research Background of ProtoPoisson project" href="research/background.html" />
     <link rel="prev" title="How to make your changes in ProtoToPoisson project" href="howToMakeYourChanges.html" />
    
   
@@ -40,197 +41,62 @@
             
   <div class="section" id="prototopoisson-as-a-research-project">
 <h1>ProtoToPoisson as a Research Project<a class="headerlink" href="#prototopoisson-as-a-research-project" title="Permalink to this headline">¶</a></h1>
-<p>Research Issue</p>
-<blockquote>
-<div><p>Limit of object-oriented programming (OOP) in C++</p>
+<div class="section" id="issue">
+<h2>Issue<a class="headerlink" href="#issue" title="Permalink to this headline">¶</a></h2>
+<p>Limit of object-oriented programming (OOP) in C++</p>
 <ul class="simple">
-<li>Expressiveness of OOP is not enough for concise description of a discretization model with finite volume method (FVM).</li>
+<li>Expressiveness of OOP is not enough for describing a discretization model with finite volume method (FVM).</li>
 <li>Peformance penalty of OOP style is apparent in matrix and vector operations which are required for solving disretized pertial differential equations (PDEs).</li>
 </ul>
-</div></blockquote>
+</div>
+<div class="section" id="goal">
+<h2>Goal<a class="headerlink" href="#goal" title="Permalink to this headline">¶</a></h2>
 <img alt="_images/figurePerformanceVsExpressiveness.jpg" src="_images/figurePerformanceVsExpressiveness.jpg" />
-<p>Research Goal</p>
-<blockquote>
-<div><p>To overcome a limitation of OOP in C++, our EDSL is going</p>
+<p>To overcoming a limitation of OOP in C++, our EDSL is going to provide semantic model</p>
 <ul class="simple">
-<li>To improve expressiveness of C++ code with the semantic model for FVM, so that you can describe your descretization model in concise code.</li>
-<li>To transform your expressiveness into parallel scalability with the semantic model for parallelizing a solver algorithm based on your model.</li>
+<li>transforming the description of a descretization model into plain-C-like code, and</li>
+<li>parallelizing a matrix solver algorithm based on a user given model.</li>
 </ul>
-</div></blockquote>
 <img alt="_images/figureScalabilityVsExpressiveness.jpg" src="_images/figureScalabilityVsExpressiveness.jpg" />
-<div class="section" id="background">
-<h2>Background<a class="headerlink" href="#background" title="Permalink to this headline">¶</a></h2>
-<p>Expressiveness or performace ?</p>
-<p>Apparently both are necessary, but some scientists have given up one for the other.</p>
-<blockquote>
-<div><ul class="simple">
-<li>OOP style code can be expressive for describing a solver algorithm, because it can encapsulate low-level arithmetics into linear-algebra-level obejcts.</li>
-<li>But such encapsulation sometimes lowers the performace, so that not a few scientist have given up the expressiveness of OOP style to improve the performance.</li>
-<li>Morever OOP style code in C++ is not so expressive for describing a discretization model, because the semantics of the operators and functions in a modeling method such like FVM is totally different from that in C++.</li>
-</ul>
-</div></blockquote>
-<p>It was shown that C++ code can be both at least in a solver algorithm.</p>
-<blockquote>
-<div><ul class="simple">
-<li>ETs (expression templates) allow one to use matrix and vector objects with no significant performance penalty.</li>
-</ul>
-</div></blockquote>
-<p>Recent researches are for more expressiveness and performance.</p>
-<blockquote>
-<div><ul class="simple">
-<li>Smart ETs for abstracting complex kernels</li>
-<li>Parallel Skeltons for generating a parallelized program from domain-specific patterns and basic code fragments</li>
-<li>EDSLs for FEM(finite element method) provide good semantic models, so that one can describe her/his simulation model in concise code.</li>
-</ul>
-</div></blockquote>
-<p>Our research focus is on expressiveness in a discretization model and parallel scalability.</p>
 </div>
-<div class="section" id="design-and-implementation-of-an-edsl">
-<h2>Design and Implementation of an EDSL<a class="headerlink" href="#design-and-implementation-of-an-edsl" title="Permalink to this headline">¶</a></h2>
-<p>Features of problem domains</p>
-<blockquote>
-<div><ul class="simple">
-<li>Algorithm domain : Linear Algebra<ul>
-<li>Vector and matrix expressions</li>
-<li>Solving descretized PDEs</li>
-</ul>
-</li>
-<li>Model domain : FVM<ul>
-<li>Descretizing PDEs (partial differential equations)</li>
-<li>This domain is defined with using the algorithm domain.</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-<p>Front Ends &#8211; Utility classes</p>
-<blockquote>
-<div><ul class="simple">
-<li>Grid<ul>
-<li>Dividing a simulation region into cotrol volumes to descretize continuous data into discrete ones</li>
-</ul>
-</li>
-<li>Mathematical operators<ul>
-<li>Such like partial differential and identity operators</li>
-<li>Necessary to describe Poisson equation</li>
-</ul>
-</li>
-<li>Iterative solvers and preconditioners<ul>
-<li>Wrapping linear algebra libraries of third parties</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-<p>Back Ends &#8211; Semantic model</p>
-<blockquote>
-<div><ul class="simple">
-<li>Transforming differential and identity operators into matrices</li>
-<li>Transforming spacial functions into vectors</li>
-<li>Parallelizing serial algorithm with OpenMP and MPI based on a user given model<ul>
-<li>Restructuring data structure to distribute simulation data to processors, based on the user specified distribution of the control volumes</li>
-<li>Reordering indices for matrices and vectors, based on the connectivity of the control volumes</li>
-<li>Combining parallel skeltons (higher-order functions), basic code fragments, and directives</li>
-</ul>
-</li>
-</ul>
-</div></blockquote>
-</div>
-<div class="section" id="sample-code-written-in-our-edsl">
-<h2>Sample code written in our EDSL<a class="headerlink" href="#sample-code-written-in-our-edsl" title="Permalink to this headline">¶</a></h2>
-<ol class="arabic">
-<li><p class="first">1D steady state heat conduction</p>
-<p>Cooling of a cylinder by means of convective heat transfer along its length</p>
-<ul class="simple">
-<li><a class="reference external" href="https://github.com/masa-ito/ProtoToPoisson/blob/master/src/test/airCooledCylinder.cpp">https://github.com/masa-ito/ProtoToPoisson/blob/master/src/test/airCooledCylinder.cpp</a></li>
-<li>Its compiled code reproduces the example calculation in a finite volume method textbook,<ol class="upperalpha" start="8">
-<li><ol class="first upperalpha" start="11">
-<li>Versteeg and W. Malalasekera,&#8221;An Introduction to Computational Fluid Dynamics, The Finite Volume Method&#8221;, 2nd Ed. Pearson Educational Limited 1995, 2007, page 125 - 129, example 4.3 .</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-<li><p class="first">3D steady state heat conduction</p>
-<p>Cooling of a cuboid with internal heat generation</p>
-</li>
-</ol>
-<div class="math">
-\[k \nabla^2 T(x,y,z) + g | x + y | = 0\]</div>
-<dl class="docutils">
-<dt>.</dt>
-<dd><dl class="first docutils">
-<dt>where</dt>
-<dd><ul class="first last simple">
-<li>Thermal conductivity : <span class="math">\(k\)</span></li>
-<li>Heat generation rate : <span class="math">\(g | x + y |\)</span></li>
-</ul>
-</dd>
-</dl>
-<p class="last">The cuboid size</p>
-</dd>
-</dl>
-<div class="math">
-\[L_x, L_y, L_z\]</div>
-<dl class="docutils">
-<dt>.</dt>
-<dd>Boundary conditions :</dd>
-</dl>
-<div class="math">
-\[\frac{\partial T}{\partial x} = 0 \ \mbox{for} \ x= 0, L_x\]</div>
-<div class="math">
-\[\frac{\partial T}{\partial y} = 0 \ \mbox{for} \ y = 0, L_y\]</div>
-<div class="math">
-\[\frac{\partial T}{\partial z} = 0 \ \mbox{for} \ z = 0\]</div>
-<div class="math">
-\[T(x,y, L_z) = T_c\]</div>
-</div>
-<div class="section" id="benchmarks">
-<h2>Benchmarks<a class="headerlink" href="#benchmarks" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
 <ul>
-<li><p class="first">Scalability comparison</p>
-<blockquote>
-<div><ul>
-<li><p class="first">Refererence program</p>
-<blockquote>
-<div><ul class="simple">
-<li>Its hot spot code is rewritten in plain-C style.</li>
-</ul>
-</div></blockquote>
-</li>
-<li><p class="first">Manually parallelized program</p>
-</li>
-<li><p class="first">Automatically parallelized program with our EDSL</p>
-<ul class="simple">
-<li>OpenMP</li>
-<li>MPI</li>
+<li class="toctree-l1"><a class="reference internal" href="research/background.html"> Background</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="research/background.html#a-dilemma-between-expressiveness-and-performance-within-oop-limit">A dilemma between expressiveness and performance within OOP limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/background.html#expression-templates-made-the-dilemma-false">Expression templates made the dilemma false.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/background.html#recent-researches-for-more-expressiveness-and-performance">Recent researches for more expressiveness and performance</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/background.html#our-research-is-for-turning-expressiveness-into-scalability">Our research is for turning expressiveness into scalability.</a></li>
 </ul>
 </li>
-</ul>
-</div></blockquote>
-</li>
-<li><p class="first">Hardware architecture comparison</p>
-<ul>
-<li><p class="first">PC cluster</p>
-</li>
-<li><p class="first">Fujitsu supercomputer PRIMEHPC FX100</p>
-<p><a class="reference external" href="http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/">http://www.fujitsu.com/global/products/computing/servers/supercomputer/primehpc-fx100/</a></p>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="research/designImplementation.html"> Design and Implementation of our EDSL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="research/designImplementation.html#mathematical-semantics-is-missing-in-an-object-model">Mathematical semantics is missing in an object model.</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/designImplementation.html#object-model">Object model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/designImplementation.html#sematic-model-hierarchy">Sematic model hierarchy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/designImplementation.html#semantic-model-for-fvm">Semantic model for FVM</a></li>
 </ul>
 </li>
-<li><p class="first">C++ compiler comparison</p>
-<ul class="simple">
-<li>GNU</li>
-<li>Intel</li>
-<li>Fujitsu</li>
+<li class="toctree-l1"><a class="reference internal" href="research/applications.html"> Application Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="research/applications.html#d-steady-state-heat-conduction">1D steady state heat conduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/applications.html#id1">3D steady state heat conduction</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="research/benchmarks.html"> Benchmarks</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="research/benchmarks.html#scalability-comparison">Scalability comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/benchmarks.html#hardware-architecture-comparison">Hardware architecture comparison</a></li>
+<li class="toctree-l2"><a class="reference internal" href="research/benchmarks.html#c-compiler-comparison">C++ compiler comparison</a></li>
 </ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="research/conclusion.html"> Conclusion and Perspectives</a></li>
+</ul>
+</div>
 </div>
 <div class="section" id="changelog">
 <h2>ChangeLog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h2>
 <dl class="docutils">
 <dt>Feb. 5. 2016</dt>
-<dd>Sample code 1 was confirmed to work.</dd>
+<dd>Application example 1 was confirmed to work.</dd>
 </dl>
 </div>
 </div>
@@ -244,10 +110,9 @@
   <h3><a href="index.html">Table Of Contents</a></h3>
   <ul>
 <li><a class="reference internal" href="#">ProtoToPoisson as a Research Project</a><ul>
-<li><a class="reference internal" href="#background">Background</a></li>
-<li><a class="reference internal" href="#design-and-implementation-of-an-edsl">Design and Implementation of an EDSL</a></li>
-<li><a class="reference internal" href="#sample-code-written-in-our-edsl">Sample code written in our EDSL</a></li>
-<li><a class="reference internal" href="#benchmarks">Benchmarks</a></li>
+<li><a class="reference internal" href="#issue">Issue</a></li>
+<li><a class="reference internal" href="#goal">Goal</a></li>
+<li><a class="reference internal" href="#contents">Contents</a></li>
 <li><a class="reference internal" href="#changelog">ChangeLog</a></li>
 </ul>
 </li>
@@ -257,6 +122,7 @@
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
       <li>Previous: <a href="howToMakeYourChanges.html" title="previous chapter">How to make your changes in ProtoToPoisson project</a></li>
+      <li>Next: <a href="research/background.html" title="next chapter">Research Background of ProtoPoisson project</a></li>
   </ul></li>
 </ul>
 </div>
