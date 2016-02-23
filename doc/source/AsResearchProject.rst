@@ -18,7 +18,7 @@ Goal
 .. image:: figurePerformanceVsExpressiveness.jpg
 
 
-To overcoming a limitation of OOP in C++, our EDSL is going to provide semantic model
+To overcome a limitation of OOP in C++, our EDSL is going to provide semantic model
 
 * transforming the description of a descretization model into plain-C-like code, and 
 * parallelizing a matrix solver algorithm based on a user given model.

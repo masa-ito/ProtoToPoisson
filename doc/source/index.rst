@@ -11,6 +11,8 @@ Summary
 
 What is ProtoToPoisson? 
 
+    https://github.com/masa-ito/ProtoToPoisson
+
     * A mini-EDSL (embedded domain-specific language) for prototyping and parallelizing Poisson equation solvers with FVM (finite volume method)
 
 Project Goal
