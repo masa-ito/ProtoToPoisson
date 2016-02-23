@@ -63,14 +63,14 @@ accelerating finite volume method with Boost.Proto}
 
 拡散方程式
 
-グリッド内の検査体積 \(\Delta V\)、その境界面\(\Delta A\)ごとに積分
+グリッド内の検査体積 \(\Delta V\)(、その境界面\(\Delta A\))ごとに積分
 
 
 %\[ \int_{\Delta A} {\bf \nabla} \cdot ( \Gamma \,  {\bf \nabla} \phi )\, dA + \int_{\Delta V} S_\phi \,dV  = 0 \]
-\[ \int_{\Delta A} {\bf \nabla} \cdot ( k \,  {\bf \nabla} T )\, dA + \int_{\Delta V} S_T \,dV  = 0 \]
+\[ \int_{\Delta V} {\bf \nabla} \cdot ( k \,  {\bf \nabla} T )\, dV + \int_{\Delta V} S_T \,dV  = 0 \]
 
 \begin{eqnarray}
- \int_{\Delta A} {\bf \nabla} \cdot ( k \,  {\bf \nabla} T )\, dA & \\
+ \int_{\Delta V} {\bf \nabla} \cdot ( k \,  {\bf \nabla} T )\, dV & \\
 +  \int_{\Delta V} S_T \,dV &  = 0  \\ 
 \end{eqnarray}
 
