@@ -4,17 +4,55 @@ Design and Implementation of our EDSL
 =====================================
 
 
-Mathematical semantics is missing in an object model.
----------------------------------------------------------
+Domain hierarchy in scientific application programs
+----------------------------------------------------
 
+=============  ================================================
+               In finite-volume-method-based applications
+=============  ================================================
+Science        Convection, Diffusion
+**Model**      Discretization / Conversion of PDE to a set of 
+               algebraic equations
+**Algorithm**  Iterative method to solve algebraic equations / 
+               preconditioners 
+Software       Middleware, libraries for linear algebra , 
+               for lower-level arithmetic operations, and
+               for parallel programming
+Hardware       Network , CPUs, cores, accelerators
+=============  ================================================
+
+Our EDSL helps computational scientists to focus on model and algorithm domain by abstracting software and hardware domains, when they develop application programs.
 
 
 Object model
 ------------
 
+Model concepts in FVM are represented by the objects our EDSL provides.
+
++----------------------------+-----------------------------------------------+
+|Concepts                    | Objects                                       |
++============================+===============================================+
+|Independent variables x,y,z | Grid                                          |
+|Discretization              |                                               |
+|                            | Iterator objects in a Grid object             |
+|Boundary                    | Iterators for boundaries                      |
+|                            | Iterators for grid points inside a boundary   |
++----------------------------+-----------------------------------------------+
+|Boundary conditions         | Boundary Corrector                            |
++----------------------------+-----------------------------------------------+
+|Dependent variables T       | ??? -> Expression templates -> Vector         |
+|Function T(x,y,z)           |                                               |
++----------------------------+-----------------------------------------------+
+|Mathematical Operators      | Operators -> Expression templates             |
+|                            | -> Sparse Matrix                              |
++----------------------------+-----------------------------------------------+
+
+Note that mathematical semantics is missing in an object model and is provided by the semantic model of our EDSL.
+
+
 * Grid 
 
-  * Dividing a simulation region into cotrol volumes to descretize continuous data into discrete ones
+  * Dividing a simulation region into control volumes to discretize continuous data into discrete ones
 
 * Mathematical operators
 
@@ -26,18 +64,19 @@ Object model
   * Wrapping linear algebra libraries of third parties 
 
 
-Sematic model hierarchy
+Semantic model 
 -------------------------
 
 * Algorithm domain : Linear Algebra
 
   * Vector and matrix expressions
-  * Solving descretized PDEs
+  * Solving discretized PDEs
 
 * Model domain : FVM
 
-  * Descretizing PDEs (partial differential equations)
+  * Discretizing PDEs (partial differential equations)
   * This domain is defined with using the algorithm domain.
+
 
 
 Semantic model for FVM
@@ -49,5 +88,5 @@ Semantic model for FVM
   
   * Restructuring data structure to distribute simulation data to processors, based on the user specified distribution of the control volumes
   * Reordering indices for matrices and vectors, based on the connectivity of the control volumes
-  * Combining parallel skeltons (higher-order functions), basic code fragments, and directives
+  * Combining parallel skeletons (higher-order functions), basic code fragments, and directives
 
