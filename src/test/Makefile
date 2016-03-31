@@ -11,13 +11,21 @@ INCDIR = -I.. -I${PROTOTOMET_INCDIR}
 CPP11STD = -std=c++11
 
 
-.SUFFIXES: .cpp
+.SUFFIXES: .cpp airCooledCylinder_10points.log
 .cpp:
 	${CXX} ${CPP11STD} ${INCDIR} $< -o $@
 
-all: compile_all
+all: compile_all airCooledCylinder_10points.eps airCooledCylinder_10points.jpg
 
 compile_all: ${TARGET} airCooledCylinder_plainC airCooledCylinder_nonMetaOpenMP
+
+
+airCooledCylinder_10points.log : airCooledCylinder_10points
+	./airCooledCylinder_10points | sed -n -e '/^# stationary/, +11p' > airCooledCylinder_10points.log
+
+airCooledCylinder_10points.eps airCooledCylinder_10points.jpg  : airCooledCylinder_10points.log
+	gnuplot < airCooledCylinder_10points.gnuplot
+
 
 airCooledCylinder_plainC : airCooledCylinder_plainC.cpp \
  ${PROTOTOMET_INCDIR}/DenseLinAlg/diagPrecondConGrad_plainC.o
