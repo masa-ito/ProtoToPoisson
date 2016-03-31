@@ -3,7 +3,8 @@ discretizingIdentity2ndOrderDifferentialOperators \
 discretizingLinCombOfIdAnd2ndDiffOperators \
 discretizingPoissonEqWithNoBC \
 discretizingPoissonEqWithBoundaryConditions \
-airCooledCylinder
+airCooledCylinder \
+airCooledCylinder_10points
 
 PROTOTOMET_INCDIR= ../../../ProtoToMET/src
 INCDIR = -I.. -I${PROTOTOMET_INCDIR}
