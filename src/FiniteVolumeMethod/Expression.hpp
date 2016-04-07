@@ -18,7 +18,7 @@
 namespace FiniteVolumeMethod {
 
 	// A wrapper for a finite volume expression
-	template<typename E> struct ExprWrapper;
+	template< typename E > struct ExprWrapper;
 
 	struct Domain
 		: proto::domain< proto::generator< ExprWrapper > >

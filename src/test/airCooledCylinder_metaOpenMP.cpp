@@ -1,5 +1,5 @@
 /*
- * airCooledCylinder_nonMetaOpenMP.cpp
+ * airCooledCylinder_metaOpenMP.cpp
  *
  * ref) H. K. Versteeg and W. Malalasekera,
  *     "An Introduction  to Computational Fluid Dynamics,
@@ -8,8 +8,8 @@
  *
  *     Example 4.3
  *
- *  Created on: 2016/02/10
- *      Author: Masakatsu ITO
+ *  Created on: 2016/03/22
+ *      Author: mito
  */
 
 #include <math.h>
@@ -80,12 +80,11 @@ int main() {
 	const Vector tempGuess( NumCtrlVol, (100.0 + 20.0) / 2.0);
 
 	Vector temperature( NumCtrlVol);
-	// temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
-	DLA::diagPrecondConGrad< MultiThreadingType >( temperature,
-			coeffMat, rhsVec, tempGuess, convergenceCriterion);
+	temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
 
 	printCalculatedAndExactTemperatureDistributions< Vector >(
 														temperature);
+
 
 	return 0;
 }
