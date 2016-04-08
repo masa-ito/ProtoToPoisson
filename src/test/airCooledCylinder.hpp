@@ -8,6 +8,23 @@
 #ifndef AIRCOOLEDCYLINDER_HPP_
 #define AIRCOOLEDCYLINDER_HPP_
 
+#include <math.h>
+
+#include <iostream>
+#include <iomanip>
+
+#include <boost/proto/proto.hpp>
+
+#include <DenseLinAlg/DenseLinAlg.hpp>
+#include <SparseLinAlg/SparseLinAlg.hpp>
+
+#include <FiniteVolumeMethod/FiniteVolumeMethod.hpp>
+
+namespace DLA = DenseLinAlg;
+namespace SLA = SparseLinAlg;
+namespace FVM = FiniteVolumeMethod;
+
+
 class ExactTempDist
 {
 private:
@@ -34,7 +51,6 @@ public:
 	}
 };
 
-const int NumCtrlVol = 5;
 
 const double CylinderLength = 1.0;
 
@@ -55,10 +71,6 @@ const double convergenceCriterion = 1.0e-7;
 
 void printConstants()
 {
-
-	std::cout << "The number of control volumes = " <<
-			NumCtrlVol << std::endl;
-
 	std::cout << "ThermalConductivity * Area = " <<
 			ThermalConductivity * Area << std::endl;
 
@@ -73,14 +85,9 @@ void printConstants()
 
 
 template < typename MatrixType >
-void printCoefficients( const MatrixType & coeffMat)
+void printCoefficients( const MatrixType & coeffMat, double scale)
 {
 	int ri, ci;
-
-	const double scale = - ThermalConductivity * Area;
-	std::cout << "scale = - ThermalConductivity * Area" <<
-			std::endl;
-	std::cout << "= " << scale << std::endl;
 
 	std::cout << "Coefficient matrix after applying boundary conditions" <<
 			std::endl;
@@ -96,7 +103,7 @@ void printCoefficients( const MatrixType & coeffMat)
 }
 
 template < typename VectorType >
-void printRHS( const VectorType & rhsVec)
+void printRHS( const VectorType & rhsVec, double scale)
 {
 	std::cout << std::endl;
 	std::cout << "RHS vector after applying boundary conditions" <<
