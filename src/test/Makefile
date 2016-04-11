@@ -31,7 +31,7 @@ airCooledCylinder_plainC : airCooledCylinder_plainC.cpp \
  ${PROTOTOMET_INCDIR}/DenseLinAlg/diagPrecondConGrad_plainC.o
 	${CXX} ${CPP11STD} ${INCDIR} $^ -o $@
 
-airCooledCylinder_nonMetaOpenMP : airCooledCylinder_nonMetaOpenMP.cpp \
+airCooledCylinder_nonMetaOpenMP : airCooledCylinder_plainC.cpp \
  ${PROTOTOMET_INCDIR}/DenseLinAlg/diagPrecondConGrad_nonMetaOpenMP.o
 	${CXX} ${CPP11STD} ${INCDIR} -fopenmp $^ -o $@
 

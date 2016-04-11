@@ -146,7 +146,7 @@ int main() {
 
 	DLA::Vector temperature( NumCtrlVol);
 	// temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
-	DLA::diagPrecondConGrad_plainC( temperature,
+	DLA::diagPrecondConGrad( temperature,
 			coeffMat, rhsVec, tempGuess, convergenceCriterion);
 
 	// grid.printForGnuPlot( temperature );
