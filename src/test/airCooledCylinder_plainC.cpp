@@ -72,8 +72,8 @@ int main() {
 	const Vector tempGuess( NumCtrlVol, (100.0 + 20.0) / 2.0);
 
 	Vector temperature( NumCtrlVol);
-	//temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
-	DLA::diagPrecondConGrad_plainC( temperature,
+	// temperature = cg.solve(rhsVec, tempGuess, convergenceCriterion);
+	DLA::diagPrecondConGrad( temperature,
 			coeffMat, rhsVec, tempGuess, convergenceCriterion);
 
 
