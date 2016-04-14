@@ -2,7 +2,7 @@
 How to make your changes in ProtoToPoisson project
 ==================================
 
-**I'd really appreciate it if you would write code / document in this project for helping one to prototype their simulation model.**
+**I'd really appreciate it if you would write code in this project for helping one to prototype their simulation model.**
 
 
 
