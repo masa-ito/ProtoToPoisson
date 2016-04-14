@@ -40,7 +40,52 @@
   <div class="section" id="how-to-write-document-in-prototopoisson-project">
 <h1>How to write document in ProtoToPoisson project<a class="headerlink" href="#how-to-write-document-in-prototopoisson-project" title="Permalink to this headline">¶</a></h1>
 <p><strong>I&#8217;d really appreciate it if you would write document in this project for helping one to prototype their simulation model.</strong></p>
-<p>Sorry I&#8217;m still preparing for this page ...</p>
+<div class="section" id="requried-software">
+<h2>Requried Software<a class="headerlink" href="#requried-software" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Sphinx<ul>
+<li><a class="reference external" href="http://www.sphinx-doc.org/en/stable/">http://www.sphinx-doc.org/en/stable/</a></li>
+<li><a class="reference external" href="http://docs.sphinx-users.jp/contents.html">http://docs.sphinx-users.jp/contents.html</a> ( in Japanese )</li>
+</ul>
+</li>
+<li>platex ( only for those who can access to the private repositoy of our project. )</li>
+</ul>
+</div>
+<div class="section" id="how-to-get-the-html-files-in-these-github-pages-from-our-sphinx-source-files">
+<h2>How to get the html files in these github pages from our Sphinx source files<a class="headerlink" href="#how-to-get-the-html-files-in-these-github-pages-from-our-sphinx-source-files" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Install Sphinx and make sure it works on your PC.</p>
+</li>
+<li><p class="first">Compile the rst formatted files of our project</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ${project root}/ProtoToPoisson/doc
+make html
+
+# ${project root} = the root directory where you
+#                   placed the files of ProtoToPoisson
+#                   project
+</pre></div>
+</div>
+</li>
+<li><p class="first">Open the html files in ${project root}/doc/build/html using a web browser</p>
+</li>
+</ol>
+</div>
+<div class="section" id="how-to-compile-platex-source-files-about-our-research-project">
+<h2>How to compile platex source files about our research project<a class="headerlink" href="#how-to-compile-platex-source-files-about-our-research-project" title="Permalink to this headline">¶</a></h2>
+<p>Note : Since the copyright of some conference proceedings and research papers were transferred to academic societies, the platex source files of those papers are not placed at github.com .</p>
+<ol class="arabic">
+<li><p class="first">Install platex and make sure it works on your PC.</p>
+</li>
+<li><p class="first">Compile the platex source files</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ${project root}/ProtoToPoisson/doc/${Conference Name}/
+make
+</pre></div>
+</div>
+</li>
+<li><p class="first">Check the generated .dvi and .pdf files</p>
+</li>
+</ol>
+</div>
 </div>
 
 
@@ -48,7 +93,17 @@
         </div>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
-        <div class="sphinxsidebarwrapper"><div class="relations">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to write document in ProtoToPoisson project</a><ul>
+<li><a class="reference internal" href="#requried-software">Requried Software</a></li>
+<li><a class="reference internal" href="#how-to-get-the-html-files-in-these-github-pages-from-our-sphinx-source-files">How to get the html files in these github pages from our Sphinx source files</a></li>
+<li><a class="reference internal" href="#how-to-compile-platex-source-files-about-our-research-project">How to compile platex source files about our research project</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
