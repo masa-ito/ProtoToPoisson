@@ -32,6 +32,7 @@ Contents
 
    How to install <howToInstall>
    How to make your changes in this project <howToMakeYourChanges>
+   How to write documents in this project <howToWriteDoc>
    ProtoToPoisson as a Research Project <AsResearchProject>
 
 
