@@ -16,8 +16,8 @@ Requried Software
 * platex ( only for those who can access to the private repositoy of our project. )
 
 
-How to get the html files in these github pages from our Sphinx source files
-----------------------------------------------------------------------------
+Making the html files of these github pages on your PC
+------------------------------------------------------
 
 1. Install Sphinx and make sure it works on your PC.
 
@@ -34,7 +34,7 @@ How to get the html files in these github pages from our Sphinx source files
 
 
 
-How to compile platex source files about our research project
+Compiling the platex source files about our research project
 -------------------------------------------------------------
 
 Note : Since the copyright of some conference proceedings and research papers were transferred to academic societies, the platex source files of those papers are not placed at github.com .
