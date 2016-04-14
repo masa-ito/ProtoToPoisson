@@ -12,6 +12,22 @@
  *      Author: mito
  */
 
+#include <math.h>
+
+#include <iostream>
+#include <iomanip>
+
+#include <boost/proto/proto.hpp>
+
+#include <DenseLinAlg/DenseLinAlg.hpp>
+#include <SparseLinAlg/SparseLinAlg.hpp>
+
+#include <FiniteVolumeMethod/FiniteVolumeMethod.hpp>
+
+namespace DLA = DenseLinAlg;
+namespace SLA = SparseLinAlg;
+namespace FVM = FiniteVolumeMethod;
+
 #include "airCooledCylinder.hpp"
 
 typedef DLA::Matrix Matrix;
@@ -19,8 +35,7 @@ typedef DLA::Vector Vector;
 
 
 int main() {
-
-	const int NumCtrlVol = 5;
+	const int NumCtrlVol = 10;
 	std::cout << "The number of control volumes = " <<
 			NumCtrlVol << std::endl;
 
@@ -79,4 +94,3 @@ int main() {
 
 	return 0;
 }
-
