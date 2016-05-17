@@ -72,6 +72,7 @@ const double CylinderRadius = 2.0 / 25.0 * ConvectiveHeatTransCoeff /
 
 const double convergenceCriterion = 1.0e-7;
 
+
 void printConstants()
 {
 	std::cout << "ThermalConductivity * Area = " <<
