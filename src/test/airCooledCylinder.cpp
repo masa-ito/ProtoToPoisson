@@ -23,9 +23,11 @@ typedef DLA::Matrix Matrix;
 typedef DLA::Vector Vector;
 
 
-int main() {
+int main(int argc, char *argv[]) {
 
-	const int NumCtrlVol = 5;
+	int NumCtrlVol = 5;
+	if ( argc > 1 ) NumCtrlVol = atoi( argv[1] );
+
 	std::cout << "The number of control volumes = " <<
 			NumCtrlVol << std::endl;
 
