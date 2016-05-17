@@ -7,10 +7,10 @@ discretizingPoissonEqWithBoundaryConditions
 
 TARGET= ${EXECUTABLES_FOLLOWING_SUFFIX_RULE} \
 airCooledCylinder \
+airCooledCylinder_metaOpenMP \
 airCooledCylinder_plainC \
 airCooledCylinder_nonMetaOpenMP \
 airCooledCylinder_10points
-#airCooledCylinder_metaOpenMP \
 
 PROTOTOMET_INCDIR= ../../../ProtoToMET/src
 INCDIR = -I.. -I${PROTOTOMET_INCDIR}
@@ -34,6 +34,9 @@ plot_all : ${FIGURES}
 
 airCooledCylinder : airCooledCylinder.cpp airCooledCylinder.hpp  
 	${CXX} ${CPP11STD} ${INCDIR} $< -o $@
+
+airCooledCylinder_metaOpenMP : airCooledCylinder.cpp airCooledCylinder.hpp  
+	${CXX} ${CPP11STD} ${INCDIR} -fopenmp $< -o $@
 	
 
 airCooledCylinder_plainC : airCooledCylinder_plainC.cpp \
@@ -48,10 +51,6 @@ airCooledCylinder_nonMetaOpenMP : airCooledCylinder_plainC.cpp \
  ${PROTOTOMET_INCDIR}/DenseLinAlg/diagPrecondConGrad_nonMetaOpenMP.o
 	${CXX} ${CPP11STD} ${INCDIR} -fopenmp $< \
 	${PROTOTOMET_INCDIR}/DenseLinAlg/diagPrecondConGrad_nonMetaOpenMP.o -o $@
-
-#airCooledCylinder_metaOpenMP : airCooledCylinder_metaOpenMP.cpp \
-# airCooledCylinder.hpp  
-#	${CXX} ${CPP11STD} ${INCDIR} $< -o $@
 
 airCooledCylinder_10points : airCooledCylinder_10points.cpp \
  airCooledCylinder.hpp  

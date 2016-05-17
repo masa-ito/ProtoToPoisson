@@ -15,10 +15,13 @@
 
 #include <DenseLinAlg/DenseLinAlg.hpp>
 
-namespace DLA = DenseLinAlg;
-
 
 namespace FiniteVolumeMethod {
+
+	namespace mpl = boost::mpl;
+	namespace proto = boost::proto;
+
+	namespace DLA = DenseLinAlg;
 
 	struct ExprGrammar;
 

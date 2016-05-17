@@ -26,6 +26,10 @@
 #include <FiniteVolumeMethod/BoundaryCorrector.hpp>
 #include <FiniteVolumeMethod/Grid.hpp>
 
+
+namespace mpl = boost::mpl;
+namespace proto = boost::proto;
+
 namespace DLA = DenseLinAlg;
 // namespace SLA = SparseLinAlg;
 namespace FVM = FiniteVolumeMethod;
