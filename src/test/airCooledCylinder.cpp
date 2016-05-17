@@ -12,7 +12,12 @@
  *      Author: mito
  */
 
+#ifdef _OPENMP
+#include <ParallelizationTypeTag/OpenMP.hpp>
+#endif
+
 #include "airCooledCylinder.hpp"
+
 
 typedef DLA::Matrix Matrix;
 typedef DLA::Vector Vector;

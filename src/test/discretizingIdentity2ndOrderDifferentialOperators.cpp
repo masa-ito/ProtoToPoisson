@@ -17,6 +17,8 @@
 #include <FiniteVolumeMethod/Grammar.hpp>
 #include <FiniteVolumeMethod/Expression.hpp>
 
+namespace mpl = boost::mpl;
+namespace proto = boost::proto;
 
 namespace DLA = DenseLinAlg;
 // namespace SLA = SparseLinAlg;
