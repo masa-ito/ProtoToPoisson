@@ -6,7 +6,7 @@ See details in http://masa-ito.github.io/ProtoToPoisson/ .
 
 ２０１６年　６月１日
 
-第２１回　計算工学講演会（ http://www.jsces.org/koenkai/21/ ）で発表しました。
+第２１回　計算工学講演会（ http://www.jsces.org/koenkai/21/ ）で発表してきました。
 発表スライド　https://github.com/masa-ito/ProtoToPoisson/blob/master/doc/%E8%A8%88%E7%AE%97%E5%B7%A5%E5%AD%A6%E8%AC%9B%E6%BC%94%E4%BC%9A2016/presentationOn20160601/EDSL4FVM_basedOnET_20160601.pdf
 
 
