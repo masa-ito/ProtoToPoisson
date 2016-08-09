@@ -1,9 +1,8 @@
 
-all:	tinyLambdaLib \
-		protoDeepCopyUserDefinedExpr discretizingIdentyOperator \
+all: protoDeepCopyUserDefinedExpr discretizingIdentyOperator \
 		discretizingDifferentialOperator \
 		# airCooledCylinder
-
+		#tinyLambdaLib \
 
 INCDIR = -I. -I../../ProtoToMET/src
 CPP11STD = -std=c++11
